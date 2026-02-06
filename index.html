@@ -261,8 +261,8 @@
         /* Navigation Buttons */
         .nav-buttons {
             position: fixed;
-            right: 2rem;
-            bottom: 2rem;
+            right: 1.5rem;
+            bottom: 1.5rem;
             z-index: 1000;
             display: flex;
             flex-direction: column;
@@ -270,8 +270,8 @@
         }
 
         .nav-btn {
-            width: 56px;
-            height: 56px;
+            width: 50px;
+            height: 50px;
             background: var(--primary);
             color: white;
             border: none;
@@ -280,7 +280,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             box-shadow: 0 8px 24px rgba(10,77,140,0.3);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             opacity: 0;
@@ -298,35 +298,34 @@
             box-shadow: 0 12px 32px rgba(255,107,53,0.4);
         }
 
-        /* AI CHAT BUTTON & WINDOW STYLES */
+        /* AI CHAT BUTTON STYLES - Optimized for Right Side */
         .ai-chat-launcher {
             position: fixed;
-            right: 2rem;
-            bottom: 10rem;
+            right: 1.5rem;
+            bottom: 8.5rem; /* Above nav buttons */
             z-index: 1001;
             background: var(--accent);
             border: none;
             border-radius: 50px;
-            padding: 0 1.5rem;
-            height: 60px;
+            padding: 0 1.25rem;
+            height: 54px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             color: white;
             font-family: 'Outfit', sans-serif;
-            font-weight: 700;
+            font-weight: 600;
+            font-size: 0.95rem;
             cursor: pointer;
             box-shadow: 0 10px 30px rgba(255,107,53,0.4);
             transition: 0.3s ease;
         }
-        .ai-chat-launcher:hover { transform: scale(1.05); }
-        .ai-chat-launcher svg { width: 24px; height: 24px; fill: white; }
 
         .ai-chat-window {
             position: fixed;
-            right: 2rem;
-            bottom: 15rem;
-            width: 380px;
+            right: 1.5rem;
+            bottom: 12.5rem;
+            width: 360px;
             height: 600px;
             background: white;
             z-index: 1002;
@@ -335,19 +334,21 @@
             display: none;
             flex-direction: column;
             overflow: hidden;
-            border: 1px solid #eee;
+            border: 1px solid rgba(0,0,0,0.05);
         }
+
         .ai-chat-window.active { display: flex; animation: slideUp 0.3s ease; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
         .chat-header {
             background: var(--primary);
             color: white;
-            padding: 1rem 1.5rem;
+            padding: 1rem 1.25rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-weight: 500;
         }
+
         .close-chat { cursor: pointer; font-size: 1.5rem; line-height: 1; }
 
         /* Hero Section */
@@ -659,33 +660,23 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .section {
-                padding: 4rem 1.5rem;
-            }
+            .section { padding: 4rem 1.5rem; }
+            .pain-grid, .tech-grid, .features-grid, .roi-grid { grid-template-columns: 1fr; }
+            .nav-buttons { right: 1rem; bottom: 1rem; }
+            .nav-btn { width: 46px; height: 46px; }
+            .ai-chat-launcher { right: 1rem; bottom: 7.5rem; height: 48px; font-size: 0.85rem; }
+            .ai-chat-window { width: calc(100% - 32px); right: 16px; bottom: 11rem; height: 500px; }
+        }
 
-            .pain-grid,
-            .tech-grid,
-            .features-grid,
-            .roi-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-buttons {
-                right: 1rem;
-                bottom: 1rem;
-            }
-
-            .nav-btn {
-                width: 50px;
-                height: 50px;
-            }
-            .ai-chat-window { width: calc(100% - 40px); right: 20px; bottom: 14rem; }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
     <button class="ai-chat-launcher" id="openChat">
-        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
         <span>Chat Now</span>
     </button>
 
@@ -948,49 +939,30 @@
 
     <script src='https://cdn.jotfor.ms/s/umd/c15fc7120f5/for-form-embed-handler.js'></script>
     <script>
-        // CHAT WINDOW SCRIPT
         const openBtn = document.getElementById('openChat');
         const closeBtn = document.getElementById('closeChat');
         const chatWin = document.getElementById('chatWindow');
 
-        openBtn.onclick = () => chatWin.classList.toggle('active');
-        closeBtn.onclick = () => chatWin.classList.remove('active');
+        openBtn.addEventListener('click', () => { chatWin.classList.toggle('active'); });
+        closeBtn.addEventListener('click', () => { chatWin.classList.remove('active'); });
 
         window.jotformEmbedHandler("iframe[id='JotFormIFrame-019c32b88be9731ea18ef22ea4022e001e0d']", "https://www.jotform.com");
 
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.15,
-            rootMargin: '0px 0px -80px 0px'
-        };
-
+        const observerOptions = { threshold: 0.15, rootMargin: '0px 0px -80px 0px' };
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
         }, observerOptions);
 
-        document.querySelectorAll('.fade-in-up').forEach(el => {
-            observer.observe(el);
-        });
+        document.querySelectorAll('.fade-in-up').forEach(el => { observer.observe(el); });
 
-        // Navigation buttons
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const navButtons = document.querySelectorAll('.nav-btn');
-            
-            if (scrollY > 200) {
-                navButtons.forEach(btn => btn.classList.add('visible'));
-            } else {
-                navButtons.forEach(btn => btn.classList.remove('visible'));
-            }
+            if (scrollY > 200) { navButtons.forEach(btn => btn.classList.add('visible')); } 
+            else { navButtons.forEach(btn => btn.classList.remove('visible')); }
         });
 
-        document.getElementById('scrollUp').addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+        document.getElementById('scrollUp').addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
         const sections = document.querySelectorAll('.section');
         document.getElementById('scrollDown').addEventListener('click', () => {
@@ -1004,7 +976,6 @@
             }
         });
 
-        // Staggered animations
         document.querySelectorAll('.pain-grid .fade-in-up, .tech-grid .fade-in-up, .features-grid .fade-in-up, .roi-grid .fade-in-up').forEach((el, index) => {
             el.style.transitionDelay = `${index * 0.1}s`;
         });
