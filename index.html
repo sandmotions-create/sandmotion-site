@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Primary SEO Meta Tags -->
     <title>Sandmotion - Enterprise 3D Digital Twin Platform | Standardize Property Sales</title>
     <meta name="description" content="Enterprise-grade 3D Digital Twin platform for real estate. Replace static brochures with unified, high-conversion sales ecosystem. 60% more leads, 3x faster sales velocity. No apps required.">
     <meta name="keywords" content="3D digital twin, enterprise property visualization, real estate 3D platform, RERA compliant visualization, property sales automation, lead intelligence platform, browser-native 3D, virtual property tours, real estate technology, property marketing solution">
@@ -13,7 +12,6 @@
     <meta name="googlebot" content="index, follow">
     <link rel="canonical" href="https://sandmotion.in">
     
-    <!-- Open Graph / Facebook Meta Tags -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Sandmotion">
     <meta property="og:title" content="Sandmotion - Enterprise 3D Digital Twin Platform for Real Estate">
@@ -24,7 +22,6 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     
-    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Sandmotion - Enterprise 3D Digital Twin Platform">
     <meta name="twitter:description" content="Replace fragmented static brochures with a unified, high-conversion sales ecosystem. 3x faster sales velocity.">
@@ -32,7 +29,6 @@
     <meta name="twitter:site" content="@sandmotion">
     <meta name="twitter:creator" content="@sandmotion">
     
-    <!-- Additional SEO Meta Tags -->
     <meta name="geo.region" content="IN">
     <meta name="geo.placename" content="India">
     <meta name="language" content="English">
@@ -42,14 +38,12 @@
     <meta name="target" content="all">
     <meta name="audience" content="Real Estate Developers, Property Marketers, Sales Teams">
     
-    <!-- Mobile Optimization -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Sandmotion">
     <meta name="theme-color" content="#0a4d8c">
     
-    <!-- Structured Data / Schema.org - Organization -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -80,7 +74,6 @@
     }
     </script>
     
-    <!-- Structured Data - SoftwareApplication -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -113,7 +106,6 @@
     }
     </script>
     
-    <!-- Structured Data - Product -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -138,7 +130,6 @@
     }
     </script>
     
-    <!-- Structured Data - BreadcrumbList -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -162,7 +153,6 @@
     }
     </script>
     
-    <!-- Structured Data - FAQPage -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -307,6 +297,58 @@
             transform: translateX(0) scale(1.1);
             box-shadow: 0 12px 32px rgba(255,107,53,0.4);
         }
+
+        /* AI CHAT BUTTON & WINDOW STYLES */
+        .ai-chat-launcher {
+            position: fixed;
+            right: 2rem;
+            bottom: 10rem;
+            z-index: 1001;
+            background: var(--accent);
+            border: none;
+            border-radius: 50px;
+            padding: 0 1.5rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255,107,53,0.4);
+            transition: 0.3s ease;
+        }
+        .ai-chat-launcher:hover { transform: scale(1.05); }
+        .ai-chat-launcher svg { width: 24px; height: 24px; fill: white; }
+
+        .ai-chat-window {
+            position: fixed;
+            right: 2rem;
+            bottom: 15rem;
+            width: 380px;
+            height: 600px;
+            background: white;
+            z-index: 1002;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+        .ai-chat-window.active { display: flex; animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .chat-header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .close-chat { cursor: pointer; font-size: 1.5rem; line-height: 1; }
 
         /* Hero Section */
         .hero {
@@ -637,17 +679,34 @@
                 width: 50px;
                 height: 50px;
             }
+            .ai-chat-window { width: calc(100% - 40px); right: 20px; bottom: 14rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Buttons -->
+    <button class="ai-chat-launcher" id="openChat">
+        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        <span>Chat Now</span>
+    </button>
+
+    <div class="ai-chat-window" id="chatWindow">
+        <div class="chat-header">
+            <span>Liam: AI Advisor</span>
+            <span class="close-chat" id="closeChat">&times;</span>
+        </div>
+        <iframe id="JotFormIFrame-019c32b88be9731ea18ef22ea4022e001e0d" title="Liam: Real Estate Advisor"
+            onload="window.parent.scrollTo(0,0)" allowtransparency="true"
+            allow="geolocation; microphone; camera; fullscreen"
+            src="https://agent.jotform.com/019c32b88be9731ea18ef22ea4022e001e0d?embedMode=iframe&background=1&shadow=1"
+            frameborder="0" style="width:100%; height:100%; border:none;" scrolling="no">
+        </iframe>
+    </div>
+
     <div class="nav-buttons">
         <button class="nav-btn" id="scrollUp" aria-label="Scroll to top" title="Go to top">↑</button>
         <button class="nav-btn" id="scrollDown" aria-label="Scroll to next section" title="Go to next section">↓</button>
     </div>
 
-    <!-- Hero Section -->
     <header class="section hero" id="home">
         <div class="container hero-content">
             <div class="hero-badge">Enterprise-Grade 3D Platform</div>
@@ -659,7 +718,6 @@
         </div>
     </header>
 
-    <!-- Problem Section -->
     <section class="section problem-section" id="problem">
         <div class="container">
             <div class="stat-box fade-in-up">
@@ -702,7 +760,6 @@
         </div>
     </section>
 
-    <!-- Solution Section -->
     <section class="section solution-section" id="platform">
         <div class="container">
             <div style="text-align: center;">
@@ -744,7 +801,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section class="section features-section" id="features">
         <div class="container">
             <div style="text-align: center;">
@@ -813,7 +869,6 @@
         </div>
     </section>
 
-    <!-- ROI Section -->
     <section class="section roi-section" id="roi">
         <div class="container">
             <div style="text-align: center;">
@@ -856,7 +911,6 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="section cta-section" id="demo">
         <div class="container" style="text-align: center;">
             <h2 class="section-heading fade-in-up">Experience Enterprise-Grade 3D</h2>
@@ -871,7 +925,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer" itemscope itemtype="https://schema.org/Organization">
         <div class="container">
             <div class="founder-signature">
@@ -893,7 +946,18 @@
         </div>
     </footer>
 
+    <script src='https://cdn.jotfor.ms/s/umd/c15fc7120f5/for-form-embed-handler.js'></script>
     <script>
+        // CHAT WINDOW SCRIPT
+        const openBtn = document.getElementById('openChat');
+        const closeBtn = document.getElementById('closeChat');
+        const chatWin = document.getElementById('chatWindow');
+
+        openBtn.onclick = () => chatWin.classList.toggle('active');
+        closeBtn.onclick = () => chatWin.classList.remove('active');
+
+        window.jotformEmbedHandler("iframe[id='JotFormIFrame-019c32b88be9731ea18ef22ea4022e001e0d']", "https://www.jotform.com");
+
         // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.15,
