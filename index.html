@@ -317,6 +317,42 @@
             font-weight: 700; margin-top: 1rem;
         }
 
+        /* --- JOTFORM CHAT STYLES --- */
+        #sandmotion-chat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        #chat-window {
+            width: 400px;
+            height: 600px;
+            background: var(--navy);
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            overflow: hidden;
+            display: none;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+        }
+        #chat-button {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            transition: transform 0.3s;
+        }
+        #chat-button:hover { transform: scale(1.1); }
+        @media (max-width: 500px) { #chat-window { width: calc(100vw - 40px); height: 70vh; } }
+
         /* Section Headers */
         h2 {
             font-family: 'Playfair Display', serif;
@@ -972,6 +1008,22 @@
         </div>
     </section>
 
+    <div id="sandmotion-chat-container">
+        <div id="chat-window">
+            <iframe id="JotFormIFrame-019c32b88be9731ea18ef22ea4022e001e0d"
+                title="sandmotion asistant: Real Estate Market Analyst" onload="window.parent.scrollTo(0,0)"
+                allowtransparency="true" allow="geolocation; microphone; camera; fullscreen"
+                src="https://agent.jotform.com/019c32b88be9731ea18ef22ea4022e001e0d?embedMode=iframe&background=1&shadow=1"
+                frameborder="0" style="width:100%; height:100%; border:none;" scrolling="no">
+            </iframe>
+        </div>
+        <div id="chat-button" onclick="toggleChat()">
+            <svg style="width:30px; height:30px; fill:var(--deep-navy);" viewBox="0 0 24 24">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+            </svg>
+        </div>
+    </div>
+
     <div id="demoModal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('demoModal')">&times;</span>
@@ -1467,7 +1519,19 @@
         </div>
     </footer>
     
+    <script src='https://cdn.jotfor.ms/s/umd/507c52130ef/for-form-embed-handler.js'></script>
     <script>
+        // Chat Toggle Logic
+        function toggleChat() {
+            const chatWin = document.getElementById('chat-window');
+            if (chatWin.style.display === 'none' || chatWin.style.display === '') {
+                chatWin.style.display = 'block';
+            } else {
+                chatWin.style.display = 'none';
+            }
+        }
+        window.jotformEmbedHandler("iframe[id='JotFormIFrame-019c32b88be9731ea18ef22ea4022e001e0d']", "https://www.jotform.com");
+
         // Modal Logic
         function openModal(id) {
             document.getElementById(id).style.display = 'flex';
