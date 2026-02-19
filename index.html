@@ -1010,7 +1010,45 @@
                 font-size: 2.2rem !important;
             }
         }
+        /* --- MOBILE UI FIX FOR HERO SECTION --- */
+@media (max-width: 1024px) {
+    .hero {
+        padding-top: 120px !important;
+        height: auto !important;
+        min-height: 100vh !important;
+    }
+
+    /* Stack text and center everything on mobile */
+    .hero .container > div {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 2rem !important;
+    }
+
+    /* Make the video a subtle background behind the text */
+    .hero-video-container {
+        width: 100% !important;
+        height: 100% !important;
+        opacity: 0.35 !important; /* Dims video so text is readable */
+    }
+
+    .hero-text-content {
+        max-width: 100% !important;
+        z-index: 10;
+    }
+
+    /* Center the buttons on mobile */
+    .cta-group {
+        justify-content: center !important;
+    }
+
+    /* Resize heading for mobile screens */
+    .hero-text-content h1 {
+        font-size: 2.2rem !important;
+    }
+}
     </style>
+    
         
     <div class="hero-video-container" style="position: absolute; top: 0; right: 0; width: 60%; height: 100%; z-index: 0; overflow: hidden;">
         <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: contain; object-position: right;">
