@@ -947,6 +947,7 @@
         @keyframes fadeIn {
             to { opacity: 1; }
         }
+        
     </style>
 </head>
 <body>
@@ -961,49 +962,38 @@
         </div>
     </nav>
     
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <span class="eyebrow">Real Estate Sales Technology Platform</span>
-                <h1>
-                    Convert Floor Plans Into<br>
-                    <span>Revenue-Generating</span> Interactive Experiences
-                </h1>
-                <p class="hero-subtitle">
-                    Transform static 2D floor plans into browser-based 3D interactive links that engage global buyers and generate qualified leads automatically No app downloads, no technical barriers, just results.
-                </p>
+  <section class="hero" style="min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; padding-top: 80px; background-color: #0A1628;">
+        
+        <div style="position: absolute; top: 0; right: 0; width: 60%; height: 100%; z-index: 0; overflow: hidden;">
+            <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: contain; object-position: right;">
+                <source src="Sandmotion_Suits.mp4" type="video/mp4">
+            </video>
+<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(10, 22, 40, 0) 10%, #0A1628 80%); pointer-events: none;"></div>        </div>
+
+        <div class="container" style="position: relative; z-index: 2; width: 100%;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 4rem; width: 100%;">
                 
-                <div class="hero-features">
-                    <div class="hero-feature">
-                        <svg viewBox="0 0 24 24" fill="none">
-                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M2 17L12 22L22 17" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M2 12L12 17L22 12" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span>Browser-Based 3D</span>
-                    </div>
-                    <div class="hero-feature">
-                        <svg viewBox="0 0 24 24" fill="none">
-                            <circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M2 12H22" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 2C14.5 4.5 16 8 16 12C16 16 14.5 19.5 12 22C9.5 19.5 8 16 8 12C8 8 9.5 4.5 12 2Z" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span>Works Worldwide</span>
-                    </div>
-                    <div class="hero-feature">
-                        <svg viewBox="0 0 24 24" fill="none">
-                            <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke-linecap="round" stroke-linejoin="round"/>
-                            <circle cx="12" cy="7" r="4" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span>3 Months FREE Lead Generation</span>
+                <div style="flex: 1; max-width: 600px;">
+                    <span style="color: #D4AF37; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; display: block; margin-bottom: 1.5rem;">
+                        Real Estate Sales Tech Platform
+                    </span>
+                    <h1 style="font-family: 'Playfair Display', serif; color: white; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem;">
+                        Convert Floor Plans Into<br>
+                        <span style="background: linear-gradient(135deg, #D4AF37 0%, #C19A2E 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Revenue-Generating</span><br>
+                        Interactive Experiences
+                    </h1>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 500px;">
+                        Transform static 2D floor plans into browser-based 3D interactive links. Engage global buyers and generate qualified leads automatically.
+                    </p>
+                    
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <button class="btn-primary" onclick="openModal('demoModal')">Request Demo</button>
+                        <button class="btn-secondary" onclick="openModal('projectModal')">Start Your Project</button>
+                        <button class="btn-secondary" onclick="openModal('strategyModal')">Strategy Call</button>
                     </div>
                 </div>
-                
-                <div class="cta-group">
-                    <button class="btn-primary" onclick="openModal('demoModal')">Request Demo</button>
-                    <button class="btn-secondary" onclick="openModal('projectModal')">Start Your Project</button>
-                    <button class="btn-secondary" onclick="openModal('strategyModal')">Book Strategy Call</button>
-                </div>
+
+
             </div>
         </div>
     </section>
