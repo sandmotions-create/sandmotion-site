@@ -963,40 +963,71 @@
     </nav>
     
   <section class="hero" style="min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; padding-top: 80px; background-color: #0A1628;">
-        
-        <div style="position: absolute; top: 0; right: 0; width: 60%; height: 100%; z-index: 0; overflow: hidden;">
-            <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: contain; object-position: right;">
-                <source src="Sandmotion_Suits.mp4" type="video/mp4">
-            </video>
-<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(10, 22, 40, 0) 10%, #0A1628 80%); pointer-events: none;"></div>        </div>
+    
+    <style>
+        /* This special code handles the mobile look automatically */
+        .hero-flex-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            width: 100%;
+        }
 
-        <div class="container" style="position: relative; z-index: 2; width: 100%;">
-            <div style="display: flex; align-items: center; justify-content: space-between; gap: 4rem; width: 100%;">
+        .video-wrapper {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* MOBILE FIX: When screen is smaller than 1024px */
+        @media (max-width: 1024px) {
+            .hero { padding-top: 120px !important; height: auto !important; display: block !important; }
+            .hero-flex-container { flex-direction: column !important; text-align: center !important; }
+            .video-wrapper { position: relative !important; width: 100% !important; height: 300px !important; margin-top: 20px; }
+            .hero-text-area { max-width: 100% !important; order: 1; }
+            .hero-visual-area { width: 100% !important; order: 2; }
+            .cta-group { justify-content: center !important; }
+        }
+    </style>
+
+    <div class="video-wrapper">
+        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: contain; object-position: right;">
+            <source src="Sandmotion_Suits.mp4" type="video/mp4">
+        </video>
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(10, 22, 40, 0) 30%, #0A1628 75%); pointer-events: none;"></div>
+    </div>
+
+    <div class="container" style="position: relative; z-index: 2; width: 100%;">
+        <div class="hero-flex-container">
+            
+            <div class="hero-text-area" style="flex: 1; max-width: 600px;">
+                <span style="color: #D4AF37; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; display: block; margin-bottom: 1rem;">
+                    Real Estate Sales Tech Platform
+                </span>
+                <h1 style="font-family: 'Playfair Display', serif; color: white; font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem;">
+                    Convert Floor Plans Into<br>
+                    <span style="background: linear-gradient(135deg, #D4AF37 0%, #C19A2E 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Revenue-Generating</span> Interactive Experiences
+                </h1>
+                <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-bottom: 2.5rem;">
+                    Transform static 2D floor plans into browser-based 3D interactive links. Engage global buyers and generate qualified leads automatically.
+                </p>
                 
-                <div style="flex: 1; max-width: 600px;">
-                    <span style="color: #D4AF37; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; display: block; margin-bottom: 1.5rem;">
-                        Real Estate Sales Tech Platform
-                    </span>
-                    <h1 style="font-family: 'Playfair Display', serif; color: white; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem;">
-                        Convert Floor Plans Into<br>
-                        <span style="background: linear-gradient(135deg, #D4AF37 0%, #C19A2E 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Revenue-Generating</span><br>
-                        Interactive Experiences
-                    </h1>
-                    <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 500px;">
-                        Transform static 2D floor plans into browser-based 3D interactive links. Engage global buyers and generate qualified leads automatically.
-                    </p>
-                    
-                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                        <button class="btn-primary" onclick="openModal('demoModal')">Request Demo</button>
-                        <button class="btn-secondary" onclick="openModal('projectModal')">Start Your Project</button>
-                        <button class="btn-secondary" onclick="openModal('strategyModal')">Strategy Call</button>
-                    </div>
+                <div class="cta-group" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button class="btn-primary" onclick="openModal('demoModal')">Request Demo</button>
+                    <button class="btn-secondary" onclick="openModal('projectModal')">Start Your Project</button>
+                    <button class="btn-secondary" onclick="openModal('strategyModal')">Strategy Call</button>
                 </div>
-
-
             </div>
+
+            
+
         </div>
-    </section>
+    </div>
+</section>
 
     <div id="sandmotion-chat-container">
         <div id="chat-window">
