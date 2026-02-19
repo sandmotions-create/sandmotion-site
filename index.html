@@ -122,7 +122,7 @@
             position: relative;
         }
         
-        /* Hero Section */
+        /* Hero Section Original Styles */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -905,7 +905,7 @@
             font-size: 0.9rem;
         }
         
-        /* Responsive */
+        /* Responsive Settings */
         @media (max-width: 968px) {
             section {
                 padding: 5rem 0;
@@ -913,7 +913,7 @@
             
             .hero {
                 min-height: auto;
-                padding: 8rem 0 5rem;
+                padding: 120px 0 5rem;
             }
             
             .solution-content,
@@ -935,6 +935,56 @@
             .btn-secondary {
                 width: 100%;
                 text-align: center;
+            }
+        }
+        
+        /* SPECIFIC HERO MOBILE FIX - FORCING VIDEO ABOVE TEXT */
+        @media (max-width: 1024px) {
+            .hero {
+                display: flex !important;
+                flex-direction: column !important;
+                padding-top: 100px !important;
+                height: auto !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+            }
+
+            .hero-video-container {
+                position: relative !important; /* Take up space, don't float behind */
+                width: 100% !important;
+                height: 350px !important; /* Visible height for mobile */
+                z-index: 10 !important;
+                order: 1 !important; /* Video is FIRST */
+                margin-bottom: 2rem;
+            }
+
+            .hero .container {
+                order: 2 !important; /* Text is SECOND */
+                z-index: 10 !important;
+                padding-top: 0 !important;
+            }
+
+            .hero-flex-layout {
+                flex-direction: column !important;
+                text-align: center !important;
+                gap: 2rem !important;
+                width: 100% !important;
+            }
+
+            .hero-text-content {
+                max-width: 100% !important;
+                padding: 0 15px !important;
+            }
+
+            .hero-cta-group {
+                justify-content: center !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 1rem !important;
+            }
+
+            .hero-text-content h1 {
+                font-size: 2.2rem !important;
             }
         }
         
@@ -962,126 +1012,38 @@
         </div>
     </nav>
     
-  <section class="hero" style="min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; padding-top: 80px; background-color: #0A1628;">
-    
-    <style>
-        @media (max-width: 768px) {
-            .hero-flex-layout { 
-                flex-direction: column !important; 
-                text-align: center !important; 
-                padding-top: 40px;
-            }
-            .hero-video-container { 
-                width: 100% !important; 
-                height: 50% !important; 
-                opacity: 0.5; /* Makes video a subtle background on mobile */
-            }
-            .hero-cta-group { 
-                justify-content: center !important; 
-            }
-            .hero-text-content {
-                max-width: 100% !important;
-            }
-        }
-    </style>
-    <style>
-        /* This only triggers on Mobile Screens */
-        @media (max-width: 1024px) {
-            .hero-flex-layout { 
-                flex-direction: column !important; 
-                text-align: center !important; 
-                padding-top: 30px;
-            }
-            .hero-video-container { 
-                width: 100% !important; 
-                height: 100% !important; 
-                opacity: 0.3 !important; /* Makes video dark so text is readable */
-            }
-            .hero-text-content {
-                max-width: 100% !important;
-                padding: 0 10px;
-                z-index: 10;
-            }
-            .hero-cta-group { 
-                justify-content: center !important; 
-            }
-            /* Prevents the title from being too big for the phone screen */
-            .hero-text-content h1 {
-                font-size: 2.2rem !important;
-            }
-        }
-        /* --- MOBILE UI FIX FOR HERO SECTION --- */
-@media (max-width: 1024px) {
-    .hero {
-        padding-top: 120px !important;
-        height: auto !important;
-        min-height: 100vh !important;
-    }
+    <section class="hero" style="background-color: #0A1628;">
+        <div class="hero-video-container" style="position: absolute; top: 0; right: 0; width: 60%; height: 100%; z-index: 0; overflow: hidden;">
+            <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: contain; object-position: right;">
+                <source src="Sandmotion_Suits.mp4" type="video/mp4">
+            </video>
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(10, 22, 40, 0) 10%, #0A1628 80%); pointer-events: none;"></div>
+        </div>
 
-    /* Stack text and center everything on mobile */
-    .hero .container > div {
-        flex-direction: column !important;
-        text-align: center !important;
-        gap: 2rem !important;
-    }
-
-    /* Make the video a subtle background behind the text */
-    .hero-video-container {
-        width: 100% !important;
-        height: 100% !important;
-        opacity: 0.35 !important; /* Dims video so text is readable */
-    }
-
-    .hero-text-content {
-        max-width: 100% !important;
-        z-index: 10;
-    }
-
-    /* Center the buttons on mobile */
-    .cta-group {
-        justify-content: center !important;
-    }
-
-    /* Resize heading for mobile screens */
-    .hero-text-content h1 {
-        font-size: 2.2rem !important;
-    }
-}
-    </style>
-    
-        
-    <div class="hero-video-container" style="position: absolute; top: 0; right: 0; width: 60%; height: 100%; z-index: 0; overflow: hidden;">
-        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: contain; object-position: right;">
-            <source src="Sandmotion_Suits.mp4" type="video/mp4">
-        </video>
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(10, 22, 40, 0) 10%, #0A1628 80%); pointer-events: none;"></div>
-    </div>
-
-    <div class="container" style="position: relative; z-index: 2; width: 100%;">
-        <div class="hero-flex-layout" style="display: flex; align-items: center; justify-content: space-between; gap: 4rem; width: 100%;">
-            
-            <div class="hero-text-content" style="flex: 1; max-width: 600px;">
-                <span style="color: #D4AF37; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; display: block; margin-bottom: 1.5rem;">
-                    Real Estate Sales Tech Platform
-                </span>
-                <h1 style="font-family: 'Playfair Display', serif; color: white; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem;">
-                    Convert Floor Plans Into<br>
-                    <span style="background: linear-gradient(135deg, #D4AF37 0%, #C19A2E 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Revenue-Generating</span><br>
-                    Interactive Experiences
-                </h1>
-                <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 500px;">
-                    Transform static 2D floor plans into browser-based 3D interactive links. Engage global buyers and generate qualified leads automatically.
-                </p>
+        <div class="container" style="position: relative; z-index: 2; width: 100%;">
+            <div class="hero-flex-layout" style="display: flex; align-items: center; justify-content: space-between; gap: 4rem; width: 100%;">
                 
-                <div class="hero-cta-group" style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <button class="btn-primary" onclick="openModal('demoModal')">Request Demo</button>
-                    <button class="btn-secondary" onclick="openModal('projectModal')">Start Your Project</button>
-                    <button class="btn-secondary" onclick="openModal('strategyModal')">Strategy Call</button>
+                <div class="hero-text-content" style="flex: 1; max-width: 600px;">
+                    <span style="color: #D4AF37; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; display: block; margin-bottom: 1.5rem;">
+                        Real Estate Sales Tech Platform
+                    </span>
+                    <h1 style="font-family: 'Playfair Display', serif; color: white; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem;">
+                        Sell Before You Build Let<br>
+                        <span style="background: var(--gradient-gold); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Buyers Feel Your Project First.</span>
+                    </h1>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 500px;">
+                        Transform static 2D floor plans into browser-based 3D interactive links. Engage global buyers and generate qualified leads automatically.
+                    </p>
+                    
+                    <div class="hero-cta-group" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <button class="btn-primary" onclick="openModal('demoModal')">Request Demo</button>
+                        <button class="btn-secondary" onclick="openModal('projectModal')">Start Your Project</button>
+                        <button class="btn-secondary" onclick="openModal('strategyModal')">Strategy Call</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <div id="sandmotion-chat-container">
         <div id="chat-window">
@@ -1121,7 +1083,6 @@
             <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1rem; color: var(--gold);">Start Your Project</h3>
             <form action="https://api.web3forms.com/submit" method="POST">
                 <input type="hidden" name="access_key" value="5a31c6f0-bdc5-44fe-9872-e76b5d5ac0bf">
-                
                 <div class="form-group">
                     <label>Name</label>
                     <input type="text" name="name" placeholder="Your Full Name" required>
@@ -1144,7 +1105,6 @@
                         <option value="enterprise">Bulk / More than 3</option>
                     </select>
                 </div>
-                
                 <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;">Submit Project Details</button>
             </form>
         </div>
