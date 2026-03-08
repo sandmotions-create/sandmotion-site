@@ -4,19 +4,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Insights | Sandmotion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet" />
   <style>
-    /* ... Keep all your original CSS here ... */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #f5f4f0; --accent: #c9a96e; --muted: rgba(245,244,240,0.42); --font-display: 'Cormorant Garamond', serif; --font-body: 'Montserrat', sans-serif; }
+    body { background: var(--black); color: var(--white); font-family: var(--font-body); }
+    
+    /* NAV - Pointing back to root */
+    nav { padding: 3rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: var(--font-display); font-size: 1.35rem; color: var(--white); text-decoration: none; }
+    .nav-link { font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+    
+    /* BLOG LIST */
+    .container { max-width: 650px; margin: 6rem auto; padding: 0 2rem; }
+    h1 { font-family: var(--font-display); font-size: 3rem; margin-bottom: 4rem; font-weight: 300; }
+    ul { list-style: none; }
+    li { margin-bottom: 2rem; }
+    a { font-family: var(--font-display); font-size: 1.5rem; color: var(--white); text-decoration: none; border-bottom: 1px solid rgba(201,169,110,0.3); transition: color 0.3s; }
+    a:hover { color: var(--accent); }
   </style>
 </head>
 <body>
 
   <nav>
-    <a href="../index.html" class="logo">Sand<span>motion</span></a> 
-    <a href="../index.html" class="nav-link">← Back Home</a>
+    <a href="../index.html" class="logo">Sand<span>motion</span></a> <a href="../index.html" class="nav-link">← Back Home</a>
   </nav>
 
   <main class="container">
-      {{ content }}
+    <h1>Insights & Perspective</h1>
+    <ul>
+      <li><a href="2d-floor-plan-dead.html">The 2D Floor Plan is Dead</a></li>
+      </ul>
+      
   </main>
 
 </body>
