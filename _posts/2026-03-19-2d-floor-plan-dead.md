@@ -11,7 +11,7 @@ We are shifting toward a digital-first ecosystem where technology defines value.
 
 ## The Credibility Gap
 
-Modern buyers—especially tech-native Millennials and Gen Z—demand transparency. When they look at a static image, they see risk. They see an unfinished promise.
+Modern buyers especially tech-native Millennials and Gen Z demand transparency. When they look at a static image, they see risk. They see an unfinished promise.
 
 This distrust is why regulatory bodies, like **MahaRERA in India**, are mandating QR codes to link buyers to verified data. A static drawing offers no proof of compliance. It creates a "credibility gap" that leaves potential clients searching for certainty elsewhere.
 
@@ -19,7 +19,7 @@ This distrust is why regulatory bodies, like **MahaRERA in India**, are mandatin
 
 The "App-Fatigue" era is over. Buyers will not download heavy files or install proprietary software just to view your project.
 
-Competitive success in 2026 is measured by the **"2-second" threshold**. If a visualization does not load instantly on a mobile device—where 73% of your buyers are searching—it is effectively invisible.
+Competitive success in 2026 is measured by the **"2-second" threshold**. If a visualization does not load instantly on a mobile device.where 73% of your buyers are searching,it is effectively invisible.
 
 ## Real Estate as a Financial Instrument
 
@@ -30,5 +30,9 @@ Major institutional investors now include the quality of CGI and visual material
 ## The Path Forward
 
 The 2D floor plan is a relic. It solved the architect’s problem, not the buyer’s.
-
 In 2026, you don't sell homes by showing drawings; you sell them by building the
+
+### Experience the Future
+**Don't just take our word for it. Walk through the dream yourself.**
+
+[**→ Launch the 2-Second Interactive Demo**](https://sandmotiondemo.netlify.app/)
