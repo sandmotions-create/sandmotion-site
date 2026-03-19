@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The 2D Floor Plan is Dead"
-date: 2026-03-09
+date: 2026-03-19
 permalink: /blog/2d-floor-plan-dead.html
 ---
 
