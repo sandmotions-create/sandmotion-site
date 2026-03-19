@@ -1,115 +1,32 @@
+---
+layout: null
+---
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} | Sandmotion</title>
+    <title>Insights & Perspective | Sandmotion</title>
     <style>
-        :root {
-            --black: #050505;
-            --accent: #c5a059; /* Gold accent */
-            --white: #ffffff;
-            --gray: #888888;
-        }
-
-        body {
-            background-color: var(--black);
-            color: var(--white);
-            font-family: 'Inter', -apple-system, sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        nav {
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid #222;
-        }
-
-        .logo {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .post-header {
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .post-title {
-            font-size: 2.5rem;
-            color: var(--white);
-            margin-bottom: 10px;
-        }
-
-        .post-date {
-            color: var(--accent);
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        .post-content {
-            font-size: 1.1rem;
-            color: #ccc;
-        }
-
-        .post-content h2 {
-            color: var(--accent);
-            margin-top: 40px;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 60px;
-            color: var(--gray);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .back-link:hover {
-            color: var(--accent);
-        }
-
-        /* Styling for the Demo Link */
-        .post-content a {
-            color: var(--accent);
-            text-decoration: underline;
-        }
+        body { background: #050505; color: white; font-family: sans-serif; padding: 40px; text-align: center; }
+        .blog-list { max-width: 700px; margin: 0 auto; list-style: none; padding: 0; text-align: left; }
+        .blog-item { margin-bottom: 50px; border-bottom: 1px solid #222; padding-bottom: 30px; }
+        .blog-date { color: #c5a059; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .blog-title { display: block; font-size: 1.8rem; color: white; text-decoration: none; margin: 10px 0; font-weight: bold; }
+        .blog-excerpt { color: #888; line-height: 1.5; font-size: 1rem; }
+        .read-more { color: #c5a059; text-decoration: none; font-size: 0.9rem; margin-top: 10px; display: inline-block; }
     </style>
 </head>
 <body>
-
-<nav>
-    <a href="/" class="logo">Sandmotion</a>
-    <a href="/blog" style="color: var(--gray); text-decoration: none;">← BACK</a>
-</nav>
-
-<main class="container">
-    <article class="blog-post">
-        <header class="post-header">
-            <h1 class="post-title">{{ page.title }}</h1>
-            <p class="post-date">{{ page.date | date: "%B %d, %Y" }}</p>
-        </header>
-
-        <div class="post-content">
-            {{ content }}
-        </div>
-
-        <a href="/blog" class="back-link">← Back to Insights</a>
-    </article>
-</main>
-
+    <h1>Insights & Perspective</h1>
+    <ul class="blog-list">
+      {% for post in site.posts %}
+        <li class="blog-item">
+          <span class="blog-date">{{ post.date | date: "%B %d, %Y" }}</span>
+          <a href="{{ post.url | relative_url }}" class="blog-title">{{ post.title }}</a>
+          <p class="blog-excerpt">{{ post.content | strip_html | truncatewords: 25 }}</p>
+          <a href="{{ post.url | relative_url }}" class="read-more">Read Entry →</a>
+        </li>
+      {% endfor %}
+    </ul>
+    <p><a href="/" style="color: gray; text-decoration: none;">← Back Home</a></p>
 </body>
 </html>
