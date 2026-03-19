@@ -1,32 +1,33 @@
----
-layout: null
----
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Insights & Perspective | Sandmotion</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | Sandmotion</title>
     <style>
-        body { background: #050505; color: white; font-family: sans-serif; padding: 40px; text-align: center; }
-        .blog-list { max-width: 700px; margin: 0 auto; list-style: none; padding: 0; text-align: left; }
-        .blog-item { margin-bottom: 50px; border-bottom: 1px solid #222; padding-bottom: 30px; }
-        .blog-date { color: #c5a059; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
-        .blog-title { display: block; font-size: 1.8rem; color: white; text-decoration: none; margin: 10px 0; font-weight: bold; }
-        .blog-excerpt { color: #888; line-height: 1.5; font-size: 1rem; }
-        .read-more { color: #c5a059; text-decoration: none; font-size: 0.9rem; margin-top: 10px; display: inline-block; }
+        body { background: #050505; color: #ccc; font-family: sans-serif; line-height: 1.8; margin: 0; }
+        .container { max-width: 750px; margin: 0 auto; padding: 60px 20px; }
+        nav { padding: 20px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; }
+        .logo { color: white; text-decoration: none; font-weight: bold; letter-spacing: 2px; }
+        h1 { color: white; font-size: 2.8rem; line-height: 1.2; margin-bottom: 10px; }
+        .date { color: #c5a059; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 40px; display: block; }
+        .content img { max-width: 100%; height: auto; border-radius: 8px; margin: 30px 0; }
+        .content h2 { color: white; margin-top: 40px; }
+        .back { display: inline-block; margin-top: 60px; color: #c5a059; text-decoration: none; }
     </style>
 </head>
 <body>
-    <h1>Insights & Perspective</h1>
-    <ul class="blog-list">
-      {% for post in site.posts %}
-        <li class="blog-item">
-          <span class="blog-date">{{ post.date | date: "%B %d, %Y" }}</span>
-          <a href="{{ post.url | relative_url }}" class="blog-title">{{ post.title }}</a>
-          <p class="blog-excerpt">{{ post.content | strip_html | truncatewords: 25 }}</p>
-          <a href="{{ post.url | relative_url }}" class="read-more">Read Entry →</a>
-        </li>
-      {% endfor %}
-    </ul>
-    <p><a href="/" style="color: gray; text-decoration: none;">← Back Home</a></p>
+    <nav>
+        <a href="/" class="logo">SANDMOTION</a>
+        <a href="/blog" style="color: #888; text-decoration: none;">← INSIGHTS</a>
+    </nav>
+    <div class="container">
+        <span class="date">{{ page.date | date: "%B %d, %Y" }}</span>
+        <h1>{{ page.title }}</h1>
+        <div class="content">
+            {{ content }}
+        </div>
+        <a href="/blog" class="back">← Back to all posts</a>
+    </div>
 </body>
 </html>
