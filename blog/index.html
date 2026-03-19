@@ -2,39 +2,34 @@
 layout: null
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insights & Perspective | Sandmotion</title>
     <style>
-        body { background: #050505; color: white; font-family: 'Inter', sans-serif; padding: 40px; margin: 0; }
+        body { background: #050505; color: white; font-family: sans-serif; padding: 40px; line-height: 1.6; }
         .container { max-width: 800px; margin: 0 auto; }
-        h1 { text-align: center; font-size: 2.5rem; margin-bottom: 50px; letter-spacing: 2px; }
-        .blog-list { list-style: none; padding: 0; }
         .blog-item { margin-bottom: 60px; border-bottom: 1px solid #222; padding-bottom: 40px; }
         .blog-date { color: #c5a059; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
         .blog-title { display: block; font-size: 2rem; color: white; text-decoration: none; margin: 10px 0; font-weight: bold; }
-        .blog-title:hover { color: #c5a059; }
-        .blog-excerpt { color: #888; font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; }
-        .read-more { color: #c5a059; text-decoration: none; font-weight: bold; border-bottom: 1px solid #c5a059; padding-bottom: 2px; }
-        .back-home { display: block; text-align: center; margin-top: 50px; color: #555; text-decoration: none; }
+        .blog-excerpt { color: #888; font-size: 1.1rem; }
+        .read-more { color: #c5a059; text-decoration: none; font-weight: bold; font-size: 0.9rem; margin-top: 10px; display: inline-block; }
+        h1 { text-align: center; margin-bottom: 80px; letter-spacing: 2px; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Insights & Perspective</h1>
-        <ul class="blog-list">
+        <ul style="list-style: none; padding: 0;">
           {% for post in site.posts %}
             <li class="blog-item">
               <span class="blog-date">{{ post.date | date: "%B %d, %Y" }}</span>
-              <a href="{{ post.url | relative_url }}" class="blog-title">{{ post.title }}</a>
-              <p class="blog-excerpt">{{ post.content | strip_html | truncatewords: 30 }}</p>
-              <a href="{{ post.url | relative_url }}" class="read-more">Read Full Entry →</a>
+              <a href="{{ post.url }}" class="blog-title">{{ post.title }}</a>
+              <p class="blog-excerpt">{{ post.content | strip_html | truncatewords: 25 }}</p>
+              <a href="{{ post.url }}" class="read-more">READ FULL ENTRY →</a>
             </li>
           {% endfor %}
         </ul>
-        <a href="/" class="back-home">← Back to Sandmotion</a>
+        <p style="text-align: center; margin-top: 100px;"><a href="/" style="color: #444; text-decoration: none;">← BACK HOME</a></p>
     </div>
 </body>
 </html>
