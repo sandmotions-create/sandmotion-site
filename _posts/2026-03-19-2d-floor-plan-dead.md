@@ -4,7 +4,6 @@ title: "The 2D Floor Plan is Dead"
 date: 2026-03-19
 ---
 
-# The 2D Floor Plan is Dead: Why Drawings are Failing Modern Buyers
 
 In 2026, the real estate industry is at a critical inflection point. For decades, the black-and-white technical drawing was the gold standard. Today, it is becoming a **silent barrier to conversion**.
 
