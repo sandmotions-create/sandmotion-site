@@ -2,6 +2,4 @@ baseurl: ""
 url: "https://sandmotion.in"
 markdown: kramdown
 highlighter: rouge
-
-# Add this line to fix your links:
 permalink: /blog/:title.html
