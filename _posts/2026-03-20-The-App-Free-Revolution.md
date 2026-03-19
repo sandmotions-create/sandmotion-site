@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The App-Free Revolution"
-date: 2026-03-1920
+date: 2026-03-20
 ---
 
 Everything has changed.
