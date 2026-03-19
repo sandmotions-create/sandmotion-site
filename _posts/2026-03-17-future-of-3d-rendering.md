@@ -4,11 +4,6 @@ title: "3D Interactive Rendering."
 date: 2026-03-17
 ---
 
-# The 2D Floor Plan is Dead: Why Technical Drawings are Failing Modern Buyers
-
-We are at a definitive inflection point...
-
-# The 2D Floor Plan is Dead: Why Technical Drawings are Failing Modern Buyers
 
 We are at a definitive inflection point. The real estate industry is shifting from static, traditional marketing to a real estate digital ecosystem.
 
