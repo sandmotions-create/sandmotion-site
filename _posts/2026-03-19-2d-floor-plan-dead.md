@@ -2,8 +2,11 @@
 layout: post
 title: "The 2D Floor Plan is Dead"
 date: 2026-03-19
-permalink: /blog/2d-floor-plan-dead.html
 ---
+
+# The 2D Floor Plan is Dead: Why Technical Drawings are Failing Modern Buyers
+
+We are at a definitive inflection point...
 
 # The 2D Floor Plan is Dead: Why Technical Drawings are Failing Modern Buyers
 
