@@ -5,29 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} | Sandmotion</title>
     <style>
-        body { background: #050505; color: #ccc; font-family: sans-serif; line-height: 1.8; margin: 0; }
+        body { background-color: #050505; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; line-height: 1.8; }
         .container { max-width: 750px; margin: 0 auto; padding: 60px 20px; }
-        nav { padding: 20px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; }
+        nav { padding: 30px; border-bottom: 1px solid #1a1a1a; display: flex; justify-content: space-between; }
         .logo { color: white; text-decoration: none; font-weight: bold; letter-spacing: 2px; }
-        h1 { color: white; font-size: 2.8rem; line-height: 1.2; margin-bottom: 10px; }
-        .date { color: #c5a059; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 40px; display: block; }
-        .content img { max-width: 100%; height: auto; border-radius: 8px; margin: 30px 0; }
-        .content h2 { color: white; margin-top: 40px; }
-        .back { display: inline-block; margin-top: 60px; color: #c5a059; text-decoration: none; }
+        .post-header { margin-bottom: 50px; }
+        .post-title { font-size: 3rem; margin-bottom: 10px; line-height: 1.1; }
+        .post-date { color: #c5a059; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; }
+        .post-content { color: #bbbbbb; font-size: 1.2rem; }
+        .post-content h2 { color: #c5a059; margin-top: 50px; font-size: 1.8rem; }
+        .post-content a { color: #c5a059; text-decoration: underline; }
+        .back-link { margin-top: 80px; display: block; color: #666; text-decoration: none; }
     </style>
 </head>
 <body>
     <nav>
         <a href="/" class="logo">SANDMOTION</a>
-        <a href="/blog" style="color: #888; text-decoration: none;">← INSIGHTS</a>
+        <a href="/blog" style="color: #666; text-decoration: none;">← INSIGHTS</a>
     </nav>
-    <div class="container">
-        <span class="date">{{ page.date | date: "%B %d, %Y" }}</span>
-        <h1>{{ page.title }}</h1>
-        <div class="content">
-            {{ content }}
-        </div>
-        <a href="/blog" class="back">← Back to all posts</a>
-    </div>
+    <main class="container">
+        <article>
+            <header class="post-header">
+                <span class="post-date">{{ page.date | date: "%B %d, %Y" }}</span>
+                <h1 class="post-title">{{ page.title }}</h1>
+            </header>
+            <div class="post-content">
+                {{ content }}
+            </div>
+            <a href="/blog" class="back-link">← BACK TO ALL INSIGHTS</a>
+        </article>
+    </main>
 </body>
 </html>
