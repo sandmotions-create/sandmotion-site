@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "The 2D Floor Plan is Dead"
-date: 2026-03-19
+title: "future of 3d rendering."
+date: 2026-03-20
 ---
 
 # The 2D Floor Plan is Dead: Why Technical Drawings are Failing Modern Buyers
