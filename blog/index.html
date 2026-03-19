@@ -4,21 +4,31 @@ layout: null
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Insights & Perspective</title>
-    </head>
-<body style="background: black; color: white; text-align: center; padding-top: 50px;">
-
-    <h1>Insights & Perspective</h1>
-    <ul style="list-style: none; padding: 0;">
-      {% for post in site.posts %}
-        <li style="margin: 20px 0;">
-          <a href="{{ post.url | relative_url }}" style="color: #c5a059; text-decoration: none; font-size: 1.2rem;">
-            {{ post.title }}
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-
-    <p><a href="/" style="color: gray;">← Back Home</a></p>
+    <title>Insights & Perspective | Sandmotion</title>
+    <style>
+        body { background: #050505; color: white; font-family: sans-serif; padding: 40px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .blog-item { margin-bottom: 60px; border-bottom: 1px solid #222; padding-bottom: 40px; }
+        .blog-date { color: #c5a059; font-size: 0.9rem; text-transform: uppercase; }
+        .blog-title { display: block; font-size: 2rem; color: white; text-decoration: none; margin: 10px 0; font-weight: bold; }
+        .blog-excerpt { color: #888; font-size: 1.1rem; line-height: 1.6; }
+        .read-more { color: #c5a059; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; margin-bottom: 50px;">Insights & Perspective</h1>
+        <ul style="list-style: none; padding: 0;">
+          {% for post in site.posts %}
+            <li class="blog-item">
+              <span class="blog-date">{{ post.date | date: "%B %d, %Y" }}</span>
+              <a href="{{ post.url | relative_url }}" class="blog-title">{{ post.title }}</a>
+              <p class="blog-excerpt">{{ post.content | strip_html | truncatewords: 30 }}</p>
+              <a href="{{ post.url | relative_url }}" class="read-more">Read Full Entry →</a>
+            </li>
+          {% endfor %}
+        </ul>
+        <p style="text-align: center;"><a href="/" style="color: gray; text-decoration: none;">← Back Home</a></p>
+    </div>
 </body>
 </html>
