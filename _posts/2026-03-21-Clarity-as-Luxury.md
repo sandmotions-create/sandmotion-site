@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clarity as Luxury"
-date: 2026-03-20
+date: 2026-03-21
 ---
 
 Most people think luxury is about *adding* more.  
