@@ -3,4 +3,3 @@ url: "https://sandmotion.in"
 markdown: kramdown
 highlighter: rouge
 permalink: /blog/:title/
-future: false
