@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The 2D Floor Plan is Dead"
+title: "Pre-Sales at Speed "
 date: 2026-04-03
 ---
 How Developers Sell Out Before the Foundation Is Complete
