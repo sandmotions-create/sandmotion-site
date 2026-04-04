@@ -101,16 +101,6 @@ Because when buyers can explore the future instantly, selling becomes easier.
 
 ## Experience the Digital Sample Flat
 
-At Sandmotion, we create interactive digital sample flats and immersive 3D walkthroughs that help developers showcase projects before construction is complete.
-
-No downloads.
-No friction.
-Just instant property experiences.
-
-Show the apartment before it exists.
-
-
-### Experience the Future
 **Don't just take our word for it. Walk through the dream yourself.**
 
 [**→ Launch the 2-Second Interactive Demo**](https://sandmotiondemo.netlify.app/)
