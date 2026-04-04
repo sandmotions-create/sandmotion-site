@@ -11,7 +11,7 @@ Build a sample flat.
 Decorate it beautifully.
 Invite buyers to visit.
 
-It worked — but it came with limits.
+It worked, but it came with limits.
 
 Location limits.
 Time limits.
@@ -54,7 +54,7 @@ They can:
 • Understand space and furniture placement
 • Visualize the lifestyle before construction begins
 
-The apartment becomes alive — even before it is built.
+The apartment becomes alive even before it is built.
 
 ## Scale Changes Everything
 
