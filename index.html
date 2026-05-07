@@ -487,6 +487,24 @@
       h1 { font-size: clamp(2.6rem, 10vw, 4rem); }
       .proof-row { flex-direction: column; align-items: center; gap: 3rem; }
       .s-phone, .proof-card.featured .s-phone { width: 220px; height: 440px; }
+      /* ─── MOBILE FIXES ─── */
+    @media (max-width: 768px) {
+      nav { 
+        padding: 1rem 1rem; /* Smaller padding on mobile */
+      }
+      .logo {
+        font-size: 1.1rem; /* Smaller logo */
+      }
+      .nav-links-container {
+        gap: 10px; /* Tighter gap between links */
+      }
+      .nav-link {
+        font-size: 0.55rem; /* Slightly smaller text for links */
+        letter-spacing: 0.1em;
+      }
+      h1 { font-size: clamp(2.6rem, 10vw, 4rem); }
+      .proof-row { flex-direction: column; align-items: center; }
+    }
     }
   </style>
 </head>
