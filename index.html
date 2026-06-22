@@ -1,41 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- 
-<title>Sandmotion | Interactive 3D Digital Sample Flats for Real Estate</title>
-<meta name="description" content="Transform 2D floor plans into interactive 3D web experiences. Help buyers walk through their future homes instantly on any device.">
-<link rel="canonical" href="https://sandmotion.in/">
-<meta name="keywords" content="digital sample flat, 3D walkthrough, interactive home, real estate visualization, digital twin, Sandmotion">
-<meta property="og:title" content="Digital Sample Flat –2D Floor Plan → Interactive Home">
-<meta property="og:description" content="Let buyers walk inside your property in seconds. Works on any phone. No app required.">
-<meta property="og:url" content="https://sandmotion.in">
-
-<meta property="og:image" content="https://sandmotion.in/sandmotion-v1.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="627">
-<script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@type":"Organization",
- "name":"Sandmotion",
- "url":"https://sandmotion.in",
- "logo":"https://sandmotion.in/sandmotion-v1.png"
-}
-</script>
+  <title>Sandmotion | Interactive 3D Digital Sample Flats for Real Estate</title>
+  <meta name="description" content="Transform 2D floor plans into interactive 3D web experiences. Help buyers walk through their future homes instantly on any device.">
+  <link rel="canonical" href="https://sandmotion.in/">
+  <meta name="keywords" content="digital sample flat, 3D walkthrough, interactive home, real estate visualization, digital twin, Sandmotion">
+  <meta property="og:title" content="Digital Sample Flat –2D Floor Plan → Interactive Home">
+  <meta property="og:description" content="Let buyers walk inside your property in seconds. Works on any phone. No app required.">
+  <meta property="og:url" content="https://sandmotion.in">
+  <meta property="og:image" content="https://sandmotion.in/sandmotion-v1.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+  
+  <script type="application/ld+json">
+  {
+   "@context":"https://schema.org",
+   "@type":"Organization",
+   "name":"Sandmotion",
+   "url":"https://sandmotion.in",
+   "logo":"https://sandmotion.in/sandmotion-v1.png"
+  }
+  </script>
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DYH5BFMVS0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-DYH5BFMVS0');
-</script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DYH5BFMVS0');
+  </script>
+  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -53,7 +53,6 @@
       --font-body: 'Montserrat', Helvetica Neue, sans-serif;
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
-    
 
     html { scroll-behavior: smooth; }
 
@@ -109,12 +108,12 @@
     }
     .nav-link:hover { color: var(--white); }
 
-    /* ─── HERO ─── */
+    /* ─── HERO SPLIT-SCREEN LAYOUT WITH GRID ─── */
     .hero {
       min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 10rem 2rem 6rem;
       position: relative;
     }
@@ -131,30 +130,63 @@
       pointer-events: none;
     }
 
-    .eyebrow {
-      font-size: 0.6rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 2.5rem;
+    /* Grid strictly controls element placement */
+    .hero-content {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 6rem;
+      align-items: center;
+      max-width: 1100px;
+      width: 100%;
+      z-index: 10;
+    }
+
+    /* Phone sits in column 1, spanning both rows */
+    .phone-wrap {
+      grid-column: 1;
+      grid-row: 1 / 3;
+      margin: 0; 
       opacity: 0;
-      animation: fadeUp 1s ease 0.6s forwards;
+      flex-shrink: 0; 
+      animation: riseIn 1.4s cubic-bezier(0.16,1,0.3,1) 1.4s forwards;
+      position: relative;
+      width: 260px;
+    }
+
+    /* Text sits in column 2, row 1 */
+    .hero-text-container {
+      grid-column: 2;
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left; 
+      align-self: end; 
+    }
+
+    /* Button sits in column 2, row 2 */
+    .cta-wrap {
+      grid-column: 2;
+      grid-row: 2;
+      opacity: 0;
+      margin-top: 2rem; 
+      align-self: start; 
+      animation: fadeUp 1s ease 1.6s forwards;
     }
 
     h1 {
       font-family: var(--font-display);
-      font-size: clamp(3.2rem, 8vw, 8rem);
+      font-size: clamp(2.56rem, 6.4vw, 6.4rem); 
       font-weight: 300;
       line-height: 1.05;
       letter-spacing: -0.01em;
-      max-width: 1100px;
       opacity: 0;
+      margin: 0;
       animation: fadeUp 1.6s ease 0.8s forwards;
     }
 
     h1 em { font-style: italic; color: var(--accent); }
 
-    /* NEW HERO TAGLINE STYLE */
     .hero-tagline {
       margin-top: 1.5rem;
       font-family: var(--font-body);
@@ -162,132 +194,55 @@
       font-weight: 200;
       letter-spacing: 0.1em;
       color: var(--muted);
-      max-width: 800px;
       opacity: 0;
       animation: fadeUp 1s ease 1.1s forwards;
       line-height: 1.5;
     }
 
-    /* ─── FIXED PHONE MOCKUP ─── */
-    .phone-wrap {
-      margin: 5rem auto 4rem;
+    .hero-free-link {
+      color: var(--accent);
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      margin-top: 1.5rem;
+      border-bottom: 1px solid rgba(201,169,110,0.3);
+      padding-bottom: 5px;
       opacity: 0;
-      animation: riseIn 1.4s cubic-bezier(0.16,1,0.3,1) 1.4s forwards;
-      position: relative;
-      width: 260px;
+      display: inline-block;
+      animation: fadeUp 1s ease 1.2s forwards;
+      transition: all 0.3s ease;
+    }
+    
+    .hero-free-link:hover {
+      color: #dbbf82;
+      border-bottom-color: #dbbf82;
+      transform: translateY(-2px);
     }
 
     .phone {
       width: 260px;
       height: 530px;
-      border-radius: 46px; 
-      background: #0d0d0d;
-      padding: 12px;
+      border-radius: 40px; 
+      border: 1.5px solid rgba(255,255,255,0.08); 
+      background: var(--surface);
       position: relative;
       overflow: hidden;
       box-shadow: 
-        0 0 0 1px rgba(255,255,255,0.1), 
-        0 30px 60px rgba(0,0,0,0.8),    
+        0 40px 80px rgba(0,0,0,0.6),    
         0 0 50px rgba(201,169,110,0.1); 
     }
 
-    .phone::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 50%);
-      pointer-events: none;
-      z-index: 10;
-    }
-
     .phone-screen {
-      position: relative;
-      width: 100%;
-      height: 100%;
+      position: absolute; 
+      inset: 0;
       background: #000;
-      border-radius: 35px;
-      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: inset 0 0 30px rgba(0,0,0,1);
-      z-index: 1;
-    }
-
-    .phone::before {
-      content: '';
-      position: absolute;
-      top: 22px; left: 50%;
-      transform: translateX(-50%);
-      width: 70px; height: 22px;
-      background: #000;
-      border-radius: 12px;
-      z-index: 11;
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .phone-screen {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
       flex-direction: column;
-      overflow: hidden;
-    }
-
-    .loader-wrap {
-      display: flex; flex-direction: column; align-items: center; gap: 1rem;
-      position: relative; z-index: 2;
-      animation: loaderFade 0.5s ease 2s forwards;
-    }
-
-    .progress-track {
-      width: 100px; height: 1px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 1px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      background: var(--accent);
-      width: 0%;
-      animation: fillBar 2s ease forwards;
-    } 
-
-    .loader-text {
-      font-size: 0.55rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: rgba(201,169,110,0.6);
-    }
-
-    .room-content {
-      position: absolute; inset: 0;
-      opacity: 0;
-      animation: fadeIn 0.8s ease 4s forwards;
-      z-index: 3;
-      display: flex; flex-direction: column;
-      justify-content: flex-end;
-      padding: 0 0 28px;
-    }
-
-    .room-label {
-      position: relative;
-      text-align: center;
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(201,169,110,0.8);
-      background: rgba(0,0,0,0.5);
-      display: inline-block;
-      margin: 0 auto;
-      padding: 6px 14px;
-      border: 1px solid rgba(201,169,110,0.2);
-      border-radius: 20px;
-      backdrop-filter: blur(8px);
-    }
-
-    .cta-wrap {
-      opacity: 0;
-      animation: fadeUp 1s ease 1.6s forwards;
+      z-index: 1;
     }
 
     .cta {
@@ -314,20 +269,24 @@
       box-shadow: 0 8px 50px rgba(201,169,110,0.35);
     }
 
-    /* ─── MANIFESTO ─── */
+    /* ─── RESTORED MANIFESTO ─── */
     .manifesto {
-      max-width: 580px;
+      max-width: 700px;
       margin: 0 auto;
-      padding: 8rem 2rem 6rem;
+      padding: 2rem 2rem 6rem; 
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem; 
     }
 
     .manifesto p {
       font-family: var(--font-display);
-      font-size: clamp(1.15rem, 2.5vw, 1.55rem);
+      font-size: clamp(1.25rem, 3vw, 1.65rem); 
       font-weight: 300;
-      line-height: 1.85;
-      color: rgba(245,244,240,0.75);
+      line-height: 1.7;
+      color: rgba(245,244,240,0.85);
+      margin: 0;
     }
 
     .manifesto p em { font-style: italic; color: var(--white); }
@@ -340,11 +299,13 @@
     }
 
     .proof-title {
-      font-size: 0.58rem;
-      letter-spacing: 0.35em;
+      font-size: clamp(1.2rem, 3vw, 1.8rem); 
+      letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 4rem;
+      margin-bottom: 5rem;
+      font-family: var(--font-body);
+      font-weight: 300;
     }
 
     .proof-row {
@@ -400,22 +361,125 @@
       border-color: rgba(201,169,110,0.2);
     }
 
-    /* ─── FINAL CTA ─── */
-    .final-cta {
+    /* ─── FREE PLAN FORM SECTION ─── */
+    .free-plan-section {
       padding: 8rem 2rem;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       border-top: 1px solid var(--border);
       position: relative;
     }
 
-    .final-cta h2 {
+    .free-plan-section h2 {
       font-family: var(--font-display);
       font-size: clamp(2rem, 5vw, 3.5rem);
       font-weight: 300;
       line-height: 1.2;
-      margin-bottom: 3rem;
+      margin-bottom: 1rem;
+      text-align: center;
     }
-    .final-cta h2 em { font-style: italic; color: var(--accent); }
+
+    .free-plan-section h2 em { 
+      font-style: italic; 
+      color: var(--accent); 
+    }
+
+    .free-plan-desc {
+      text-align: center;
+      font-family: var(--font-body);
+      color: var(--muted);
+      margin-bottom: 3.5rem;
+      max-width: 600px;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .form-container {
+      background: var(--surface);
+      border: 1px solid rgba(201,169,110,0.15);
+      border-radius: 8px;
+      padding: 3rem;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    }
+
+    .form-group {
+      margin-bottom: 1.8rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.6rem;
+      color: rgba(245,244,240,0.8);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 1rem;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(0,0,0,0.7);
+    }
+
+    .form-group input[type="file"] {
+      padding: 0.8rem;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .file-hint {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 0.6rem;
+      display: block;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1.2rem;
+      background: var(--accent);
+      color: var(--black);
+      border: none;
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .submit-btn:hover {
+      background: #dbbf82;
+      box-shadow: 0 0 30px rgba(201,169,110,0.25);
+      transform: translateY(-2px);
+    }
+
+    .disclaimer {
+      margin-top: 2rem;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.3);
+      text-align: center;
+      line-height: 1.6;
+    }
 
     .btn-ghost {
       display: inline-flex;
@@ -486,100 +550,136 @@
     @keyframes fadeDown { from { opacity:0; transform: translateY(-10px); } to { opacity:1; transform: translateY(0); } }
     @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
     @keyframes riseIn { from { opacity:0; transform: translateY(40px) scale(0.97); } to { opacity:1; transform: translateY(0) scale(1); } }
-     @keyframes fillBar { from { width: 0%; } to { width: 100%; } }
-    @keyframes loaderFade { to { opacity: 0; transform: scale(0.9); pointer-events: none; } }
 
+    /* ─── MOBILE RESPONSIVENESS (SCALED PHONE FIX) ─── */
     @media (max-width: 768px) {
       nav { padding: 1.5rem 1.8rem; }
-      h1 { font-size: clamp(2.6rem, 10vw, 4rem); }
+      .logo { font-size: 1.1rem; }
+      .nav-links-container { gap: 10px; }
+      .nav-link { font-size: 0.55rem; letter-spacing: 0.1em; }
+      
+      .hero {
+        padding: 7rem 1.5rem 4rem; /* Adjusted mobile padding */
+      }
+
+      h1 { font-size: clamp(2.08rem, 8vw, 3.2rem); }
+      
+      .hero-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        gap: 2.5rem; 
+      }
+      
+      .hero-text-container {
+        grid-column: 1;
+        grid-row: 1;
+        align-items: center;
+        text-align: center;
+        align-self: center;
+      }
+      
+      /* SCALED DOWN HERO PHONE TO MATCH THE HOW-IT-FEELS SECTION ON MOBILE */
+      .phone-wrap {
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: center; 
+        width: 220px; 
+      }
+
+      .phone {
+        width: 220px;
+        height: 450px;
+        border-radius: 32px;
+      }
+
+      .cta-wrap {
+        grid-column: 1;
+        grid-row: 3;
+        justify-self: center; 
+        margin-top: 0; 
+      }
+      
+      .manifesto { gap: 2.5rem; padding: 2rem 1.5rem 5rem; }
+      
       .proof-row { flex-direction: column; align-items: center; gap: 3rem; }
       .s-phone, .proof-card.featured .s-phone { width: 220px; height: 440px; }
-      /* ─── MOBILE FIXES ─── */
-    @media (max-width: 768px) {
-      nav { 
-        padding: 1rem 1rem; /* Smaller padding on mobile */
-      }
-      .logo {
-        font-size: 1.1rem; /* Smaller logo */
-      }
-      .nav-links-container {
-        gap: 10px; /* Tighter gap between links */
-      }
-      .nav-link {
-        font-size: 0.55rem; /* Slightly smaller text for links */
-        letter-spacing: 0.1em;
-      }
-      h1 { font-size: clamp(2.6rem, 10vw, 4rem); }
-      .proof-row { flex-direction: column; align-items: center; }
-    }
+      .form-container { padding: 2rem 1.5rem; }
     }
   </style>
 </head>
 <body>
 
   <nav>
-  <a href="index.html" class="logo">Sand<span>motion</span></a>
-  <div>
-    <a href="blog/" class="nav-link" style="margin-right: 20px;">Blog</a>
-    <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3Xf3GM9AkuDHxW54kS-igtXqgOfsmhkZ7nEVGqjVzZP94hp6HEBH22b7hLY3fh1Gh4nfiTJFp2" class="nav-link" style="margin-right: 20px; color: var(--accent);">Book Demo</a>
-    <a href="https://app.sandmotion.in/" class="nav-link">Experience →</a>
-  </div>
-</nav>
+    <a href="index.html" class="logo">Sand<span>motion</span></a>
+    <div>
+      <a href="blog/" class="nav-link" style="margin-right: 20px;">Blog</a>
+      <a href="#free-plan" class="nav-link" style="margin-right: 20px; color: var(--accent);">Free Demo</a>
+      <a href="https://app.sandmotion.in/" class="nav-link">Experience →</a>
+    </div>
+  </nav>
 
   <section class="hero">
-         <h1>Digital sample Flat Walk Your <em>Home</em><br>Before It's Built.</h1> 
-            <h2 class="hero-tagline">
-  <a href="https://www.youtube.com/@sandmotion_global" target="_blank" style="text-decoration:none; color:inherit;">
-    2D Floor Plan  →  Interactive Home
-  </a>
-
-   
-    <div class="phone-wrap">
-      <div class="phone">
-        <div class="phone-screen">
-          <div id="intro-screen" style="
-           position:absolute;
-           inset:0;
-           background:#000;
-           display:flex;
-           flex-direction: column;
-           align-items:center;
-           justify-content:center;
-           text-align:center;
-           padding:20px;
-           z-index:6;
-           color:#f5f4f0;
-           font-family:'Cormorant Garamond', serif;
-           font-size:22px;
-           line-height:1.4;
-">
-  Walk the Dream<br>Before It's Built.
-  <p style="font-family: 'Montserrat', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; margin-top: 15px; color: #c9a96e;">2D floor plans into interactive 3D web experiences</p>
-</div>
-                 
-            
-          </div>
-          <video autoplay muted playsinline id="sandmotion-video"
-          style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:5; border-radius:35px; opacity:0; transition:opacity 0.8s ease;">
-          <source src="Sandmotion_Suits.mp4" type="video/mp4">
-         </video>
-        </div> 
+    <div class="hero-content">
+      
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-screen">
+            <div id="intro-screen" style="
+              position:absolute;
+              inset:0;
+              background:#000;
+              display:flex;
+              flex-direction: column;
+              align-items:center;
+              justify-content:center;
+              text-align:center;
+              padding:20px;
+              z-index:6;
+              color:#f5f4f0;
+              font-family:'Cormorant Garamond', serif;
+              font-size:22px;
+              line-height:1.4;
+            ">
+              Walk the Home<br>Before It's Built.
+              <p style="font-family: 'Montserrat', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; margin-top: 15px; color: #c9a96e;">2D floor plans into interactive 3D web experiences</p>
+            </div>
+           <video autoplay muted playsinline id="sandmotion-video"
+       style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; z-index:5; opacity:0; transition:opacity 0.8s ease;">
+  <source src="Sandmotion_Suits.mp4" type="video/mp4">
+</video>
+          </div> 
+        </div>
       </div>
-    </div>
 
-    <div class="cta-wrap">
-      <a class="cta" href="https://app.sandmotion.in/" target="_blank">Experience the Magic</a>
+      <div class="hero-text-container">
+        <h1>Digital sample Flat<br>Walk Your <em>Home</em><br>Before It's Built.</h1> 
+        
+        <h2 class="hero-tagline">
+          <a href="https://www.youtube.com/@sandmotion_global" target="_blank" style="text-decoration:none; color:inherit;">
+            2D Floor Plan  →  Interactive Home
+          </a>
+        </h2>
+
+        <a href="#free-plan" class="hero-free-link">
+          Get First Floor Plan Free ↓
+        </a>
+      </div>
+
+      <div class="cta-wrap">
+        <a class="cta" href="https://app.sandmotion.in/" target="_blank">Experience the Magic</a>
+      </div>
+
     </div>
   </section>
 
   <section class="manifesto">
-    <p class="reveal">
-      For too long we accepted something strange.<br><br>
-      We built <em>beautiful homes…</em> then sent buyers a heavy PDF.<br><br>
-      Now buyers walk inside in just 2 seconds.<br>
-      No app. No waiting. Anyphone. anywhere<br><br>
-      <strong>This is Sandmotion.</strong>
-    </p>
+    <p class="reveal">For too long we accepted something strange.</p>
+    
+    <p class="reveal delay-1">We built <em>beautiful homes…</em> then sent buyers a heavy PDF.</p>
+    
+    <p class="reveal delay-2">Now buyers walk inside in just 2 seconds.<br>No app. No waiting. Any phone. Anywhere.</p>
+    
+    <p class="reveal delay-3"><strong>This is Sandmotion.</strong></p>
   </section>
 
   <section class="proof reveal">
@@ -620,19 +720,48 @@
     </div>
   </section>
 
-  <section class="final-cta reveal">
-    <h2>Get your floor plan transformed<br>into an interactive 3D experience in <em>48 hours.</em></h2>
+  <section id="free-plan" class="free-plan-section reveal">
+    <h2>Get Your First Floor 3D Plan —<br><em>Absolutely Free</em></h2>
+    <p class="free-plan-desc">Experience the quality of our 3D walkthroughs before you commit. Upload your 2D CAD or PDF file, and we will visualize your first floor at zero cost.</p>
     
-    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; align-items: center;">
+    <div class="form-container">
+      <form id="freeFloorPlanForm" onsubmit="handleFormSubmit(event)">
+        
+        <div class="form-group">
+          <label for="fullName">Full Name *</label>
+          <input type="text" id="fullName" name="fullName" placeholder="Enter your name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="whatsappNumber">WhatsApp Number *</label>
+          <input type="tel" id="whatsappNumber" name="whatsappNumber" placeholder="+91 00000 00000" required>
+        </div>
+
+        <div class="form-group">
+          <label for="companyName">Company / Firm Name (Optional)</label>
+          <input type="text" id="companyName" name="companyName" placeholder="Your architecture or builder firm">
+        </div>
+
+        <div class="form-group">
+          <label for="floorPlanFile">Upload Your First Floor Plan *</label>
+          <input type="file" id="floorPlanFile" name="floorPlanFile" accept=".pdf,.jpg,.jpeg,.png,.dwg,.dxf" required>
+          <span class="file-hint">Accepted formats: .DWG, .PDF, .JPG. Maximum file size: 25MB.</span>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">Upload Floor Plan & Claim Free Demo</button>
+
+        <p class="disclaimer">
+          <strong>Note:</strong> The free first-floor demo is limited to a maximum of 1,500 sq. ft. and applies to residential or standard commercial layouts. Delivery time is 3 to 5 business days.
+        </p>
+      </form>
+    </div>
+
+    <div style="margin-top: 3.5rem;">
       <a class="btn-ghost" href="https://wa.me/918208072906" target="_blank">
         <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zm-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884zm8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
         WhatsApp Us
-      </a>
-
-      <a class="btn-ghost" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3Xf3GM9AkuDHxW54kS-igtXqgOfsmhkZ7nEVGqjVzZP94hp6HEBH22b7hLY3fh1Gh4nfiTJFp2" target="_blank">
-         Book Demo
       </a>
     </div>
   </section>
@@ -675,7 +804,74 @@
       });
     }, { threshold: 0.1 });
     reveals.forEach(el => observer.observe(el));
-    
+
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      
+      const btn = document.getElementById('submitBtn');
+      const fileInput = document.getElementById('floorPlanFile');
+      const file = fileInput.files[0];
+
+      if (file && file.size > 25 * 1024 * 1024) { 
+        alert("Your file is too large. Please upload a file smaller than 25MB.");
+        return;
+      }
+
+      btn.innerText = "UPLOADING TO SECURE SERVER...";
+      btn.style.opacity = "0.7";
+      btn.disabled = true;
+
+      setTimeout(() => {
+        alert("Success! Your floor plan has been received safely. Our team will message you on WhatsApp within 24 hours.");
+        document.getElementById('freeFloorPlanForm').reset();
+        btn.innerText = "UPLOAD FLOOR PLAN & CLAIM FREE DEMO";
+        btn.style.opacity = "1";
+        btn.disabled = false;
+      }, 2500);
+    }
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      
+      const btn = document.getElementById('submitBtn');
+      const fileInput = document.getElementById('floorPlanFile');
+      const file = fileInput.files[0];
+
+      if (file && file.size > 25 * 1024 * 1024) { 
+        alert("Your file is too large. Please upload a file smaller than 25MB.");
+        return;
+      }
+
+      btn.innerText = "UPLOADING TO SECURE SERVER...";
+      btn.style.opacity = "0.7";
+      btn.disabled = true;
+
+      // 1. Package the form data and the file together
+      const formData = new FormData(document.getElementById('freeFloorPlanForm'));
+
+      // 2. Send it securely to your PHP script
+      fetch('upload.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => {
+        if(data.trim() === "SUCCESS") {
+          alert("Success! Your floor plan has been safely received. Our team will message you on WhatsApp within 24 hours.");
+          document.getElementById('freeFloorPlanForm').reset();
+        } else {
+          alert("Oops! Something went wrong: " + data);
+        }
+      })
+      .catch(error => {
+        alert("Network error. Please check your connection and try again.");
+      })
+      .finally(() => {
+        // Reset the button back to normal
+        btn.innerText = "UPLOAD FLOOR PLAN & CLAIM FREE DEMO";
+        btn.style.opacity = "1";
+        btn.disabled = false;
+      });
+    }
   </script>
 
 </body>
