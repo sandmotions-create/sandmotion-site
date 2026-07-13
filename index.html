@@ -19,21 +19,25 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{--black:#080808;--charcoal:#111113;--surface:#161618;--border:rgba(255,255,255,0.06);--white:#f5f4f0;--muted:rgba(245,244,240,0.42);--faint:rgba(245,244,240,0.15);--accent:#c9a96e;--accent-dim:rgba(201,169,110,0.18);--font-display:'Cormorant Garamond',Georgia,serif;--font-body:'Montserrat','Helvetica Neue',sans-serif;--ease:cubic-bezier(0.16,1,0.3,1)}
     html{scroll-behavior:smooth}
     body{background:var(--black);color:var(--white);font-family:var(--font-body);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
     body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.6}
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(8,8,8,0.9) 0%,transparent 100%)}
+    #bg-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.65}
+    #scroll-progress{position:fixed;top:0;left:0;height:2px;width:0%;background:var(--accent);z-index:200;box-shadow:0 0 8px rgba(201,169,110,0.5)}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:2rem 4rem;padding-top:max(2rem,env(safe-area-inset-top));display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(8,8,8,0.9) 0%,transparent 100%);transition:background 0.4s ease,border-color 0.4s ease,padding 0.4s ease;border-bottom:1px solid transparent}
+    nav.is-scrolled{background:rgba(8,8,8,0.75);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--border);padding:1.3rem 4rem;padding-top:max(1.3rem,env(safe-area-inset-top))}
     .logo{font-family:var(--font-display);font-size:1.35rem;font-weight:300;letter-spacing:0.12em;color:var(--white);text-decoration:none;opacity:0;animation:fadeDown 1s ease 0.3s forwards}
     .logo span{color:var(--accent)}
     .nav-link{font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.3s;opacity:0;animation:fadeDown 1s ease 0.5s forwards}
     .nav-link:hover{color:var(--white)}
-    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:10rem 2rem 6rem;position:relative}
+    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:10rem 2rem 6rem;position:relative;z-index:1}
     .hero::after{content:'';position:absolute;width:60vw;height:60vw;max-width:700px;max-height:700px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,0.06) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
     .hero-content{display:grid;grid-template-columns:auto 1fr;column-gap:6rem;align-items:center;max-width:1100px;width:100%;z-index:10}
-    .phone-wrap{opacity:0;animation:riseIn 1.4s cubic-bezier(0.16,1,0.3,1) 1.4s forwards;width:260px}
+    .phone-wrap{opacity:0;animation:riseIn 1.4s cubic-bezier(0.16,1,0.3,1) 1.4s forwards;width:260px;perspective:900px}
     .hero-text-container{display:flex;flex-direction:column;align-items:flex-start;text-align:left}
     .cta-wrap{opacity:0;margin-top:2rem;animation:fadeUp 1s ease 1.6s forwards}
     h1{font-family:var(--font-display);font-size:clamp(2.56rem,6.4vw,6.4rem);font-weight:300;line-height:1.05;letter-spacing:-0.01em;opacity:0;margin:0;animation:fadeUp 1.6s ease 0.8s forwards}
@@ -41,27 +45,30 @@
     .hero-tagline{margin-top:1.5rem;font-family:var(--font-body);font-size:clamp(1rem,2vw,1.35rem);font-weight:200;letter-spacing:0.1em;color:var(--muted);opacity:0;animation:fadeUp 1s ease 1.1s forwards;line-height:1.5}
     .hero-free-link{color:var(--accent);font-size:1.5rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;margin-top:1.5rem;border-bottom:1px solid rgba(201,169,110,0.3);padding-bottom:10px;opacity:0;display:inline-block;animation:fadeUp 1s ease 1.2s forwards;transition:all 0.3s ease}
     .hero-free-link:hover{color:#dbbf82;border-bottom-color:#dbbf82;transform:translateY(-2px)}
-    .phone{width:260px;height:530px;border-radius:40px;border:1.5px solid rgba(255,255,255,0.08);background:var(--surface);position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.6),0 0 50px rgba(201,169,110,0.1)}
+    .phone{width:260px;height:530px;border-radius:40px;border:1.5px solid rgba(255,255,255,0.08);background:var(--surface);position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.6),0 0 50px rgba(201,169,110,0.1),inset 0 0 0 1px rgba(255,255,255,0.03);transition:transform 0.25s var(--ease),box-shadow 0.25s var(--ease);transform-style:preserve-3d;will-change:transform}
+    .phone:hover{box-shadow:0 50px 100px rgba(0,0,0,0.65),0 0 70px rgba(201,169,110,0.16),inset 0 0 0 1px rgba(255,255,255,0.05)}
     .phone-screen{position:absolute;inset:0;background:#000;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:1}
-    .cta{display:inline-block;padding:1.1rem 3rem;font-family:var(--font-body);font-size:0.65rem;font-weight:400;letter-spacing:0.3em;text-transform:uppercase;color:var(--black);background:var(--accent);border:none;border-radius:2px;text-decoration:none;cursor:pointer;transition:background 0.4s ease,transform 0.3s ease,box-shadow 0.4s ease;box-shadow:0 0 40px rgba(201,169,110,0.2)}
-    .cta:hover{background:#dbbf82;transform:translateY(-2px);box-shadow:0 8px 50px rgba(201,169,110,0.35)}
-    .manifesto{max-width:700px;margin:0 auto;padding:2rem 2rem 6rem;text-align:center;display:flex;flex-direction:column;gap:3rem}
+    .cta{display:inline-block;padding:1.1rem 3rem;font-family:var(--font-body);font-size:0.65rem;font-weight:400;letter-spacing:0.3em;text-transform:uppercase;color:var(--black);background:var(--accent);border:none;border-radius:2px;text-decoration:none;cursor:pointer;transition:background 0.4s ease,transform 0.15s ease,box-shadow 0.4s ease;box-shadow:0 0 40px rgba(201,169,110,0.2);will-change:transform}
+    .cta:hover{background:#dbbf82;box-shadow:0 8px 50px rgba(201,169,110,0.35)}
+    .cta:active{transform:scale(0.96)}
+    .manifesto{max-width:700px;margin:0 auto;padding:2rem 2rem 6rem;text-align:center;display:flex;flex-direction:column;gap:3rem;position:relative;z-index:1}
     .manifesto p{font-family:var(--font-display);font-size:clamp(1.25rem,3vw,1.65rem);font-weight:300;line-height:1.7;color:rgba(245,244,240,0.85);margin:0}
     .manifesto p em{font-style:italic;color:var(--white)}
     .manifesto p strong{font-weight:400;color:var(--accent)}
-    .proof{padding:4rem 2rem 10rem;display:flex;flex-direction:column;align-items:center}
+    .proof{padding:4rem 2rem 10rem;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1}
     .proof-title{font-size:clamp(1.2rem,3vw,1.8rem);letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);margin-bottom:5rem;font-family:var(--font-body);font-weight:300}
     .proof-row{display:flex;justify-content:center;align-items:flex-end;gap:2.5rem;flex-wrap:wrap}
     .proof-card{display:flex;flex-direction:column;align-items:center;gap:2rem;cursor:pointer}
     .s-phone{width:220px;height:440px;border-radius:30px;border:1.5px solid rgba(255,255,255,0.08);background:var(--surface);overflow:hidden;position:relative;box-shadow:0 40px 80px rgba(0,0,0,0.6);transition:transform 0.5s var(--ease)}
     .s-phone img{width:100%;height:100%;object-fit:cover}
     .s-phone:hover{transform:translateY(-10px)}
+    .proof-card:active .s-phone{transform:scale(0.97)}
     .proof-caption{font-family:var(--font-display);font-size:1.1rem;font-style:italic;color:var(--muted);text-align:center;max-width:180px;line-height:1.5}
     .proof-card.featured .s-phone{width:240px;height:480px;border-color:rgba(201,169,110,0.2)}
     #imageModal{display:none;position:fixed;z-index:10000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.95);align-items:center;justify-content:center}
     #modalImg{max-width:80%;max-height:80%;border-radius:30px;border:2px solid var(--accent)}
     .close-modal{position:absolute;top:20px;right:30px;color:white;font-size:40px;cursor:pointer}
-    .free-plan-section{padding:8rem 2rem;display:flex;flex-direction:column;align-items:center;border-top:1px solid var(--border);position:relative}
+    .free-plan-section{padding:8rem 2rem;display:flex;flex-direction:column;align-items:center;border-top:1px solid var(--border);position:relative;z-index:1}
     .free-plan-section h2{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);font-weight:300;line-height:1.2;margin-bottom:1rem;text-align:center}
     .free-plan-section h2 em{font-style:italic;color:var(--accent)}
     .free-plan-desc{text-align:center;font-family:var(--font-body);color:var(--muted);margin-bottom:3.5rem;max-width:600px;line-height:1.6;font-size:0.95rem}
@@ -74,11 +81,13 @@
     .file-hint{font-size:0.65rem;color:rgba(255,255,255,0.3);margin-top:0.6rem;display:block}
     .submit-btn{width:100%;padding:1.2rem;background:var(--accent);color:var(--black);border:none;border-radius:4px;font-family:var(--font-body);font-size:0.75rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;transition:all 0.3s ease;margin-top:1rem}
     .submit-btn:hover{background:#dbbf82;box-shadow:0 0 30px rgba(201,169,110,0.25);transform:translateY(-2px)}
+    .submit-btn:active{transform:scale(0.98)}
     .disclaimer{margin-top:2rem;font-size:0.65rem;color:rgba(255,255,255,0.3);text-align:center;line-height:1.6}
     .btn-ghost{display:inline-flex;align-items:center;gap:0.8rem;padding:1.1rem 3rem;font-family:var(--font-body);font-size:0.6rem;font-weight:400;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);background:transparent;border:1px solid rgba(201,169,110,0.35);border-radius:2px;text-decoration:none;transition:all 0.35s}
     .btn-ghost:hover{background:var(--accent-dim);border-color:rgba(201,169,110,0.6);transform:translateY(-2px)}
+    .btn-ghost:active{transform:scale(0.97)}
     .wa-icon{width:16px;height:16px;fill:currentColor}
-    footer{padding:4rem 2rem 3rem;border-top:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:1.8rem;text-align:center}
+    footer{padding:4rem 2rem 3rem;border-top:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:1.8rem;text-align:center;position:relative;z-index:1}
     .footer-logo{font-family:var(--font-display);font-size:1.1rem;font-weight:300;letter-spacing:0.14em;color:var(--muted)}
     .footer-logo span{color:var(--accent)}
     .footer-trust{font-size:0.56rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--faint)}
@@ -91,8 +100,11 @@
     @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
     @keyframes fadeDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
     @keyframes riseIn{from{opacity:0;transform:translateY(40px) scale(0.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+    @keyframes idleSway{0%,100%{transform:perspective(900px) rotateY(-4deg) rotateX(1.5deg)}50%{transform:perspective(900px) rotateY(4deg) rotateX(-1.5deg)}}
+    .phone.idle-sway{animation:idleSway 7s ease-in-out infinite}
     @media(max-width:768px){
-      nav{padding:1.5rem 1.8rem}
+      nav{padding:1.5rem 1.8rem;padding-top:max(1.5rem,env(safe-area-inset-top))}
+      nav.is-scrolled{padding:1.1rem 1.8rem;padding-top:max(1.1rem,env(safe-area-inset-top))}
       .logo{font-size:1.1rem}
       .hero{padding:7rem 1.5rem 4rem}
       h1{font-size:clamp(2.08rem,8vw,3.2rem)}
@@ -105,10 +117,29 @@
       .proof-row{flex-direction:column;align-items:center;gap:3rem}
       .s-phone,.proof-card.featured .s-phone{width:220px;height:440px}
       .form-container{padding:2rem 1.5rem}
+      #bg-canvas{opacity:0.5}
+    }
+    @media(max-width:420px){
+      .hero{padding:6rem 1.2rem 3rem}
+      .phone,.phone-wrap{width:210px}
+      .phone{height:428px}
+      h1{font-size:clamp(1.9rem,9vw,2.6rem)}
+      .hero-tagline{font-size:0.9rem}
+      .hero-free-link{font-size:1.15rem}
+      .manifesto p{font-size:1.1rem}
+      .free-plan-section{padding:5rem 1.2rem}
+      .form-container{padding:1.6rem 1.2rem}
+      .btn-ghost,.cta{padding:1rem 2.2rem;font-size:0.6rem}
+    }
+    @media(prefers-reduced-motion:reduce){
+      #bg-canvas{opacity:0.4}
+      .phone.idle-sway{animation:none}
     }
   </style>
 </head>
 <body>
+  <div id="scroll-progress"></div>
+  <canvas id="bg-canvas"></canvas>
   <div id="imageModal" onclick="this.style.display='none'">
     <span class="close-modal">&times;</span>
     <img id="modalImg" src="" alt="Expanded View">
@@ -122,8 +153,8 @@
   </nav>
   <section class="hero">
     <div class="hero-content">
-      <div class="phone-wrap">
-        <div class="phone">
+      <div class="phone-wrap" id="phone-wrap">
+        <div class="phone" id="phone-tilt">
           <div class="phone-screen">
             <div id="intro-screen" style="position:absolute;inset:0;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;z-index:6;color:#f5f4f0;font-family:'Cormorant Garamond',serif;font-size:22px;transition:opacity 0.8s ease">
               Walk the Home<br>Before It's Built.
@@ -262,6 +293,222 @@
           .catch(err => { alert("Error: " + err); btn.disabled = false; });
       };
     });
+
+    /* ---------- Three.js ambient scene: one quiet architectural wireframe ---------- */
+    (function initBlueprintScene(){
+      const canvas = document.getElementById('bg-canvas');
+      if (!window.THREE || !canvas) return;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isCoarse = window.matchMedia('(pointer: coarse)').matches;
+      const isNarrow = window.innerWidth < 640;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: !isCoarse });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, isCoarse ? 1.4 : 1.75));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x080808, isNarrow ? 0.075 : 0.055);
+
+      const camera = new THREE.PerspectiveCamera(38, window.innerWidth / window.innerHeight, 0.1, 200);
+      camera.position.set(isNarrow ? -2.5 : -6.5, isNarrow ? 5.4 : 4.6, isNarrow ? 15 : 13);
+      camera.lookAt(0.5, 1.6, 0);
+
+      const gold = 0xc9a96e;
+      const cream = 0xf5f4f0;
+      const group = new THREE.Group();
+      group.position.x = 3.2;
+      scene.add(group);
+
+      // A single quiet volume: a house-shaped wireframe, walls + pitched roof
+      const houseW = 3.6, houseD = 3.0, wallH = 2.4, roofH = 1.5;
+
+      const wallGeo = new THREE.BoxGeometry(houseW, wallH, houseD);
+      const wallEdges = new THREE.EdgesGeometry(wallGeo);
+      const wallMat = new THREE.LineBasicMaterial({ color: cream, transparent: true, opacity: 0.28 });
+      const walls = new THREE.LineSegments(wallEdges, wallMat);
+      walls.position.y = wallH / 2;
+      group.add(walls);
+
+      const roofGeo = new THREE.ConeGeometry(Math.sqrt((houseW/2)**2 + (houseD/2)**2) * 1.02, roofH, 4);
+      roofGeo.rotateY(Math.PI / 4);
+      const roofEdges = new THREE.EdgesGeometry(roofGeo);
+      const roofMat = new THREE.LineBasicMaterial({ color: gold, transparent: true, opacity: 0.4 });
+      const roof = new THREE.LineSegments(roofEdges, roofMat);
+      roof.position.y = wallH + roofH / 2;
+      group.add(roof);
+
+      // A faint second pass of the same lines, slightly larger, for a soft glow-like edge
+      const glowMat = new THREE.LineBasicMaterial({ color: gold, transparent: true, opacity: 0.08 });
+      const wallsGlow = new THREE.LineSegments(wallEdges, glowMat);
+      wallsGlow.scale.setScalar(1.015);
+      wallsGlow.position.y = wallH / 2;
+      group.add(wallsGlow);
+
+      // Floor plan grid directly beneath, faint, fading into fog at the edges
+      const grid = new THREE.GridHelper(20, 20, gold, gold);
+      grid.material.transparent = true;
+      grid.material.opacity = 0.07;
+      grid.position.y = 0;
+      group.add(grid);
+
+      // A thin baseline rectangle marking the plot, like a blueprint outline
+      const plotGeo = new THREE.EdgesGeometry(new THREE.BoxGeometry(houseW + 1.2, 0.01, houseD + 1.2));
+      const plotMat = new THREE.LineBasicMaterial({ color: gold, transparent: true, opacity: 0.22 });
+      const plot = new THREE.LineSegments(plotGeo, plotMat);
+      plot.position.y = 0.01;
+      group.add(plot);
+
+      // Sparse, slow-drifting dust — restrained, not decorative confetti
+      const particleCount = isCoarse ? 36 : 70;
+      const positions = new Float32Array(particleCount * 3);
+      for (let i = 0; i < particleCount; i++) {
+        positions[i * 3]     = (Math.random() - 0.5) * 14;
+        positions[i * 3 + 1] = Math.random() * 6;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 14;
+      }
+      const particleGeo = new THREE.BufferGeometry();
+      particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const particleMat = new THREE.PointsMaterial({ color: cream, size: 0.025, transparent: true, opacity: 0.22 });
+      const particles = new THREE.Points(particleGeo, particleMat);
+      group.add(particles);
+
+      let mouseX = 0, mouseY = 0, curRotX = 0, curRotY = 0;
+      window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth) - 0.5;
+        mouseY = (e.clientY / window.innerHeight) - 0.5;
+      }, { passive: true });
+      window.addEventListener('touchmove', (e) => {
+        if (!e.touches || !e.touches[0]) return;
+        mouseX = (e.touches[0].clientX / window.innerWidth) - 0.5;
+        mouseY = (e.touches[0].clientY / window.innerHeight) - 0.5;
+      }, { passive: true });
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      let scrollT = 0;
+      window.addEventListener('scroll', () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        scrollT = max > 0 ? window.scrollY / max : 0;
+      }, { passive: true });
+
+      let visible = true;
+      document.addEventListener('visibilitychange', () => { visible = !document.hidden; });
+
+      const baseRotY = group.rotation.y;
+      const clock = new THREE.Clock();
+      function animate() {
+        requestAnimationFrame(animate);
+        if (!visible) return;
+        const dt = clock.getDelta();
+
+        if (!reduceMotion) {
+          curRotY += (mouseX * 0.25 - curRotY) * 0.02;
+          curRotX += (mouseY * 0.08 - curRotX) * 0.02;
+          group.rotation.y = baseRotY + curRotY + clock.elapsedTime * 0.035;
+          group.rotation.x = curRotX;
+
+          camera.position.y = 4.6 - scrollT * 2.2;
+          camera.lookAt(0.5, 1.6 - scrollT * 0.6, 0);
+
+          const pos = particleGeo.attributes.position;
+          for (let i = 0; i < particleCount; i++) {
+            let y = pos.getY(i) + dt * 0.15;
+            if (y > 6) y = 0;
+            pos.setY(i, y);
+          }
+          pos.needsUpdate = true;
+        }
+
+        renderer.render(scene, camera);
+      }
+      animate();
+    })();
+
+    /* ---------- Phone interaction: cursor tilt on desktop, idle sway + gyro on touch ---------- */
+    (function initPhoneTilt(){
+      const wrap = document.getElementById('phone-wrap');
+      const phone = document.getElementById('phone-tilt');
+      if (!wrap || !phone) return;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isCoarse = window.matchMedia('(pointer: coarse)').matches;
+      if (reduceMotion) return;
+
+      if (!isCoarse) {
+        wrap.addEventListener('mousemove', (e) => {
+          const rect = wrap.getBoundingClientRect();
+          const px = (e.clientX - rect.left) / rect.width - 0.5;
+          const py = (e.clientY - rect.top) / rect.height - 0.5;
+          phone.style.transform = `perspective(900px) rotateY(${px * 12}deg) rotateX(${-py * 12}deg)`;
+        });
+        wrap.addEventListener('mouseleave', () => {
+          phone.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg)';
+        });
+        return;
+      }
+
+      // Touch devices: a gentle idle sway keeps the phone feeling alive without needing input
+      phone.classList.add('idle-sway');
+
+      // Where supported (and permitted), let the phone respond to a subtle device tilt
+      function bindOrientation() {
+        window.addEventListener('deviceorientation', (e) => {
+          if (e.beta == null || e.gamma == null) return;
+          phone.classList.remove('idle-sway');
+          const rx = Math.max(-8, Math.min(8, (e.beta - 45) * 0.15));
+          const ry = Math.max(-8, Math.min(8, e.gamma * 0.15));
+          phone.style.transform = `perspective(900px) rotateX(${-rx}deg) rotateY(${ry}deg)`;
+        }, { passive: true });
+      }
+
+      if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        // iOS requires a user gesture to grant motion permission — ask on first tap
+        const grant = () => {
+          DeviceOrientationEvent.requestPermission().then(state => {
+            if (state === 'granted') bindOrientation();
+          }).catch(() => {});
+          window.removeEventListener('touchend', grant);
+        };
+        window.addEventListener('touchend', grant, { once: true, passive: true });
+      } else if (typeof DeviceOrientationEvent !== 'undefined') {
+        bindOrientation();
+      }
+    })();
+
+    /* ---------- Scroll progress + nav solidify ---------- */
+    (function initScrollUI(){
+      const nav = document.querySelector('nav');
+      const bar = document.getElementById('scroll-progress');
+      function onScroll() {
+        if (nav) nav.classList.toggle('is-scrolled', window.scrollY > 40);
+        if (bar) {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+          bar.style.width = pct + '%';
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    /* ---------- Magnetic CTA (desktop only, subtle) ---------- */
+    (function initMagneticCTA(){
+      const isCoarse = window.matchMedia('(pointer: coarse)').matches;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (isCoarse || reduceMotion) return;
+      document.querySelectorAll('.cta, .hero-free-link').forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+          const rect = el.getBoundingClientRect();
+          const px = (e.clientX - rect.left) / rect.width - 0.5;
+          const py = (e.clientY - rect.top) / rect.height - 0.5;
+          el.style.transform = `translate(${px * 8}px, ${py * 8 - 2}px)`;
+        });
+        el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+      });
+    })();
   </script>
 </body>
 </html>
