@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>3D Architecture Visualization Studio | Sandmotion</title>
+  <meta name="description" content="Sandmotion's 3D Architecture Studio: photoreal interior & exterior rendering and interactive 3D walkthroughs for builders, architects and developers.">
+  <link rel="canonical" href="https://sandmotion.in/studio.html">
+  <meta name="keywords" content="3D architecture visualization, interior rendering, exterior rendering, 3D walkthrough studio, architectural rendering India, digital twin real estate">
+  <meta property="og:title" content="3D Architecture Visualization Studio | Sandmotion">
+  <meta property="og:description" content="Photoreal interior & exterior renders and interactive 3D walkthroughs — built for builders and architects who want to sell before the first brick.">
+  <meta property="og:url" content="https://sandmotion.in/studio.html">
+  <meta property="og:image" content="https://sandmotion.in/sandmotion-v1.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Sandmotion","url":"https://sandmotion.in","logo":"https://sandmotion.in/sandmotion-v1.png"}</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DYH5BFMVS0"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DYH5BFMVS0');</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script type="importmap">
+  { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+  </script>
+
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--black:#080808;--charcoal:#111113;--surface:#161618;--border:rgba(255,255,255,0.06);--white:#f5f4f0;--muted:rgba(245,244,240,0.42);--faint:rgba(245,244,240,0.15);--accent:#c9a96e;--accent-dim:rgba(201,169,110,0.18);--font-display:'Cormorant Garamond',Georgia,serif;--font-body:'Montserrat','Helvetica Neue',sans-serif;--ease:cubic-bezier(0.16,1,0.3,1)}
+    html{scroll-behavior:smooth}
+    body{background:var(--black);color:var(--white);font-family:var(--font-body);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.6}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(8,8,8,0.9) 0%,transparent 100%)}
+    .logo{font-family:var(--font-display);font-size:1.35rem;font-weight:300;letter-spacing:0.12em;color:var(--white);text-decoration:none}
+    .logo span{color:var(--accent)}
+    .nav-links{display:flex;align-items:center;gap:2rem}
+    .nav-link{font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.3s}
+    .nav-link:hover{color:var(--white)}
+    .nav-link.current{color:var(--accent)}
+
+    /* ===== STUDIO HERO (three.js) ===== */
+    .studio-hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding:10rem 2rem 6rem;text-align:center}
+    #studio-canvas{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 1.8s var(--ease)}
+    #studio-canvas.ready{opacity:1}
+    .hero-veil{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom, rgba(8,8,8,0.35) 0%, rgba(8,8,8,0.25) 40%, var(--black) 100%);pointer-events:none}
+    .studio-hero-inner{position:relative;z-index:2;max-width:920px}
+    .eyebrow{display:inline-block;font-size:0.65rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--accent);margin-bottom:1.8rem;opacity:0;animation:fadeUp 1s ease 0.2s forwards}
+    .studio-hero h1{font-family:var(--font-display);font-weight:300;font-size:clamp(2.6rem,6.2vw,5.4rem);line-height:1.08;letter-spacing:-0.01em;opacity:0;animation:fadeUp 1.3s ease 0.4s forwards}
+    .studio-hero h1 em{font-style:italic;color:var(--accent)}
+    .studio-hero .sub{margin-top:1.6rem;max-width:620px;margin-left:auto;margin-right:auto;font-size:clamp(0.95rem,1.6vw,1.15rem);color:var(--muted);line-height:1.7;font-weight:200;letter-spacing:0.02em;opacity:0;animation:fadeUp 1.1s ease 0.7s forwards}
+    .hero-cta-row{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;margin-top:2.6rem;opacity:0;animation:fadeUp 1s ease 1s forwards}
+    .coords-tag{position:absolute;bottom:2.4rem;left:50%;transform:translateX(-50%);z-index:2;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--faint);opacity:0;animation:fadeUp 1s ease 1.3s forwards}
+
+    .cta{display:inline-block;padding:1.1rem 2.6rem;font-family:var(--font-body);font-size:0.65rem;font-weight:400;letter-spacing:0.3em;text-transform:uppercase;color:var(--black);background:var(--accent);border:none;border-radius:2px;text-decoration:none;cursor:pointer;transition:background 0.4s ease,transform 0.3s ease,box-shadow 0.4s ease;box-shadow:0 0 40px rgba(201,169,110,0.2)}
+    .cta:hover{background:#dbbf82;transform:translateY(-2px);box-shadow:0 8px 50px rgba(201,169,110,0.35)}
+    .btn-ghost{display:inline-flex;align-items:center;gap:0.8rem;padding:1.1rem 2.6rem;font-family:var(--font-body);font-size:0.6rem;font-weight:400;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);background:transparent;border:1px solid rgba(201,169,110,0.35);border-radius:2px;text-decoration:none;transition:all 0.35s}
+    .btn-ghost:hover{background:var(--accent-dim);border-color:rgba(201,169,110,0.6);transform:translateY(-2px)}
+    .wa-icon{width:16px;height:16px;fill:currentColor}
+
+    /* ===== reveal system (shared) ===== */
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+    .reveal.visible{opacity:1;transform:none}
+    .delay-1{transition-delay:0.15s}
+    .delay-2{transition-delay:0.3s}
+    .delay-3{transition-delay:0.45s}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+    section{padding:8rem 2rem;position:relative}
+    .section-head{max-width:680px;margin:0 auto 5rem;text-align:center}
+    .section-head .eyebrow{margin-bottom:1.2rem}
+    .section-head h2{font-family:var(--font-display);font-weight:300;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.2}
+    .section-head h2 em{font-style:italic;color:var(--accent)}
+    .section-head p{margin-top:1.2rem;color:var(--muted);font-size:0.95rem;line-height:1.7;max-width:520px;margin-left:auto;margin-right:auto}
+
+    /* ===== SERVICES ===== */
+    .services{padding-top:6rem;border-top:1px solid var(--border)}
+    .services-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+    .service-card{background:var(--charcoal);padding:3.4rem 2.4rem;transition:background 0.5s ease}
+    .service-card:hover{background:#18181b}
+    .service-index{font-family:var(--font-display);font-style:italic;color:var(--accent);font-size:0.95rem;margin-bottom:1.6rem}
+    .service-card h3{font-family:var(--font-display);font-weight:400;font-size:1.55rem;margin-bottom:0.9rem}
+    .service-card p{color:var(--muted);font-size:0.88rem;line-height:1.8;margin-bottom:1.4rem}
+    .service-tags{display:flex;flex-wrap:wrap;gap:0.5rem}
+    .service-tag{font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(201,169,110,0.25);padding:0.35rem 0.7rem;border-radius:20px}
+
+    /* ===== PORTFOLIO ===== */
+    .portfolio{border-top:1px solid var(--border)}
+    .portfolio-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem}
+    .project-card{position:relative;border-radius:6px;overflow:hidden;border:1px solid var(--border);aspect-ratio:4/5;cursor:pointer;transition:transform 0.5s var(--ease),border-color 0.5s ease}
+    .project-card:hover{transform:translateY(-6px);border-color:rgba(201,169,110,0.3)}
+    .project-thumb{position:absolute;inset:0;overflow:hidden;backgrounFd:#0c0c0d}
+    .project-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s var(--ease)}
+    .project-card:hover .project-thumb img{transform:scale(1.05)}
+    .project-info{position:absolute;left:0;right:0;bottom:0;padding:1.6rem 1.6rem 1.4rem;background:linear-gradient(to top, rgba(0,0,0,0.85), transparent)}
+    .project-cat{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.4rem}
+    .project-info h4{font-family:var(--font-display);font-weight:400;font-size:1.25rem}
+
+    /* ===== PROCESS ===== */
+    .process{border-top:1px solid var(--border)}
+    .process-grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2.5rem}
+    .process-step{text-align:center}
+    .process-num{font-family:var(--font-display);font-style:italic;font-size:2.2rem;color:var(--accent);margin-bottom:1rem}
+    .process-step h4{font-family:var(--font-body);font-weight:500;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.7rem}
+    .process-step p{font-size:0.82rem;color:var(--muted);line-height:1.7}
+
+    /* ===== WHY / PROMISES ===== */
+    .promises{border-top:1px solid var(--border)}
+    .promises-grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border:1px solid var(--border)}
+    .promise{background:var(--charcoal);padding:2.6rem 2rem;text-align:center}
+    .promise-mark{font-family:var(--font-display);font-style:italic;color:var(--accent);font-size:1.5rem;margin-bottom:0.8rem}
+    .promise h4{font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.6rem}
+    .promise p{font-size:0.82rem;color:var(--muted);line-height:1.7}
+
+    /* ===== QUOTE FORM ===== */
+    .quote-section{border-top:1px solid var(--border);display:flex;flex-direction:column;align-items:center}
+    .form-container{background:var(--surface);border:1px solid rgba(201,169,110,0.15);border-radius:8px;padding:3rem;width:100%;max-width:640px;box-shadow:0 30px 60px rgba(0,0,0,0.6)}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+    .form-group{margin-bottom:1.8rem}
+    .form-group label{display:block;margin-bottom:0.6rem;color:rgba(245,244,240,0.8);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase}
+    .form-group input,.form-group select{width:100%;padding:1rem;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.08);border-radius:4px;color:var(--white);font-family:var(--font-body);font-size:0.9rem;transition:all 0.3s ease}
+    .form-group input:focus,.form-group select:focus{outline:none;border-color:var(--accent);background:rgba(0,0,0,0.7)}
+    .form-group input[type="file"]{padding:0.8rem;cursor:pointer;color:var(--muted);font-size:0.85rem}
+    .file-hint{font-size:0.65rem;color:rgba(255,255,255,0.3);margin-top:0.6rem;display:block}
+    .submit-btn{width:100%;padding:1.2rem;background:var(--accent);color:var(--black);border:none;border-radius:4px;font-family:var(--font-body);font-size:0.75rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;transition:all 0.3s ease;margin-top:0.4rem}
+    .submit-btn:hover{background:#dbbf82;box-shadow:0 0 30px rgba(201,169,110,0.25);transform:translateY(-2px)}
+    .disclaimer{margin-top:2rem;font-size:0.65rem;color:rgba(255,255,255,0.3);text-align:center;line-height:1.6}
+
+    footer{padding:4rem 2rem 3rem;border-top:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:1.8rem;text-align:center}
+    .footer-logo{font-family:var(--font-display);font-size:1.1rem;font-weight:300;letter-spacing:0.14em;color:var(--muted)}
+    .footer-logo span{color:var(--accent)}
+    .footer-trust{font-size:0.56rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--faint)}
+    .footer-copy{font-size:0.5rem;letter-spacing:0.14em;color:rgba(240,237,232,0.15);margin-top:0.5rem}
+
+    @media(max-width:900px){
+      .services-grid,.portfolio-grid,.promises-grid{grid-template-columns:1fr}
+      .process-grid{grid-template-columns:1fr 1fr;row-gap:2.6rem}
+      .form-row{grid-template-columns:1fr}
+    }
+    @media(max-width:768px){
+      nav{padding:1.5rem 1.8rem}
+      .logo{font-size:1.1rem}
+      .nav-link:not(.current){display:none}
+      section{padding:5.5rem 1.5rem}
+      .form-container{padding:2rem 1.5rem}
+      .process-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">Sand<span>motion</span></a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="blog/" class="nav-link">Blog</a>
+      <a href="studio.html" class="nav-link current">Studio</a>
+      <a href="https://app.sandmotion.in/" class="nav-link">Experience →</a>
+    </div>
+  </nav>
+
+  <section class="studio-hero">
+    <canvas id="studio-canvas"></canvas>
+    <div class="hero-veil"></div>
+    <div class="studio-hero-inner">
+      <span class="eyebrow">Sandmotion Studio</span>
+      <h1>3D Architecture<br>Visualization &amp; <em>Walkthrough</em> Studio</h1>
+      <p class="sub">Photoreal interior and exterior rendering, plus interactive 3D walkthroughs that let your buyers step inside a home before the first brick is laid.</p>
+      <div class="hero-cta-row">
+        <a href="#quote" class="cta">Get a Free Render Quote</a>
+        <a href="#portfolio" class="btn-ghost">See Our Work</a>
+      </div>
+    </div>
+    <div class="coords-tag">Interior · Exterior · Walkthrough</div>
+  </section>
+
+  <section class="services reveal">
+    <div class="section-head">
+      <span class="eyebrow">What We Build</span>
+      <h2>Three ways to <em>sell the unbuilt</em></h2>
+      <p>Every project starts the same way your floor plan or CAD file and becomes exactly the visual asset your sales team needs.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal delay-1">
+        <div class="service-index">01</div>
+        <h3>Interior Rendering</h3>
+        <p>Photoreal renders of every room — living areas, kitchens, bedrooms, bathrooms — with accurate materials, furniture layouts, and lighting that sells the lifestyle, not just the layout.</p>
+        <div class="service-tags"><span class="service-tag">Living Spaces</span><span class="service-tag">Material Studies</span><span class="service-tag">Mood Lighting</span></div>
+      </div>
+      <div class="service-card reveal delay-2">
+        <div class="service-index">02</div>
+        <h3>Exterior Rendering</h3>
+        <p>Facade, landscape, and elevation renders that show your project in its real setting — day and dusk lighting, correct massing, and context that matches the actual site.</p>
+        <div class="service-tags"><span class="service-tag">Facade</span><span class="service-tag">Landscape</span><span class="service-tag">Site Context</span></div>
+      </div>
+      <div class="service-card reveal delay-3">
+        <div class="service-index">03</div>
+        <h3>3D Walkthrough</h3>
+        <p>A fully interactive walkthrough of the unit or project — buyers walk the space themselves, on any phone, in seconds, no app or headset required.</p>
+        <div class="service-tags"><span class="service-tag">Web-Based</span><span class="service-tag">Any Device</span><span class="service-tag">Instant Load</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="portfolio reveal">
+    <div class="section-head">
+      <span class="eyebrow">Selected Work</span>
+      <h2>A studio built for <em>architecture</em></h2>
+      <p>A sample of the categories of projects we visualize  from single sample flats to full facade studies.</p>
+    </div>
+    <div class="portfolio-grid">
+      <div class="project-card reveal delay-1" onclick="openModal('baloconysm.png')">
+        <div class="project-thumb"><img src="baloconysm.png" alt="Feeling the light — interior walkthrough" loading="lazy"></div>
+        <div class="project-info"><div class="project-cat">3D Walkthrough</div><h4>Feeling The Light</h4></div>
+      </div>
+      <div class="project-card reveal delay-2" onclick="openModal('interiorsm.png')">
+        <div class="project-thumb"><img src="interiorsm.png" alt="Walking the space — interior walkthrough" loading="lazy"></div>
+        <div class="project-info"><div class="project-cat">3D Walkthrough</div><h4>Walking The Space</h4></div>
+      </div>
+      <div class="project-card reveal delay-3" onclick="openModal('exteriro sm.png')">
+        <div class="project-thumb"><img src="exteriro sm.png" alt="Imagine life inside — interior walkthrough" loading="lazy"></div>
+        <div class="project-info"><div class="project-cat">3D Walkthrough</div><h4>Imagine Life Inside</h4></div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:2.5rem;font-size:0.75rem;color:var(--faint);letter-spacing:0.05em;">Have an interior render, exterior render, or a finished walkthrough of your own? <a href="#quote" style="color:var(--accent);text-decoration:none;">Send it our way</a> and we'll feature it here.</p>
+  </section>
+
+  <div id="studioImageModal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;cursor:zoom-out;" onclick="closeModal()">
+    <img id="studioModalImg" src="" alt="" style="max-width:90vw;max-height:88vh;border-radius:6px;box-shadow:0 30px 80px rgba(0,0,0,0.6);">
+  </div>
+  <script>
+    function openModal(src){ document.getElementById('studioModalImg').src = src; document.getElementById('studioImageModal').style.display = 'flex'; }
+    function closeModal(){ document.getElementById('studioImageModal').style.display = 'none'; }
+  </script>
+
+  <section class="process reveal">
+    <div class="section-head">
+      <span class="eyebrow">How It Works</span>
+      <h2>From plan to <em>walkthrough</em></h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step reveal delay-1">
+        <div class="process-num">01</div>
+        <h4>Share Your Plan</h4>
+        <p>Send your 2D floor plan, CAD, or elevation drawing — DWG, PDF, or JPG all work.</p>
+      </div>
+      <div class="process-step reveal delay-2">
+        <div class="process-num">02</div>
+        <h4>We Model in 3D</h4>
+        <p>Our studio builds an accurate 3D model with real materials, lighting, and finishes.</p>
+      </div>
+      <div class="process-step reveal delay-3">
+        <div class="process-num">03</div>
+        <h4>Review &amp; Refine</h4>
+        <p>You review renders or the walkthrough and request adjustments before final delivery.</p>
+      </div>
+      <div class="process-step reveal delay-3">
+        <div class="process-num">04</div>
+        <h4>Delivered</h4>
+        <p>Final renders or a shareable walkthrough link, ready to send to any buyer, on any device.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="promises reveal">
+    <div class="section-head">
+      <span class="eyebrow">Why Sandmotion Studio</span>
+      <h2>Built for <em>builders</em>, not just artists</h2>
+    </div>
+    <div class="promises-grid">
+      <div class="promise reveal delay-1">
+        <div class="promise-mark">✦</div>
+        <h4>No App, No Headset</h4>
+        <p>Every walkthrough runs in a browser — buyers just tap a link, on the phone they already have.</p>
+      </div>
+      <div class="promise reveal delay-2">
+        <div class="promise-mark">✦</div>
+        <h4>Real Materials, Real Light</h4>
+        <p>Renders use accurate finishes and daylight studies, not generic stock textures.</p>
+      </div>
+      <div class="promise reveal delay-3">
+        <div class="promise-mark">✦</div>
+        <h4>One Studio, Full Package</h4>
+        <p>Interior, exterior, and walkthrough — from one team, so everything matches.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="quote" class="quote-section reveal">
+    <div class="section-head" style="margin-bottom:3rem">
+      <span class="eyebrow">Start A Project</span>
+      <h2>Get a Free <em>Render Quote</em></h2>
+      <p>Tell us what you need  interior, exterior, or a full walkthrough  and share your plan. We'll come back with a scope and timeline.</p>
+    </div>
+    <div class="form-container">
+      <form id="studioQuoteForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="qFullName">Full Name *</label>
+            <input type="text" id="qFullName" name="fullName" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group">
+            <label for="qWhatsapp">WhatsApp Number *</label>
+            <input type="tel" id="qWhatsapp" name="whatsapp" placeholder="+91 00000 00000" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="qCompany">Company / Firm Name</label>
+            <input type="text" id="qCompany" name="company" placeholder="Optional">
+          </div>
+          <div class="form-group">
+            <label for="qProjectType">Project Type *</label>
+            <select id="qProjectType" name="projectType" required>
+              <option value="">Select one</option>
+              <option value="Interior Rendering">Interior Rendering</option>
+              <option value="Exterior Rendering">Exterior Rendering</option>
+              <option value="3D Walkthrough">3D Walkthrough</option>
+              <option value="Full Package">Full Package (Interior + Exterior + Walkthrough)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="qFile">Upload Your Floor Plan / CAD (Optional)</label>
+          <input type="file" id="qFile" name="file" accept=".pdf,.jpg,.jpeg,.png,.dwg,.dxf">
+          <span class="file-hint">Accepted formats: .DWG, .PDF, .JPG. Maximum file size: 25MB.</span>
+        </div>
+        <button type="submit" class="submit-btn" id="qSubmitBtn">REQUEST FREE QUOTE</button>
+        <p class="disclaimer"><strong>Note:</strong> Quotes are typically shared within 1–2 business days. Free first-floor demo is limited to 1,500 sq. ft.</p>
+      </form>
+    </div>
+    <div style="margin-top:3.5rem">
+      <a class="btn-ghost" href="https://wa.me/918208072906" target="_blank">
+        <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zm-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884zm8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp Us Directly
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Sand<span>motion</span></div>
+    <p class="footer-trust" style="color: #464545; font-weight: 500;">Trusted by visionary builders in Pune · Mumbai · Banglore · Dubai</p>
+    <p class="footer-copy" style="color: #949393; font-weight: 400;">© 2026 Sandmotion. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby24AlfWyjhqxkxDkAg5jnMF2MqXXsyamrMiJzrFR8d8HPUXKh_Z7YqS5l9zPjC-MU0/exec";
+    document.getElementById('studioQuoteForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('qSubmitBtn');
+      const fileInput = document.getElementById('qFile');
+      const hasFile = fileInput.files && fileInput.files[0];
+      if (hasFile && fileInput.files[0].size > 25 * 1024 * 1024) { alert("File too large (Max 25MB)."); return; }
+      btn.innerText = "SENDING REQUEST...";
+      btn.disabled = true;
+
+      function sendPayload(fileData, fileName) {
+    const pType = document.getElementById('qProjectType').value;
+    alert("Sending this Project Type: " + pType); // Add this line to see if it is empty
+
+    const payload = {
+        fullName: document.getElementById('qFullName').value,
+        whatsapp: document.getElementById('qWhatsapp').value,
+        company: document.getElementById('qCompany').value,
+        projectType: pType,
+        file: fileData || "",
+        fileName: fileName || ""
+    };
+        fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
+          .then(() => {
+            alert("Success! Your request has been received. We will contact you shortly.");
+            document.getElementById('studioQuoteForm').reset();
+            btn.innerText = "REQUEST FREE QUOTE";
+            btn.disabled = false;
+          })
+          .catch(err => { alert("Error: " + err); btn.disabled = false; });
+      }
+
+      if (hasFile) {
+        const reader = new FileReader();
+        reader.readAsDataURL(fileInput.files[0]);
+        reader.onload = function() { sendPayload(reader.result, fileInput.files[0].name); };
+      } else {
+        sendPayload();
+      }
+    });
+  </script>
+
+  <script type="module">
+    import * as THREE from "three";
+
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const canvas = document.getElementById('studio-canvas');
+    const heroSection = document.querySelector('.studio-hero');
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    function sizeToHero(){ renderer.setSize(heroSection.clientWidth, heroSection.clientHeight); }
+    sizeToHero();
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x080808, 0.05);
+
+    const camera = new THREE.PerspectiveCamera(42, heroSection.clientWidth / heroSection.clientHeight, 0.1, 200);
+    const target = new THREE.Vector3(0.2, 1.4, 0);
+    let camAngle = 0.7, camRadius = 11, camHeight = 3.0;
+
+    /* ---- gold wireframe architectural massing ---- */
+    const boxSpecs = [
+      { pos:[0,0.12,0],       size:[8.4,0.24,5.6] },
+      { pos:[-0.9,1.5,-0.4],  size:[6.0,2.4,4.0]  },
+      { pos:[2.5,1.8,1.2],    size:[3.6,1.6,2.4]  },
+      { pos:[-3.2,1.2,2.3],   size:[0.22,2.0,2.7] },
+      { pos:[3.3,3.0,-0.9],   size:[0.9,2.2,0.9]  },
+      { pos:[-0.9,2.75,-0.4], size:[6.6,0.14,4.4] },
+    ];
+    let edgeArr = [];
+    boxSpecs.forEach(b=>{
+      const geo = new THREE.BoxGeometry(...b.size);
+      geo.translate(...b.pos);
+      const edges = new THREE.EdgesGeometry(geo);
+      edgeArr.push(...edges.getAttribute('position').array);
+    });
+    edgeArr = new Float32Array(edgeArr);
+
+    const lineGeo = new THREE.BufferGeometry();
+    lineGeo.setAttribute('position', new THREE.BufferAttribute(edgeArr, 3));
+    const lineMat = new THREE.LineBasicMaterial({ color: 0xc9a96e, transparent: true, opacity: 0 });
+    const wireframe = new THREE.LineSegments(lineGeo, lineMat);
+    scene.add(wireframe);
+
+    const villaTargets = [];
+    for (let i = 0; i < edgeArr.length; i += 6) {
+      const ax=edgeArr[i], ay=edgeArr[i+1], az=edgeArr[i+2];
+      const bx=edgeArr[i+3], by=edgeArr[i+4], bz=edgeArr[i+5];
+      [0,0.25,0.5,0.75,1].forEach(t=>{
+        villaTargets.push(ax+(bx-ax)*t, ay+(by-ay)*t, az+(bz-az)*t);
+      });
+    }
+
+    const AMBIENT_COUNT = isMobile ? 260 : 500;
+    const villaCount = villaTargets.length/3;
+    const totalCount = villaCount + AMBIENT_COUNT;
+
+    const positions = new Float32Array(totalCount*3);
+    const initP = new Float32Array(totalCount*3);
+    const targetP = new Float32Array(totalCount*3);
+    const phase = new Float32Array(totalCount);
+    const isVilla = new Uint8Array(totalCount);
+
+    for (let i=0;i<villaCount;i++){
+      const r = 6 + Math.random()*9;
+      const theta = Math.random()*Math.PI*2;
+      const phi = Math.random()*Math.PI;
+      initP[i*3]   = r*Math.sin(phi)*Math.cos(theta);
+      initP[i*3+1] = 1.4 + r*Math.cos(phi)*0.55;
+      initP[i*3+2] = r*Math.sin(phi)*Math.sin(theta);
+      targetP[i*3]=villaTargets[i*3]; targetP[i*3+1]=villaTargets[i*3+1]; targetP[i*3+2]=villaTargets[i*3+2];
+      phase[i]=Math.random()*Math.PI*2; isVilla[i]=1;
+    }
+    for (let j=0;j<AMBIENT_COUNT;j++){
+      const i = villaCount+j;
+      const r = 12 + Math.random()*18, th = Math.random()*Math.PI*2;
+      const x = Math.cos(th)*r, z = Math.sin(th)*r, y = Math.random()*0.5;
+      initP[i*3]=x; initP[i*3+1]=y; initP[i*3+2]=z;
+      targetP[i*3]=x; targetP[i*3+1]=y; targetP[i*3+2]=z;
+      phase[i]=Math.random()*Math.PI*2; isVilla[i]=0;
+    }
+    positions.set(initP);
+
+    const particleGeo = new THREE.BufferGeometry();
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const particleMat = new THREE.PointsMaterial({
+      color: 0xe8c77a, size: 0.045, transparent: true, opacity: 0.85,
+      blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true
+    });
+    const points = new THREE.Points(particleGeo, particleMat);
+    scene.add(points);
+
+    const grid = new THREE.GridHelper(50, 34, 0x2a2620, 0x141312);
+    scene.add(grid);
+
+    let mouseX = 0, mouseY = 0;
+    heroSection.addEventListener('mousemove', (e)=>{
+      const r = heroSection.getBoundingClientRect();
+      mouseX = ((e.clientX - r.left)/r.width - 0.5);
+      mouseY = ((e.clientY - r.top)/r.height - 0.5);
+    });
+
+    window.addEventListener('resize', ()=>{
+      camera.aspect = heroSection.clientWidth / heroSection.clientHeight;
+      camera.updateProjectionMatrix();
+      sizeToHero();
+    });
+
+    const clock = new THREE.Clock();
+    const CONVERGE_DURATION = 2.4;
+    function easeOutCubic(t){ return 1 - Math.pow(1-t,3); }
+
+    function animate(){
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+      const rawProgress = Math.min(t/CONVERGE_DURATION, 1);
+      const posAttr = particleGeo.getAttribute('position');
+
+      for (let i=0;i<totalCount;i++){
+        const ix=i*3, iy=i*3+1, iz=i*3+2;
+        if (isVilla[i]){
+          const staggered = Math.min(Math.max((rawProgress*1.3) - (phase[i]/(Math.PI*2))*0.25, 0), 1);
+          const e = easeOutCubic(staggered);
+          let x = initP[ix] + (targetP[ix]-initP[ix])*e;
+          let y = initP[iy] + (targetP[iy]-initP[iy])*e;
+          let z = initP[iz] + (targetP[iz]-initP[iz])*e;
+          if (staggered>=1){
+            x += Math.sin(t*0.8+phase[i])*0.006;
+            y += Math.cos(t*0.6+phase[i])*0.006;
+          }
+          posAttr.array[ix]=x; posAttr.array[iy]=y; posAttr.array[iz]=z;
+        } else {
+          posAttr.array[ix] = initP[ix] + Math.sin(t*0.15+phase[i])*0.15;
+          posAttr.array[iy] = Math.max(0, initP[iy] + Math.sin(t*0.3+phase[i])*0.08);
+          posAttr.array[iz] = initP[iz] + Math.cos(t*0.15+phase[i])*0.15;
+        }
+      }
+      posAttr.needsUpdate = true;
+
+      const eased = easeOutCubic(rawProgress);
+      lineMat.opacity = Math.max(0, (eased - 0.55) / 0.45) * 0.55;
+
+      camAngle += 0.0007;
+      camera.position.x = target.x + Math.cos(camAngle)*camRadius + mouseX*1.0;
+      camera.position.z = target.z + Math.sin(camAngle)*camRadius;
+      camera.position.y = camHeight + mouseY*0.5;
+      camera.lookAt(target);
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    requestAnimationFrame(()=> canvas.classList.add('ready'));
+  </script>
+
+</body>
+</html>
