@@ -78,6 +78,57 @@
     .btn-ghost{display:inline-flex;align-items:center;gap:0.8rem;padding:1.1rem 3rem;font-family:var(--font-body);font-size:0.6rem;font-weight:400;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);background:transparent;border:1px solid rgba(201,169,110,0.35);border-radius:2px;text-decoration:none;transition:all 0.35s}
     .btn-ghost:hover{background:var(--accent-dim);border-color:rgba(201,169,110,0.6);transform:translateY(-2px)}
     .wa-icon{width:16px;height:16px;fill:currentColor}
+    .trust-bar{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:2.5rem;padding:1.8rem 2rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .trust-item{display:flex;align-items:center;gap:0.6rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)}
+    .trust-item svg{width:15px;height:15px;stroke:var(--accent);flex-shrink:0}
+    .section-eyebrow{font-size:0.65rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;text-align:center}
+    .section-heading{font-family:var(--font-display);font-size:clamp(1.9rem,4.5vw,3rem);font-weight:300;text-align:center;line-height:1.2;margin-bottom:1rem}
+    .section-heading em{font-style:italic;color:var(--accent)}
+    .section-sub{text-align:center;color:var(--muted);max-width:560px;margin:0 auto 4.5rem;font-size:0.95rem;line-height:1.7}
+    .how-it-works{padding:8rem 2rem 6rem;max-width:1100px;margin:0 auto}
+    .step-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3rem}
+    .step-card{position:relative;padding:2.5rem 2rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;transition:border-color 0.4s ease,transform 0.4s ease}
+    .step-card:hover{border-color:rgba(201,169,110,0.3);transform:translateY(-6px)}
+    .step-num{font-family:var(--font-display);font-size:2.2rem;color:var(--accent);opacity:0.5;margin-bottom:1.2rem}
+    .step-card h3{font-family:var(--font-body);font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;font-weight:500;margin-bottom:0.9rem;color:var(--white)}
+    .step-card p{font-size:0.85rem;line-height:1.7;color:var(--muted)}
+    .benefits{padding:6rem 2rem 8rem;max-width:1100px;margin:0 auto}
+    .benefit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+    .benefit-card{display:flex;gap:1.2rem;padding:2rem;background:transparent;border:1px solid var(--border);border-radius:8px;transition:background 0.4s ease}
+    .benefit-card:hover{background:rgba(255,255,255,0.02)}
+    .benefit-icon{width:42px;height:42px;flex-shrink:0;border-radius:50%;background:var(--accent-dim);display:flex;align-items:center;justify-content:center}
+    .benefit-icon svg{width:20px;height:20px;stroke:var(--accent)}
+    .benefit-card h3{font-size:0.85rem;letter-spacing:0.05em;text-transform:uppercase;font-weight:500;margin-bottom:0.5rem;color:var(--white)}
+    .benefit-card p{font-size:0.85rem;line-height:1.65;color:var(--muted)}
+    .form-group textarea{width:100%;padding:1rem;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.08);border-radius:4px;color:var(--white);font-family:var(--font-body);font-size:0.9rem;resize:vertical;min-height:90px;transition:all 0.3s ease}
+    .form-group textarea:focus{outline:none;border-color:var(--accent);background:rgba(0,0,0,0.7)}
+    .form-success{display:none;text-align:center;padding:2.5rem 1rem}
+    .form-success svg{width:48px;height:48px;stroke:var(--accent);margin-bottom:1.2rem}
+    .form-success h3{font-family:var(--font-display);font-size:1.6rem;font-weight:300;margin-bottom:0.8rem}
+    .form-success p{color:var(--muted);font-size:0.9rem;line-height:1.6}
+    .field-error{color:#e08585;font-size:0.68rem;margin-top:0.5rem;display:none;letter-spacing:0.03em}
+    .form-group.invalid input{border-color:#e08585}
+    .form-group.invalid .field-error{display:block}
+    .faq-section{padding:6rem 2rem 9rem;max-width:760px;margin:0 auto}
+    .faq-item{border-bottom:1px solid var(--border)}
+    .faq-question{width:100%;background:none;border:none;color:var(--white);font-family:var(--font-body);font-size:0.9rem;letter-spacing:0.02em;text-align:left;padding:1.6rem 0;display:flex;justify-content:space-between;align-items:center;gap:1.5rem;cursor:pointer}
+    .faq-question .plus{font-size:1.3rem;color:var(--accent);transition:transform 0.35s ease;flex-shrink:0}
+    .faq-item.open .faq-question .plus{transform:rotate(45deg)}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height 0.4s var(--ease)}
+    .faq-answer p{padding-bottom:1.6rem;color:var(--muted);font-size:0.85rem;line-height:1.75;max-width:640px}
+    .floating-wa{position:fixed;bottom:1.8rem;right:1.8rem;z-index:500;width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,0.5),0 0 25px rgba(201,169,110,0.25);text-decoration:none;transition:transform 0.3s ease}
+    .floating-wa:hover{transform:scale(1.08)}
+    .floating-wa svg{width:26px;height:26px;fill:var(--black)}
+    .footer-contact{display:flex;flex-wrap:wrap;justify-content:center;gap:2rem;font-size:0.72rem;letter-spacing:0.08em;color:var(--muted)}
+    .footer-contact a{color:var(--muted);text-decoration:none;transition:color 0.3s}
+    .footer-contact a:hover{color:var(--accent)}
+    @media(max-width:768px){
+      .step-grid{grid-template-columns:1fr;gap:1.5rem}
+      .benefit-grid{grid-template-columns:1fr}
+      .trust-bar{gap:1.2rem 1.8rem;padding:1.4rem 1.2rem}
+      .how-it-works,.benefits,.faq-section{padding-left:1.5rem;padding-right:1.5rem}
+      .floating-wa{width:50px;height:50px;bottom:1.2rem;right:1.2rem}
+    }
     footer{padding:4rem 2rem 3rem;border-top:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:1.8rem;text-align:center}
     .footer-logo{font-family:var(--font-display);font-size:1.1rem;font-weight:300;letter-spacing:0.14em;color:var(--muted)}
     .footer-logo span{color:var(--accent)}
@@ -137,7 +188,7 @@
         </div>
       </div>
       <div class="hero-text-container">
-        <h1>Digital sample Flat<br>Walk Your <em>Home</em><br>Before It's Built.</h1>
+        <h1>Digital Sample Flat<br>Walk Your <em>Home</em><br>Before It's Built.</h1>
         <p class="hero-tagline"><a href="https://www.youtube.com/@sandmotion_global" target="_blank" style="text-decoration:none;color:inherit">2D Floor Plan → Interactive Home</a></p>
         <a href="#free-plan" class="hero-free-link">Get First Floor Plan Free ↓</a>
         <div class="cta-wrap">
@@ -146,26 +197,77 @@
       </div>
     </div>
   </section>
+  <div class="trust-bar reveal">
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z"/></svg>No App Required</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Delivered in 3–5 Days</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 18h6"/></svg>Works on Any Phone</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>Trusted in Pune · Mumbai · Bangalore · Dubai</div>
+  </div>
   <section class="manifesto">
     <p class="reveal">For too long we accepted something strange.</p>
     <p class="reveal delay-1">We built <em>beautiful homes…</em> then sent buyers a heavy PDF.</p>
     <p class="reveal delay-2">Now buyers walk inside in just 2 seconds.<br>No app. No waiting. Any phone. Anywhere.</p>
     <p class="reveal delay-3"><strong>This is Sandmotion.</strong></p>
   </section>
+  <section class="how-it-works">
+    <p class="section-eyebrow reveal">The Process</p>
+    <h2 class="section-heading reveal">From Floor Plan to <em>Walkthrough</em></h2>
+    <p class="section-sub reveal">No design software, no site visits, no waiting weeks. Three steps and your buyers are walking the space.</p>
+    <div class="step-grid">
+      <div class="step-card reveal delay-1">
+        <div class="step-num">01</div>
+        <h3>Share Your Floor Plan</h3>
+        <p>Upload your 2D CAD, PDF or DWG file through the form below, or send it to us directly on WhatsApp.</p>
+      </div>
+      <div class="step-card reveal delay-2">
+        <div class="step-num">02</div>
+        <h3>We Build the 3D Space</h3>
+        <p>Our team models an interactive, true-to-scale version of the layout, complete with lighting, materials and depth.</p>
+      </div>
+      <div class="step-card reveal delay-3">
+        <div class="step-num">03</div>
+        <h3>Buyers Walk Right In</h3>
+        <p>Share a single link. It opens instantly in any browser, on any phone, no app or download needed.</p>
+      </div>
+    </div>
+  </section>
   <section class="proof reveal">
     <p class="proof-title">How it feels</p>
     <div class="proof-row">
       <div class="proof-card reveal delay-1" onclick="openModal('image_1.gif')">
-        <div class="s-phone"><img src="image_1.gif" alt="Feeling the light"></div>
+        <div class="s-phone"><img src="image_1.gif" alt="Feeling the light" loading="lazy"></div>
         <p class="proof-caption">Feel the light<br>change with the sun</p>
       </div>
       <div class="proof-card featured reveal delay-2" onclick="openModal('image_2.gif')">
-        <div class="s-phone"><img src="image_2.gif" alt="Walking the space"></div>
+        <div class="s-phone"><img src="image_2.gif" alt="Walking the space" loading="lazy"></div>
         <p class="proof-caption">Walk the space<br>like it's already yours</p>
       </div>
       <div class="proof-card reveal delay-3" onclick="openModal('image_3.gif')">
-        <div class="s-phone"><img src="image_3.gif" alt="Imagine life inside"></div>
+        <div class="s-phone"><img src="image_3.gif" alt="Imagine life inside" loading="lazy"></div>
         <p class="proof-caption">Imagine your life<br>inside</p>
+      </div>
+    </div>
+  </section>
+  <section class="benefits">
+    <p class="section-eyebrow reveal">Why Builders Choose Us</p>
+    <h2 class="section-heading reveal">Sell the <em>Feeling</em>, Not the Blueprint</h2>
+    <p class="section-sub reveal">A digital sample flat replaces guesswork with confidence, for you and your buyer.</p>
+    <div class="benefit-grid">
+      <div class="benefit-card reveal delay-1">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg></div>
+        <div><h3>Faster Buyer Decisions</h3><p>Buyers who can walk a space before it's built commit sooner, with fewer site visits and repeat questions.</p></div>
+      </div>
+      <div class="benefit-card reveal delay-2">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 18h6"/></svg></div>
+        <div><h3>Zero App, Zero Friction</h3><p>One link, opens in any mobile or desktop browser. No installs, no logins, nothing for your buyer to figure out.</p></div>
+      </div>
+      <div class="benefit-card reveal delay-1">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <div><h3>Sell Off-Plan With Confidence</h3><p>Show a true-to-scale interactive space instead of a flat brochure render, months before possession.</p></div>
+      </div>
+      <div class="benefit-card reveal delay-2">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9c.14.6.62 1.05 1.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
+        <div><h3>Your Plan, Handled with Care</h3><p>Files are used only to build your walkthrough and are never shared with third parties.</p></div>
       </div>
     </div>
   </section>
@@ -173,14 +275,16 @@
     <h2>Get Your First 3D Interactive floor Plan <br><em>link Absolutely Free</em></h2>
     <p class="free-plan-desc">Experience the quality of our 3D walkthroughs before you commit. Upload your 2D CAD or PDF, DWG, DWF file and we will visualize your first floor at zero cost.</p>
     <div class="form-container">
-      <form id="freeFloorPlanForm">
+      <form id="freeFloorPlanForm" novalidate>
         <div class="form-group">
           <label for="fullName">Full Name *</label>
           <input type="text" id="fullName" name="fullName" placeholder="Enter your name" required>
+          <span class="field-error">Please enter your name.</span>
         </div>
         <div class="form-group">
           <label for="whatsappNumber">WhatsApp Number *</label>
           <input type="tel" id="whatsappNumber" name="whatsappNumber" placeholder="+91 00000 00000" required>
+          <span class="field-error">Please enter a valid WhatsApp number.</span>
         </div>
         <div class="form-group">
           <label for="companyName">Company / Firm Name (Optional)</label>
@@ -190,10 +294,16 @@
           <label for="floorPlanFile">Upload Your First Floor Plan *</label>
           <input type="file" id="floorPlanFile" name="floorPlanFile" accept=".pdf,.jpg,.jpeg,.png,.dwg,.dxf" required>
           <span class="file-hint">Accepted formats: .DWG, .PDF, .JPG. Maximum file size: 25MB.</span>
+          <span class="field-error">Please attach your floor plan (max 25MB).</span>
         </div>
         <button type="submit" class="submit-btn" id="submitBtn">UPLOAD FLOOR PLAN & CLAIM FREE DEMO</button>
         <p class="disclaimer"><strong>Note:</strong> The free first-floor demo is limited to a maximum of 1,500 sq. ft. and applies to residential or standard commercial layouts. Delivery time is 3 to 5 business days.</p>
       </form>
+      <div class="form-success" id="formSuccess">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5L16 9"/></svg>
+        <h3>Your Plan Is In</h3>
+        <p>Thank you — we've received your floor plan and will be in touch on WhatsApp within one business day with your free 3D walkthrough.</p>
+      </div>
     </div>
     <div style="margin-top:3.5rem">
       <a class="btn-ghost" href="https://wa.me/918208072906" target="_blank">
@@ -202,9 +312,47 @@
       </a>
     </div>
   </section>
+  <section class="faq-section">
+    <p class="section-eyebrow reveal">Common Questions</p>
+    <h2 class="section-heading reveal">Frequently Asked</h2>
+    <p class="section-sub reveal">Everything builders and architects usually ask before their first project.</p>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-question" type="button">What file formats do you accept?<span class="plus">+</span></button>
+        <div class="faq-answer"><p>We work with 2D CAD files, PDF, DWG and DXF formats. If your plan is in a different format, send it to us on WhatsApp and we'll confirm compatibility before you upload.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" type="button">Is the first floor plan really free?<span class="plus">+</span></button>
+        <div class="faq-answer"><p>Yes. Your first floor plan, up to 1,500 sq. ft., is converted into an interactive 3D walkthrough at no cost, so you can see the quality before committing to a full project.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" type="button">What happens after the free demo?<span class="plus">+</span></button>
+        <div class="faq-answer"><p>Once you've reviewed your free walkthrough, we'll share pricing for additional units, floors or full projects based on your scope. There's no obligation to continue.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" type="button">Do buyers need to download an app?<span class="plus">+</span></button>
+        <div class="faq-answer"><p>No. Every walkthrough runs as a link that opens directly in a mobile or desktop browser, so buyers can explore the space in seconds from anywhere.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" type="button">How long does delivery take?<span class="plus">+</span></button>
+        <div class="faq-answer"><p>The free first-floor demo is typically delivered within 3 to 5 business days of receiving your file. Larger projects are scoped and timelined individually.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" type="button">Is my floor plan kept confidential?<span class="plus">+</span></button>
+        <div class="faq-answer"><p>Yes. Your files are used solely to build your walkthrough and are never shared with, or sold to, any third party.</p></div>
+      </div>
+    </div>
+  </section>
+  <a class="floating-wa" href="https://wa.me/918208072906" target="_blank" aria-label="Chat with us on WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zm-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884zm8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
   <footer>
   <div class="footer-logo">Sand<span>motion</span></div>
-<p class="footer-trust" style="color: #464545; font-weight: 500;">Trusted by visionary builders in Pune · Mumbai · Banglore · Dubai</p>
+  <div class="footer-contact">
+    <a href="https://wa.me/918208072906" target="_blank">WhatsApp: +91 82080 72906</a>
+    <a href="mailto:hello@sandmotion.in">hello@sandmotion.in</a>
+  </div>
+<p class="footer-trust" style="color: #464545; font-weight: 500;">Trusted by visionary builders in Pune · Mumbai · Bangalore · Dubai</p>
 <p class="footer-copy" style="color: #949393; font-weight: 400;">© 2026 Sandmotion. All rights reserved.</p>
   </footer>
   <script>
@@ -235,12 +383,53 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+    // FAQ accordion
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const question = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+      question.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(open => {
+          if (open !== item) { open.classList.remove('open'); open.querySelector('.faq-answer').style.maxHeight = null; }
+        });
+        item.classList.toggle('open', !isOpen);
+        answer.style.maxHeight = !isOpen ? answer.scrollHeight + 'px' : null;
+      });
+    });
+
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbybXSYMe2Gndc-gI8_g2i-dxS4ilbtFfSz9VMGsQ1uLeZM5LsRfDIDP4_d_rs3u0arx/exec";
-    document.getElementById('freeFloorPlanForm').addEventListener('submit', function(e) {
+    const form = document.getElementById('freeFloorPlanForm');
+    const fullNameGroup = document.getElementById('fullName').closest('.form-group');
+    const whatsappGroup = document.getElementById('whatsappNumber').closest('.form-group');
+    const fileGroup = document.getElementById('floorPlanFile').closest('.form-group');
+
+    function validateForm() {
+      let valid = true;
+      const fullName = document.getElementById('fullName').value.trim();
+      const whatsapp = document.getElementById('whatsappNumber').value.trim();
+      const fileInput = document.getElementById('floorPlanFile');
+
+      fullNameGroup.classList.toggle('invalid', fullName.length === 0);
+      if (fullName.length === 0) valid = false;
+
+      const whatsappOk = /^[+\d][\d\s-]{7,}$/.test(whatsapp);
+      whatsappGroup.classList.toggle('invalid', !whatsappOk);
+      if (!whatsappOk) valid = false;
+
+      const hasFile = fileInput.files.length > 0;
+      const fileOk = hasFile && fileInput.files[0].size <= 25 * 1024 * 1024;
+      fileGroup.classList.toggle('invalid', !fileOk);
+      if (!fileOk) valid = false;
+
+      return valid;
+    }
+
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
+      if (!validateForm()) return;
+
       const btn = document.getElementById('submitBtn');
       const fileInput = document.getElementById('floorPlanFile');
-      if (fileInput.files[0].size > 25 * 1024 * 1024) { alert("File too large (Max 25MB)."); return; }
       btn.innerText = "UPLOADING TO SERVER...";
       btn.disabled = true;
       const reader = new FileReader();
@@ -255,12 +444,15 @@
         };
         fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
           .then(() => {
-            alert("Success! Your plan has been received. We will contact you shortly.");
-            document.getElementById('freeFloorPlanForm').reset();
+            form.style.display = 'none';
+            document.getElementById('formSuccess').style.display = 'block';
+          })
+          .catch(() => {
             btn.innerText = "UPLOAD FLOOR PLAN & CLAIM FREE DEMO";
             btn.disabled = false;
-          })
-          .catch(err => { alert("Error: " + err); btn.disabled = false; });
+            fileGroup.classList.add('invalid');
+            fileGroup.querySelector('.field-error').textContent = 'Something went wrong. Please try again or send it via WhatsApp.';
+          });
       };
     });
   </script>
