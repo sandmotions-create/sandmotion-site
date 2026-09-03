@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Sandmotion Industrial | High-Fidelity 3D Digital Twins for CAD, BIM & Field Operations</title>
+  <meta name="description" content="Sandmotion converts CAD and BIM models into real-time 3D digital twins — for web, Unreal Engine, Unity, AR and VR. Built for manufacturing, architecture, product design, and energy.">
+  <link rel="canonical" href="https://sandmotion.in/digital-twins">
+  <meta name="keywords" content="digital twin, CAD to 3D, BIM visualization, WebGL, Unreal Engine, Unity, AR VR training, industrial 3D">
+  <meta property="og:title" content="Sandmotion Industrial — 3D Digital Twins">
+  <meta property="og:description" content="Bringing industrial data to life through high-fidelity 3D digital twins.">
+  <meta property="og:url" content="https://sandmotion.in/digital-twins">
+  <meta property="og:image" content="https://sandmotion.in/sandmotion-v1.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Sandmotion","url":"https://sandmotion.in","logo":"https://sandmotion.in/sandmotion-v1.png"}</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.8.0/build/css/intlTelInput.css">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --black:#080808;--charcoal:#111113;--surface:#161618;--surface-2:#1c1d20;
+      --border:rgba(255,255,255,0.07);--white:#f5f4f0;--muted:rgba(245,244,240,0.46);--faint:rgba(245,244,240,0.16);
+      --accent:#c9a96e;--accent-dim:rgba(201,169,110,0.16);
+      --steel:#7f97a8;--steel-dim:rgba(127,151,168,0.14);
+      --ok:#6fbf7a;--warn:#dba234;--crit:#e2555b;
+      --font-display:'Cormorant Garamond',Georgia,serif;--font-body:'Montserrat','Helvetica Neue',sans-serif;
+      --ease:cubic-bezier(0.16,1,0.3,1);
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--black);color:var(--white);font-family:var(--font-body);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.6}
+    a{color:inherit}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 2.5rem}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(8,8,8,0.92) 0%,transparent 100%)}
+    .logo{font-family:var(--font-display);font-size:1.35rem;font-weight:300;letter-spacing:0.12em;text-decoration:none;color:var(--white)}
+    .logo span{color:var(--accent)}
+    .nav-links{display:flex;align-items:center;gap:2.4rem}
+    .nav-link{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.3s}
+    .nav-link:hover{color:var(--white)}
+    .nav-cta{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--accent);padding:0.8rem 1.5rem;border-radius:2px;text-decoration:none;transition:background 0.3s}
+    .nav-cta:hover{background:#dbbf82}
+
+    /* HERO */
+    .hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:9rem 0 5rem;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:64px 64px;background-position:center -20px;mask-image:radial-gradient(ellipse 90% 70% at 50% 30%,black 40%,transparent 100%)}
+    .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr 0.85fr;gap:4rem;align-items:center;width:100%;max-width:1180px;margin:0 auto;padding:0 2.5rem}
+    .eyebrow{font-size:0.68rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--steel);margin-bottom:1.4rem;opacity:0;animation:fadeUp 1s ease 0.2s forwards}
+    h1{font-family:var(--font-display);font-size:clamp(2.3rem,4.6vw,4.1rem);font-weight:300;line-height:1.12;letter-spacing:-0.005em;opacity:0;animation:fadeUp 1.3s ease 0.4s forwards}
+    h1 em{font-style:italic;color:var(--accent)}
+    .hero-sub{margin-top:1.6rem;max-width:46ch;font-size:1.02rem;font-weight:300;line-height:1.75;color:var(--muted);opacity:0;animation:fadeUp 1.1s ease 0.7s forwards}
+    .hero-ctas{margin-top:2.4rem;display:flex;gap:1.2rem;flex-wrap:wrap;opacity:0;animation:fadeUp 1s ease 0.95s forwards}
+    .cta{display:inline-block;padding:1.05rem 2.6rem;font-size:0.65rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:var(--black);background:var(--accent);border:none;border-radius:2px;text-decoration:none;transition:background 0.4s,transform 0.3s,box-shadow 0.4s;box-shadow:0 0 40px rgba(201,169,110,0.16)}
+    .cta:hover{background:#dbbf82;transform:translateY(-2px);box-shadow:0 8px 46px rgba(201,169,110,0.3)}
+    .cta-ghost{display:inline-flex;align-items:center;padding:1.05rem 2.2rem;font-size:0.65rem;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--white);background:transparent;border:1px solid var(--border);border-radius:2px;text-decoration:none;transition:border-color 0.3s,background 0.3s}
+    .cta-ghost:hover{border-color:rgba(255,255,255,0.28);background:rgba(255,255,255,0.03)}
+
+    /* HERO TWIN DIAGRAM */
+    .twin-wrap{opacity:0;animation:riseIn 1.4s var(--ease) 1s forwards;display:flex;flex-direction:column;align-items:center;gap:1.6rem}
+    .twin-frame{width:100%;max-width:340px;aspect-ratio:1/1.08;position:relative}
+    .twin-caption{font-family:var(--font-display);font-style:italic;font-size:0.92rem;color:var(--muted);text-align:center}
+    .status-dot{transform-origin:center}
+    .status-dot.ok{fill:var(--ok);animation:pulseSlow 2.6s ease-in-out infinite}
+    .status-dot.warn{fill:var(--warn);animation:pulseFast 1.1s ease-in-out infinite}
+    .status-dot.crit{fill:var(--crit);animation:flash 0.65s steps(1,end) infinite}
+    .status-ring{fill:none;stroke-width:1.4;opacity:0.55}
+    .status-ring.ok{stroke:var(--ok);animation:ringSlow 2.6s ease-out infinite}
+    .status-ring.warn{stroke:var(--warn);animation:ringFast 1.1s ease-out infinite}
+    .twin-mesh line,.twin-mesh path{stroke:rgba(245,244,240,0.22);stroke-width:1}
+    .twin-mesh .accent-edge{stroke:var(--accent);stroke-width:1.2;opacity:0.7}
+    .twin-legend{display:flex;gap:1.6rem;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--faint)}
+    .twin-legend span{display:inline-flex;align-items:center;gap:0.5rem}
+    .legend-swatch{width:7px;height:7px;border-radius:50%;display:inline-block}
+    .legend-swatch.ok{background:var(--ok)}.legend-swatch.warn{background:var(--warn)}.legend-swatch.crit{background:var(--crit)}
+
+    /* VALUE STRIP */
+    .value-strip{border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .value-row{display:grid;grid-template-columns:repeat(3,1fr)}
+    .value-item{padding:2.6rem 2.5rem;border-left:1px solid var(--border)}
+    .value-item:first-child{border-left:none}
+    .value-item h3{font-family:var(--font-display);font-weight:400;font-size:1.25rem;margin-bottom:0.6rem;color:var(--white)}
+    .value-item p{font-size:0.85rem;line-height:1.6;color:var(--muted)}
+
+    /* SECTION HEADERS */
+    .section{padding:7rem 0}
+    .section-head{max-width:640px;margin-bottom:4rem}
+    .section-head .kicker{font-size:0.68rem;letter-spacing:0.26em;text-transform:uppercase;color:var(--steel);margin-bottom:1rem}
+    .section-head h2{font-family:var(--font-display);font-weight:300;font-size:clamp(1.9rem,3.6vw,2.7rem);line-height:1.2}
+    .section-head p{margin-top:1.1rem;color:var(--muted);font-size:0.95rem;line-height:1.7;max-width:52ch}
+
+    /* SERVICE PIPELINE */
+    .pipeline{display:flex;flex-direction:column}
+    .pipe-item{display:grid;grid-template-columns:120px 1fr;gap:2.5rem;padding:3rem 0;border-top:1px solid var(--border)}
+    .pipe-item:last-child{border-bottom:1px solid var(--border)}
+    .pipe-index{font-family:var(--font-display);font-weight:300;font-size:2.6rem;color:var(--accent);line-height:1}
+    .pipe-body h3{font-family:var(--font-display);font-weight:400;font-size:1.5rem;margin-bottom:0.5rem}
+    .pipe-body>p{color:var(--muted);font-size:0.92rem;line-height:1.65;max-width:56ch;margin-bottom:1.8rem}
+    .deliverables{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem}
+    .deliverable-title{font-size:0.86rem;font-weight:500;color:var(--white);margin-bottom:0.4rem}
+    .deliverable-title::before{content:'—';color:var(--accent);margin-right:0.5rem}
+    .deliverable-desc{font-size:0.8rem;line-height:1.6;color:var(--muted)}
+
+    /* INDUSTRY TABLE */
+    .industry-table{width:100%;border-collapse:collapse}
+    .industry-table thead th{text-align:left;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--steel);font-weight:500;padding:0 0 1.2rem;border-bottom:1px solid var(--border)}
+    .industry-table td{padding:1.8rem 0;border-bottom:1px solid var(--border);vertical-align:top}
+    .industry-table td:not(:last-child){padding-right:2.5rem}
+    .industry-name{font-family:var(--font-display);font-size:1.25rem;font-weight:400;color:var(--white)}
+    .industry-build{font-size:0.85rem;color:var(--muted);line-height:1.6}
+    .industry-value{font-family:var(--font-display);font-style:italic;font-size:1rem;color:rgba(245,244,240,0.82);line-height:1.55}
+
+    /* CONTACT */
+    .contact-section{border-top:1px solid var(--border);padding:7rem 0}
+    .contact-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:4rem;align-items:start}
+    .contact-copy h2{font-family:var(--font-display);font-weight:300;font-size:clamp(1.9rem,3.4vw,2.6rem);line-height:1.22;margin-bottom:1.2rem}
+    .contact-copy h2 em{font-style:italic;color:var(--accent)}
+    .contact-copy p{color:var(--muted);font-size:0.92rem;line-height:1.7;max-width:42ch}
+    .contact-copy .btn-ghost{margin-top:2.2rem}
+    .form-container{background:var(--surface);border:1px solid rgba(201,169,110,0.15);border-radius:8px;padding:2.8rem}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+    .form-group{margin-bottom:1.5rem}
+    .form-group label{display:block;margin-bottom:0.55rem;color:rgba(245,244,240,0.8);font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase}
+    .form-group input,.form-group select,.form-group textarea{width:100%;padding:0.9rem 1rem;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.08);border-radius:4px;color:var(--white);font-family:var(--font-body);font-size:0.88rem;transition:all 0.3s ease}
+    .form-group textarea{resize:vertical;min-height:90px}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--accent);background:rgba(0,0,0,0.7)}
+    .form-group input[type="file"]{padding:0.7rem;cursor:pointer;color:var(--muted);font-size:0.82rem}
+    .file-hint{font-size:0.65rem;color:rgba(255,255,255,0.32);margin-top:0.5rem;display:block}
+    select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c9a96e'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
+    .submit-btn{width:100%;padding:1.15rem;background:var(--accent);color:var(--black);border:none;border-radius:4px;font-size:0.72rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;cursor:pointer;transition:all 0.3s ease;margin-top:0.4rem}
+    .submit-btn:hover{background:#dbbf82;box-shadow:0 0 30px rgba(201,169,110,0.25)}
+    .disclaimer{margin-top:1.6rem;font-size:0.65rem;color:rgba(255,255,255,0.32);line-height:1.6}
+    .btn-ghost{display:inline-flex;align-items:center;gap:0.8rem;padding:1.05rem 2.4rem;font-size:0.6rem;font-weight:400;letter-spacing:0.26em;text-transform:uppercase;color:var(--accent);background:transparent;border:1px solid rgba(201,169,110,0.35);border-radius:2px;text-decoration:none;transition:all 0.35s}
+    .btn-ghost:hover{background:var(--accent-dim);border-color:rgba(201,169,110,0.6);transform:translateY(-2px)}
+    .wa-icon{width:15px;height:15px;fill:currentColor}
+
+    footer{padding:4rem 2.5rem 3rem;border-top:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:1.6rem;text-align:center}
+    .footer-logo{font-family:var(--font-display);font-size:1.1rem;font-weight:300;letter-spacing:0.14em;color:var(--muted)}
+    .footer-logo span{color:var(--accent)}
+    .footer-trust{font-size:0.56rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint)}
+    .footer-copy{font-size:0.5rem;letter-spacing:0.14em;color:rgba(240,237,232,0.15);margin-top:0.4rem}
+
+    .reveal{opacity:0;transform:translateY(26px);transition:opacity 0.9s var(--ease),transform 0.9s var(--ease)}
+    .reveal.visible{opacity:1;transform:none}
+    .delay-1{transition-delay:0.1s}.delay-2{transition-delay:0.2s}.delay-3{transition-delay:0.3s}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes riseIn{from{opacity:0;transform:translateY(30px) scale(0.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+    @keyframes pulseSlow{0%,100%{opacity:1;r:4}50%{opacity:0.55;r:3.2}}
+    @keyframes pulseFast{0%,100%{opacity:1;r:4}50%{opacity:0.4;r:3}}
+    @keyframes flash{0%,49%{opacity:1}50%,100%{opacity:0.15}}
+    @keyframes ringSlow{0%{r:6;opacity:0.6}100%{r:16;opacity:0}}
+    @keyframes ringFast{0%{r:6;opacity:0.6}100%{r:12;opacity:0}}
+
+    @media(max-width:860px){
+      nav{padding:1.5rem 1.6rem}
+      .nav-links{gap:1.2rem}
+      .nav-cta{display:none}
+      .hero{padding:7.5rem 0 3rem}
+      .hero-inner{grid-template-columns:1fr;gap:3rem;padding:0 1.6rem}
+      .twin-wrap{order:-1}
+      .value-row{grid-template-columns:1fr}
+      .value-item{border-left:none;border-top:1px solid var(--border);padding:2rem 1.6rem}
+      .value-item:first-child{border-top:none}
+      .wrap{padding:0 1.6rem}
+      .section{padding:4.5rem 0}
+      .pipe-item{grid-template-columns:1fr;gap:1rem;padding:2.2rem 1.6rem}
+      .pipe-index{font-size:2rem}
+      .deliverables{grid-template-columns:1fr;gap:1.2rem}
+      .industry-table{display:block}
+      .industry-table thead{display:none}
+      .industry-table tbody,.industry-table tr{display:block}
+      .industry-table tr{padding:1.6rem;border-bottom:1px solid var(--border)}
+      .industry-table td{display:block;padding:0.3rem 0;border-bottom:none}
+      .contact-grid{grid-template-columns:1fr;gap:2.5rem;padding:0 1.6rem}
+      .form-container{padding:2rem 1.5rem}
+      .form-row{grid-template-columns:1fr}
+      footer{padding:3rem 1.6rem 2.5rem}
+      .industry-table{padding:0 1.6rem}
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">Sand<span>motion</span></a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Real Estate</a>
+      <a href="studio.html" class="nav-link">Studio</a>
+      <a href="#services" class="nav-link">Industrial</a>
+      <a href="#assessment" class="nav-cta">Request Assessment</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Industrial Digital Twins</div>
+        <h1>Bringing industrial data to life through <em>high-fidelity 3D digital twins</em>.</h1>
+        <p class="hero-sub">Sandmotion turns complex engineering models and CAD data into photorealistic, interactive virtual replicas  for real-time monitoring, simulation, and field operations.</p>
+        <div class="hero-ctas">
+          <a href="#assessment" class="cta">Request a Feasibility Assessment</a>
+          <a href="#services" class="cta-ghost">See What We Build</a>
+        </div>
+      </div>
+
+      <div class="twin-wrap">
+        <div class="twin-frame">
+          <svg viewBox="0 0 320 340" class="twin-mesh" xmlns="http://www.w3.org/2000/svg">
+            <!-- isometric asset wireframe -->
+            <path class="accent-edge" d="M160 30 L270 90 L270 210 L160 270 L50 210 L50 90 Z" fill="none"/>
+            <line x1="160" y1="30" x2="160" y2="150"/>
+            <line x1="270" y1="90" x2="160" y2="150"/>
+            <line x1="50" y1="90" x2="160" y2="150"/>
+            <line x1="160" y1="150" x2="160" y2="270"/>
+            <line x1="270" y1="210" x2="160" y2="150"/>
+            <line x1="50" y1="210" x2="160" y2="150"/>
+            <path class="accent-edge" d="M160 150 L215 120 L215 180 L160 210 L105 180 L105 120 Z" fill="none" opacity="0.5"/>
+            <!-- ground grid -->
+            <line x1="30" y1="300" x2="290" y2="300" opacity="0.4"/>
+            <line x1="70" y1="320" x2="250" y2="320" opacity="0.25"/>
+            <!-- status indicators -->
+            <circle class="status-ring ok" cx="160" cy="150" r="6"/>
+            <circle class="status-dot ok" cx="160" cy="150" r="4"/>
+            <circle class="status-ring warn" cx="215" cy="120" r="6"/>
+            <circle class="status-dot warn" cx="215" cy="120" r="4"/>
+            <circle class="status-dot crit" cx="105" cy="180" r="4"/>
+          </svg>
+        </div>
+        <div class="twin-legend">
+          <span><i class="legend-swatch ok"></i>Nominal</span>
+          <span><i class="legend-swatch warn"></i>Wear warning</span>
+          <span><i class="legend-swatch crit"></i>Critical</span>
+        </div>
+        <p class="twin-caption">Live status, rendered in real time.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="value-strip">
+    <div class="wrap value-row">
+      <div class="value-item">
+        <h3>Ultra-Fast Performance</h3>
+        <p>High-detail 3D optimized for smooth playback in the browser and on mobile - no plugins, no waiting.</p>
+      </div>
+      <div class="value-item">
+        <h3>Engineered Precision</h3>
+        <p>CAD-accurate visual assets, built to true scale, so what stakeholders see matches what gets built.</p>
+      </div>
+      <div class="value-item">
+        <h3>Cross-Platform Delivery</h3>
+        <p>One pipeline, deployed seamlessly across WebGL, Unreal Engine, Unity, AR, and VR.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="kicker">Core Digital Twin Services</div>
+        <h2>From raw CAD file to field-ready deployment.</h2>
+        <p>Four disciplines, run as one continuous pipeline  each stage narrows the gap between an engineering drawing and a working digital twin your teams can actually use.</p>
+      </div>
+
+      <div class="pipeline">
+        <div class="pipe-item reveal">
+          <div class="pipe-index">I</div>
+          <div class="pipe-body">
+            <h3>CAD &amp; BIM Asset Optimization</h3>
+            <p>Transforming complex engineering designs into lightweight, real-time 3D models the foundation every downstream twin is built on.</p>
+            <div class="deliverables">
+              <div>
+                <div class="deliverable-title">CAD to Real-Time Conversion</div>
+                <div class="deliverable-desc">Heavy industrial files from SolidWorks, AutoCAD, and Revit, converted into clean assets ready for web and engine integration.</div>
+              </div>
+              <div>
+                <div class="deliverable-title">BIM Model Preparation</div>
+                <div class="deliverable-desc">Building information models cleaned up for facility-management twins without losing architectural detail.</div>
+              </div>
+              <div>
+                <div class="deliverable-title">PBR Material &amp; Shader Creation</div>
+                <div class="deliverable-desc">Physically-based rendering textures so machinery and environments hold up under any lighting condition.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pipe-item reveal">
+          <div class="pipe-index">II</div>
+          <div class="pipe-body">
+            <h3>Real-Time 3D &amp; WebGL Environments</h3>
+            <p>Interactive, browser-based, or engine-powered environments that turn a static model into a space people can move through.</p>
+            <div class="deliverables">
+              <div>
+                <div class="deliverable-title">Interactive Web-Based 3D</div>
+                <div class="deliverable-desc">Three.js and WebGL builds that let stakeholders explore a high-detail facility in the browser — zero installs.</div>
+              </div>
+              <div>
+                <div class="deliverable-title">Immersive Game Engine Builds</div>
+                <div class="deliverable-desc">Photorealistic, fully walkable environments in Unreal Engine and Unity for factory floors, plants, and smart buildings.</div>
+              </div>
+              <div>
+                <div class="deliverable-title">3D Spatial UI &amp; Dashboards</div>
+                <div class="deliverable-desc">Control interfaces with live status overlays, hover cards, and interactive callouts placed directly in 3D space.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pipe-item reveal">
+          <div class="pipe-index">III</div>
+          <div class="pipe-body">
+            <h3>Data Visualization &amp; Dynamic Animation</h3>
+            <p>Turning abstract spreadsheet data into visual motion  the layer that makes a twin worth watching, not just looking at.</p>
+            <div class="deliverables">
+              <div>
+                <div class="deliverable-title">Dynamic Data Overlays</div>
+                <div class="deliverable-desc">Heatmaps, airflow vectors, stress-strain indicators, and fluid-dynamics animations mapped onto physical asset models.</div>
+              </div>
+              <div>
+                <div class="deliverable-title">Exploded &amp; Assembly Views</div>
+                <div class="deliverable-desc">Interactive or video-based exploded views revealing internal components, wear points, and fluid flow.</div>
+              </div>
+              <div>
+                <div class="deliverable-title">Status &amp; Alert Animations</div>
+                <div class="deliverable-desc">Intuitive state indicators — steady green for nominal, pulsing amber for wear, flashing red for critical failure.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pipe-item reveal">
+          <div class="pipe-index">IV</div>
+          <div class="pipe-body">
+            <h3>AR / VR &amp; Field Operations</h3>
+            <p>Equipping teams on the ground with spatial, interactive overlays — where the twin leaves the screen and meets the machine.</p>
+            <div class="deliverables">
+              <div>
+                <div class="deliverable-title">AR Overlay Models</div>
+                <div class="deliverable-desc">Assets that let technicians overlay a digital model directly onto physical machinery using tablets or smart glasses.</div>
+              </div>
+              <div>
+                <div class="deliverable-title">VR Training Simulators</div>
+                <div class="deliverable-desc">Hands-on, risk-free training scenarios for expensive or hazardous equipment.</div>
+              </div>
+              <div>
+                <div class="deliverable-title">Spatial Maintenance Guides</div>
+                <div class="deliverable-desc">Step-by-step, animated 3D guides walking field workers through complex repair procedures.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="industries">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="kicker">Built for the Field</div>
+        <h2>One capability, four verticals.</h2>
+        <p>The same pipeline adapts to what your industry actually needs to see, whether that's a shop floor, a building system, a prototype, or a plant.</p>
+      </div>
+
+      <table class="industry-table reveal">
+        <thead>
+          <tr>
+            <th style="width:26%">Industry</th>
+            <th style="width:37%">What You Build</th>
+            <th>Value to Stakeholders</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="industry-name">Manufacturing &amp; Industry 4.0</div></td>
+            <td><div class="industry-build">Interactive 3D plant floors and exploded machine models</div></td>
+            <td><div class="industry-value">Spot bottlenecks instantly and reduce downtime with visual shop-floor tracking.</div></td>
+          </tr>
+          <tr>
+            <td><div class="industry-name">Architecture &amp; Smart Buildings</div></td>
+            <td><div class="industry-build">Interactive BIM visualizers and HVAC flow models</div></td>
+            <td><div class="industry-value">Improve facility management and present eco-efficient spaces to stakeholders.</div></td>
+          </tr>
+          <tr>
+            <td><div class="industry-name">Product Design &amp; Engineering</div></td>
+            <td><div class="industry-build">Real-time 3D configurators and virtual commissioning models</div></td>
+            <td><div class="industry-value">Accelerate approval cycles and test mechanical fit before physical prototyping.</div></td>
+          </tr>
+          <tr>
+            <td><div class="industry-name">Energy &amp; Utilities</div></td>
+            <td><div class="industry-build">Photorealistic virtual plants and high-risk simulation spaces</div></td>
+            <td><div class="industry-value">Enhance safety compliance and enable remote, hands-free field inspections.</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="contact-section" id="assessment">
+    <div class="wrap contact-grid">
+      <div class="contact-copy reveal">
+        <h2>See your <em>own asset</em> as a digital twin, before you commit.</h2>
+        <p>Send us a CAD or BIM file and we'll scope a feasibility assessment  what it would take to bring that specific asset to the web, an engine, or the field.</p>
+        <a class="btn-ghost" href="https://wa.me/918208072906" target="_blank">
+          <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zm-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884zm8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp Us
+        </a>
+      </div>
+
+      <div class="form-container reveal delay-1">
+        <form id="assessmentForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fullName">Full Name *</label>
+              <input type="text" id="fullName" name="fullName" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="companyName">Company *</label>
+              <input type="text" id="companyName" name="companyName" placeholder="Your organization" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Work Email *</label>
+              <input type="email" id="email" name="email" placeholder="you@company.com" required>
+            </div>
+            <div class="form-group">
+              <label for="whatsappNumber">WhatsApp / Phone *</label>
+              <input type="tel" id="whatsappNumber" name="whatsappNumber" placeholder="00000 00000" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="projectType">Project Type *</label>
+            <select id="projectType" name="projectType" required>
+              <option value="" disabled selected>Select the closest fit</option>
+              <option>Manufacturing / Industry 4.0</option>
+              <option>Architecture / BIM / Smart Buildings</option>
+              <option>Product Design / Engineering</option>
+              <option>Energy / Utilities</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="assetFile">Upload a CAD or BIM Sample (Optional)</label>
+            <input type="file" id="assetFile" name="assetFile" accept=".pdf,.jpg,.jpeg,.png,.dwg,.dxf,.rvt,.skp,.step,.stp">
+            <span class="file-hint">Accepted: DWG, DXF, RVT, STEP, PDF. Maximum file size: 25MB.</span>
+          </div>
+          <div class="form-group">
+            <label for="message">What are you looking to visualize?</label>
+            <textarea id="message" name="message" placeholder="A brief note on the asset, plant, or product"></textarea>
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">Request Feasibility Assessment</button>
+          <p class="disclaimer"><strong>Note:</strong> Assessments are scoped within 2–3 business days. There's no obligation to proceed after review.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Sand<span>motion</span></div>
+    <p class="footer-trust" style="color:#464545;font-weight:500">Serving manufacturing, architecture, and energy clients across Pune · Mumbai · Bangalore · Dubai</p>
+    <p class="footer-copy" style="color:#949393;font-weight:400">© 2026 Sandmotion. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.8.0/build/js/intlTelInput.min.js"></script>
+  <script>
+    const phoneInput = document.querySelector("#whatsappNumber");
+    const iti = window.intlTelInput(phoneInput, {
+      initialCountry: "auto",
+      geoIpLookup: function (callback) {
+        fetch("https://ipapi.co/json")
+          .then(res => res.json())
+          .then(data => callback(data.country_code))
+          .catch(() => callback("in"));
+      },
+      preferredCountries: ["in", "ae", "us", "gb"],
+      utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.8.0/build/js/utils.js"
+    });
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbye9px5G-NIw9YmoVfpbqCZrCPA5Em_TdK859a8rswl3wrgQpZLnECo1PjLeF6kqRYG/exec";
+    document.getElementById('assessmentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const fileInput = document.getElementById('assetFile');
+      const hasFile = fileInput.files.length > 0;
+      if (hasFile && fileInput.files[0].size > 25 * 1024 * 1024) { alert("File too large (Max 25MB)."); return; }
+
+      btn.innerText = "SENDING...";
+      btn.disabled = true;
+
+      const sendPayload = (fileData, fileName) => {
+        const payload = {
+          fullName: document.getElementById('fullName').value,
+          company: document.getElementById('companyName').value,
+          email: document.getElementById('email').value,
+          whatsapp: iti.getNumber(),
+          projectType: document.getElementById('projectType').value,
+          message: document.getElementById('message').value,
+          file: fileData || '',
+          fileName: fileName || ''
+        };
+        fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
+          .then(() => {
+            alert("Thank you. We'll review your request and reach out shortly.");
+            document.getElementById('assessmentForm').reset();
+            btn.innerText = "Request Feasibility Assessment";
+            btn.disabled = false;
+          })
+          .catch(err => { alert("Error: " + err); btn.disabled = false; });
+      };
+
+      if (hasFile) {
+        const reader = new FileReader();
+        reader.readAsDataURL(fileInput.files[0]);
+        reader.onload = () => sendPayload(reader.result, fileInput.files[0].name);
+      } else {
+        sendPayload();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -19,6 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.8.0/build/css/intlTelInput.css">
 
   <script type="importmap">
   { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
@@ -301,7 +302,7 @@
           </div>
           <div class="form-group">
             <label for="qWhatsapp">WhatsApp Number *</label>
-            <input type="tel" id="qWhatsapp" name="whatsapp" placeholder="+91 00000 00000" required>
+            <input type="tel" id="qWhatsapp" name="whatsapp" placeholder="00000 00000" required>
           </div>
         </div>
         <div class="form-row">
@@ -343,6 +344,7 @@
     <p class="footer-copy" style="color: #949393; font-weight: 400;">© 2026 Sandmotion. All rights reserved.</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.8.0/build/js/intlTelInput.min.js"></script>
   <script>
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
@@ -350,6 +352,18 @@
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
     const SCRIPT_URL ="https://script.google.com/macros/s/AKfycbye9px5G-NIw9YmoVfpbqCZrCPA5Em_TdK859a8rswl3wrgQpZLnECo1PjLeF6kqRYG/exec";
+    const qPhoneInput = document.querySelector("#qWhatsapp");
+    const qIti = window.intlTelInput(qPhoneInput, {
+      initialCountry: "auto",
+      geoIpLookup: function (callback) {
+        fetch("https://ipapi.co/json")
+          .then(res => res.json())
+          .then(data => callback(data.country_code))
+          .catch(() => callback("in"));
+      },
+      preferredCountries: ["in", "ae", "us", "gb"],
+      utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.8.0/build/js/utils.js"
+    });
     document.getElementById('studioQuoteForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const btn = document.getElementById('qSubmitBtn');
@@ -365,7 +379,7 @@
 
     const payload = {
         fullName: document.getElementById('qFullName').value,
-        whatsapp: document.getElementById('qWhatsapp').value,
+        whatsapp: qIti.getNumber(),
         company: document.getElementById('qCompany').value,
         projectType: pType,
         file: fileData || "",

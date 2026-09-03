@@ -4,7 +4,7 @@
   <title>Sandmotion | Interactive 3D Digital Sample Flats for Real Estate</title>
   <meta name="description" content="Transform 2D floor plans into interactive 3D web experiences. Help buyers walk through their future homes instantly on any device.">
   <link rel="canonical" href="https://sandmotion.in/">
-  <meta name="keywords" content="digital sample flat, 3D walkthrough, interactive home, real estate visualization, digital twin, Sandmotion">
+  <meta name="keywords" content="digital sample flat,3D walkthrough, interactive home, real estate visualization, digital twin, Sandmotion">
   <meta property="og:title" content="Digital Sample Flat –2D Floor Plan → Interactive Home">
   <meta property="og:description" content="Let buyers walk inside your property in seconds. Works on any phone. No app required.">
   <meta property="og:url" content="https://sandmotion.in">
@@ -19,6 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.8.0/build/css/intlTelInput.css">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{--black:#080808;--charcoal:#111113;--surface:#161618;--border:rgba(255,255,255,0.06);--white:#f5f4f0;--muted:rgba(245,244,240,0.42);--faint:rgba(245,244,240,0.15);--accent:#c9a96e;--accent-dim:rgba(201,169,110,0.18);--font-display:'Cormorant Garamond',Georgia,serif;--font-body:'Montserrat','Helvetica Neue',sans-serif;--ease:cubic-bezier(0.16,1,0.3,1)}
@@ -169,6 +170,7 @@
     <div>
       <a href="blog/" class="nav-link" style="margin-right:20px">Blog</a>
       <a href="studio.html" class="nav-link" style="margin-right:20px">Studio</a>
+      <a href="industrial.html" class="nav-link" style="margin-right:20px">Industrial</a>
       <a href="https://app.sandmotion.in/" class="nav-link">Experience →</a>
     </div>
   </nav>
@@ -188,7 +190,7 @@
         </div>
       </div>
       <div class="hero-text-container">
-        <h1>Digital Sample Flat<br>Walk Your <em>Home</em><br>Before It's Built.</h1>
+        <h1>Digital Sample <em> Flat</em><br>Walk Your <em>Home</em><br>Before It's Built.</h1>
         <p class="hero-tagline"><a href="https://www.youtube.com/@sandmotion_global" target="_blank" style="text-decoration:none;color:inherit">2D Floor Plan → Interactive Home</a></p>
         <a href="#free-plan" class="hero-free-link">Get First Floor Plan Free ↓</a>
         <div class="cta-wrap">
@@ -271,6 +273,31 @@
       </div>
     </div>
   </section>
+  <section class="how-it-works" style="padding-top:2rem">
+    <p class="section-eyebrow reveal">Beyond Real Estate</p>
+    <h2 class="section-heading reveal">We Also Build <em>Industrial</em> Digital Twins</h2>
+    <p class="section-sub reveal">The same real-time 3D pipeline, applied to CAD and BIM data  for manufacturing, energy, and product engineering teams.</p>
+    <div class="step-grid">
+      <div class="step-card reveal delay-1">
+        <div class="step-num">CAD</div>
+        <h3>CAD &amp; BIM to Real-Time 3D</h3>
+        <p>SolidWorks, AutoCAD, Revit and BIM files converted into lightweight, web-ready 3D assets.</p>
+      </div>
+      <div class="step-card reveal delay-2">
+        <div class="step-num">AR/VR</div>
+        <h3>WebGL, Unreal, Unity &amp; XR</h3>
+        <p>Walkable plant floors, live status dashboards, and AR/VR training for field teams.</p>
+      </div>
+      <div class="step-card reveal delay-3">
+        <div class="step-num">DATA</div>
+        <h3>Built for Every Vertical</h3>
+        <p>Manufacturing, architecture, product engineering, and energy &amp; utilities.</p>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;margin-top:3.5rem">
+      <a class="btn-ghost" href="industrial.html">Explore Industrial Digital Twins →</a>
+    </div>
+  </section>
   <section id="free-plan" class="free-plan-section reveal">
     <h2>Get Your First 3D Interactive floor Plan <br><em>link Absolutely Free</em></h2>
     <p class="free-plan-desc">Experience the quality of our 3D walkthroughs before you commit. Upload your 2D CAD or PDF, DWG, DWF file and we will visualize your first floor at zero cost.</p>
@@ -283,7 +310,7 @@
         </div>
         <div class="form-group">
           <label for="whatsappNumber">WhatsApp Number *</label>
-          <input type="tel" id="whatsappNumber" name="whatsappNumber" placeholder="+91 00000 00000" required>
+          <input type="tel" id="whatsappNumber" name="whatsappNumber" placeholder="00000 00000" required>
           <span class="field-error">Please enter a valid WhatsApp number.</span>
         </div>
         <div class="form-group">
@@ -355,6 +382,7 @@
 <p class="footer-trust" style="color: #464545; font-weight: 500;">Trusted by visionary builders in Pune · Mumbai · Bangalore · Dubai</p>
 <p class="footer-copy" style="color: #949393; font-weight: 400;">© 2026 Sandmotion. All rights reserved.</p>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.8.0/build/js/intlTelInput.min.js"></script>
   <script>
     function openModal(src) {
       document.getElementById('modalImg').src = src;
@@ -398,6 +426,18 @@
     });
 
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbye9px5G-NIw9YmoVfpbqCZrCPA5Em_TdK859a8rswl3wrgQpZLnECo1PjLeF6kqRYG/exec";
+    const phoneInput = document.querySelector("#whatsappNumber");
+    const iti = window.intlTelInput(phoneInput, {
+      initialCountry: "auto",
+      geoIpLookup: function (callback) {
+        fetch("https://ipapi.co/json")
+          .then(res => res.json())
+          .then(data => callback(data.country_code))
+          .catch(() => callback("in"));
+      },
+      preferredCountries: ["in", "ae", "us", "gb"],
+      utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.8.0/build/js/utils.js"
+    });
     const form = document.getElementById('freeFloorPlanForm');
     const fullNameGroup = document.getElementById('fullName').closest('.form-group');
     const whatsappGroup = document.getElementById('whatsappNumber').closest('.form-group');
@@ -412,7 +452,7 @@
       fullNameGroup.classList.toggle('invalid', fullName.length === 0);
       if (fullName.length === 0) valid = false;
 
-      const whatsappOk = /^[+\d][\d\s-]{7,}$/.test(whatsapp);
+      const whatsappOk = iti.isValidNumber();
       whatsappGroup.classList.toggle('invalid', !whatsappOk);
       if (!whatsappOk) valid = false;
 
@@ -437,7 +477,7 @@
       reader.onload = function() {
         const payload = {
           fullName: document.getElementById('fullName').value,
-          whatsapp: document.getElementById('whatsappNumber').value,
+          whatsapp: iti.getNumber(),
           company: document.getElementById('companyName').value,
           file: reader.result,
           fileName: fileInput.files[0].name
