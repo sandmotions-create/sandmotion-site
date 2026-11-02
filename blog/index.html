@@ -222,6 +222,21 @@ main{display:block}
 .back-link{display:inline-block;margin-top:2rem;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none}
 .back-link:hover{color:var(--accent)}
 
+/* ---------- Inline post elements (key takeaways, mid-post CTA, sources) ---------- */
+.post-body .takeaways{margin-bottom:2rem}
+.post-body .takeaways p{margin:0 0 .6rem;color:var(--white);font-size:.85rem;letter-spacing:.14em;text-transform:uppercase}
+.post-body .takeaways ul{padding-left:1.2rem}
+.post-body .takeaways li{margin-top:.5rem;font-size:1.02rem;line-height:1.65}
+.post-body .inline-cta{margin:2.6rem 0;padding:1.9rem 1.8rem 1.7rem;background:var(--surface);border:1px solid rgba(201,169,110,.3);border-left:3px solid var(--accent);border-radius:6px}
+.post-body .inline-cta p.inline-cta-title{font-family:var(--font-display);font-size:1.7rem;line-height:1.25;color:var(--white);margin:0 0 .5rem}
+.post-body .inline-cta p{color:var(--muted);font-size:1rem;line-height:1.65}
+.post-body .inline-cta-row{display:flex;gap:.9rem;flex-wrap:wrap;margin-top:1.2rem}
+.post-body .inline-cta a{text-decoration:none}
+.post-body a.cta{color:var(--black)}
+.post-body a.btn-ghost{color:var(--accent)}
+.post-body blockquote p{margin:0}
+.post-body h2:last-of-type+ul{font-size:.95rem}
+
 </style>
 {% if page.css %}<link rel="stylesheet" href="/assets/css/{{ page.css }}.css">{% endif %}
 
