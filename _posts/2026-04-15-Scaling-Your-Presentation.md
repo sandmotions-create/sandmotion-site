@@ -1,107 +1,75 @@
 ---
 layout: post
-title: "Scaling Your Presentation"
+title: "One Link, Many Buyers: How to Share and Track a Property Walkthrough"
 date: 2026-04-15
+last_modified_at: 2026-11-02
+description: "A single link can reach thousands of buyers, partners and families. Learn link hygiene, WhatsApp previews, UTM tagging and the metrics that show who is really interested."
+image: /assets/blog/share-and-track-walkthrough-links.png
+label: Distribution
+topics: [developers, india, dubai, global]
+tags: [distribution]
 ---
 
-One Link, A Billion Potential Buyers
+<div class="takeaways" markdown="1">
+**Key takeaways**
 
-For decades, real estate presentations were limited by location.
+- One link can serve thousands of viewers at once if the walkthrough runs on the viewer's device.
+- Make every link shareable: clean URL, WhatsApp preview image, short title.
+- Tag every link per channel and per partner so you know what works.
+- Track opens, time spent and shares, then act on warm leads quickly.
+</div>
 
-A buyer had to visit the sales office.
-Sit through a presentation.
-Walk through a sample flat.
+<div class="scenario"><span class="label">One forward, three calls</span>A broker shares your link in a WhatsApp group of 200 people. By the next morning there are 90 opens, 14 forwards and three calls. If the link was untagged, you will never know which broker did it. If it was tagged, you will send her a thank-you and the next project.</div>
 
-The experience existed in one place at one time.
+## Why one link scales
 
-But the internet changed the rules.
+When a walkthrough runs in the viewer's browser, each additional viewer uses their own device, so traffic does not require a server per person. That is what makes it practical to send the same link to a broker group, an NRI community and an ad audience at once. See our [technology comparison]({% post_url 2026-04-02-the-future-is-native %}).
 
-Today, a single link can carry your entire project anywhere in the world.
+## Link hygiene
 
-## The Limitation of Physical Sales
+- **Clean and short:** a domain you own, a readable path.
+- **One link per unit type**, not one giant link for the project.
+- **A WhatsApp preview** with a real room image and a clear title.
+- **No login or pop-up** before the buyer sees anything.
+- **A visible next step:** WhatsApp button and share button.
 
-Traditional real estate sales depend on physical interaction.
 
-A presentation in a meeting room.
-A guided site visit.
-A walk through the sample apartment.
+<figure class="fig"><img src="/assets/blog/fig-hub-partners.svg" alt="One project link tagged separately for each broker and partner" loading="lazy"><figcaption>Tag each link so you know who drives real interest.</figcaption></figure>
 
-These experiences are powerful, but they scale slowly.
+## Tag every share
 
-A developer may meet 10 buyers in a day.
+Add campaign parameters (UTM) per channel and partner, for example: `?utm_source=broker_ritu&utm_medium=whatsapp&utm_campaign=tower_a_2bhk`. Then you can answer: which partner, which channel and which unit type bring opens and calls?
 
-But the global market contains millions of potential investors.
 
-The question becomes clear:
+<aside class="inline-cta" markdown="0">
+<p class="inline-cta-title">Get a link built to be shared</p>
+<p>Send one plan and we will set up a shareable, trackable link for your next launch.</p>
+<div class="inline-cta-row"><a class="cta" href="#get-demo" data-track="post_inline_cta" data-label="Get my free 3D demo">Get my free 3D demo</a><a class="btn-ghost" href="https://app.sandmotion.in/" target="_blank" rel="noopener" data-track="live_demo_click" data-label="inline">Try the live demo</a></div>
+</aside>
 
-How do you reach them all?
 
-## The Power of One Link
+## The metrics to watch
 
-Modern property experiences are now browser-based.
+| Metric | What it tells you |
+|---|---|
+| Link opens | Reach |
+| Unique viewers | Real interest |
+| Time spent and rooms viewed | Depth of interest |
+| Shares and forwards | Family and partner involvement |
+| Calls and WhatsApp clicks from the link | Intent |
 
-Instead of sending a brochure or a PDF, developers can send a single interactive link.
+## Act on warm leads fast
 
-Inside that link, buyers can instantly explore the entire project.
+Set a rule: if a viewer opens the walkthrough for more than five minutes or clicks WhatsApp, someone calls within the hour. Speed matters: see our [friction guide]({% post_url 2026-03-22-The-End-of-Friction %}).
 
-They can:
 
-• Walk through the apartment layout
-• Experience the building exterior
-• Explore amenities and shared spaces
-• Understand the project from every angle
+<div data-widget="checklist" data-title="Link-sharing setup" data-tag="Interactive checklist" data-items="A clean, branded link per unit type|WhatsApp preview image and title tested|No login before viewing|Tagged links per partner and channel|Opens and time spent tracked|A rule for calling warm viewers within an hour|Weekly review of top partners and channels" data-sub="Set this up once."></div>
 
-The sales presentation becomes fully digital and instantly accessible.
+<details class="faq"><summary>Can one link really serve thousands of people?</summary><p>Yes, when the experience runs on the viewer's device. Pixel-streamed experiences need server capacity per viewer.</p></details>
+<details class="faq"><summary>Should the link be public?</summary><p>For marketing, yes. For investors or unreleased projects, use gated links and NDAs.</p></details>
 
-## Global Reach, Instant Access
+## Sources
 
-When a project lives online, it is no longer limited by geography.
+- [OwlClaw, real estate marketing benchmarks (India)](https://owlclaw.com/benchmarks/real-estate-marketing-benchmarks)
 
-That single link can travel anywhere.
-
-Mumbai.
-Dubai.
-London.
-Singapore.
-
-Anyone with a phone or laptop can experience the property instantly.
-
-Your presentation becomes infinitely scalable.
-
-## A New Sales Model
-
-Developers who embrace browser-based property experiences unlock a new advantage.
-
-Their project can be explored by thousands of buyers simultaneously.
-
-While one buyer explores from a mobile phone, another may be reviewing the same project in a boardroom across the world.
-
-The presentation becomes a global sales tool.
-
-## From Meetings to Momentum
-
-When buyers can explore a project instantly, something powerful happens.
-
-Interest spreads faster.
-
-Buyers share the link with family members.
-Investors forward it to partners.
-Sales teams distribute it globally.
-
-What once required many meetings now begins with a single click.
-
-## Present to the World
-
-At Sandmotion, we create browser-based interactive property experiences and digital sample flats that allow developers to present projects through a single powerful link.
-
-No downloads.
-No barriers.
-
-Just a clear property experience accessible to buyers everywhere.
-
-Because when your project lives online,
-one link can reach the world.
-
-**Don't just take our word for it. Walk through the dream yourself.**
-
-[**→ Experience **](https://app.sandmotion.in/)
+*Figures are as reported by the cited sources at the time of writing (November 2026). Check the latest releases before quoting them.*

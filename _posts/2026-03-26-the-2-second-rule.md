@@ -2,8 +2,11 @@
 layout: post
 title: "How Fast Should a 3D Walkthrough Load? A Mobile Speed Guide for Property Marketing"
 date: 2026-03-26
-last_modified_at: 2026-11-01
+last_modified_at: 2026-11-02
 description: "Slow 3D walkthroughs lose buyers before they start. Learn the speed targets, the technical tricks and the five questions to ask any 3D vendor about mobile performance."
+image: /assets/blog/3d-walkthrough-load-speed.png
+label: Performance
+topics: [technology, global]
 tags: [page speed, mobile, 3D performance]
 ---
 
@@ -15,6 +18,9 @@ tags: [page speed, mobile, 3D performance]
 - Speed comes from compression, baked lighting, progressive loading and a lightweight poster image shown first.
 - Ask vendors for a live test on a mid-range phone, not a video of a laptop.
 </div>
+
+<div class="scenario"><span class="label">Four seconds</span>The link opens. A grey bar appears. Four seconds pass. A buyer in a taxi switches back to WhatsApp and replies 'will check later'. Later never comes.</div>
+
 
 The first 3D experience a buyer opens on their phone sets the tone for your project. If it hangs on a loading bar, they do not think "the model is detailed". They think "this is slow" and close it.
 
@@ -33,6 +39,8 @@ Our working targets for a residential walkthrough on a mid-range Android phone o
 | Fallback if 3D is not supported | 360 images and a WhatsApp button |
 
 These are working targets, not legal standards. The point is to set a number, measure it and improve it.
+
+<figure class="fig"><img src="/assets/blog/fig-speed.svg" alt="Four working targets for 3D walkthrough speed on a mid-range phone" loading="lazy"><figcaption>A practical performance budget.</figcaption></figure>
 
 ## Why heavy models load slowly
 
@@ -54,7 +62,7 @@ These are working targets, not legal standards. The point is to set a number, me
 <aside class="inline-cta" markdown="0">
 <p class="inline-cta-title">Time our demo on your phone</p>
 <p>Open the live demo on a mid-range phone and see for yourself. Then send us one floor plan and we will build yours free.</p>
-<div class="inline-cta-row"><a class="cta" href="/#free-plan" data-track="post_inline_cta" data-label="Get my free 3D demo">Get my free 3D demo</a><a class="btn-ghost" href="https://app.sandmotion.in/" target="_blank" rel="noopener" data-track="live_demo_click" data-label="inline">Try the live demo</a></div>
+<div class="inline-cta-row"><a class="cta" href="#get-demo" data-track="post_inline_cta" data-label="Get my free 3D demo">Get my free 3D demo</a><a class="btn-ghost" href="https://app.sandmotion.in/" target="_blank" rel="noopener" data-track="live_demo_click" data-label="inline">Try the live demo</a></div>
 </aside>
 
 
@@ -79,6 +87,25 @@ These are working targets, not legal standards. The point is to set a number, me
 A quick experience signals competence. Speed also affects how far a link travels: people forward things that open at once. If your walkthrough takes too long, it will not be forwarded, and the family discussion that closes a sale will happen without it.
 
 Test our live demo on your own phone, time it, and tell us what you find. We would rather you measure than take our word for it.
+
+## Performance test protocol (copy this)
+
+1. Use an older Android phone on mobile data, Chrome, cleared cache.
+2. Start a stopwatch when you tap the link.
+3. Note: first visible content, first interaction, smooth walking at 30 fps.
+4. Repeat three times and record the slowest result.
+5. Run the page in PageSpeed Insights (mobile) and save the score.
+6. Forward the link on WhatsApp and screenshot the preview.
+
+
+<div data-widget="scorecard" data-title="Score your walkthrough&#x27;s speed" data-tag="Self-assessment" data-items="First visible content appears fast|First interaction within about 3 seconds|Smooth movement on a mid-range phone|Works on mobile data, not just Wi-Fi|A fallback exists if 3D is not supported|WhatsApp preview looks professional" data-low="Speed is costing you buyers. Ask your vendor for a fix list." data-mid="Good base. Tighten the slowest step." data-high="Fast. Keep testing after every update."></div>
+
+## A clause for your vendor contract
+
+
+<div class="copy-box"><span class="label">Service clause</span>The walkthrough shall present first visible content within about 2 seconds and allow first interaction within about 3 seconds on a mid-range Android phone over 4G, demonstrated live at acceptance, with an initial 3D payload of about 15 MB or less.</div>
+
+<details class="faq"><summary>Why not just use a video?</summary><p>Video is fine for ads. Buyers shortlisting a purchase want to look where they choose, which needs an interactive scene.</p></details>
 
 ## Sources
 
