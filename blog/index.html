@@ -1,7 +1,7 @@
 ---
 layout: null
 title: "Insights: Selling Real Estate Before It's Built | Sandmotion"
-description: "Practical guides for developers, brokers and architects on digital sample flats, 3D walkthroughs and selling off-plan in India and the UAE."
+description: "Playbooks, market data and calculators for developers, brokers, architects and manufacturers on 3D walkthroughs, digital sample flats and digital twins in India, Dubai and worldwide."
 canonical: "https://sandmotion.in/blog/"
 nav: blog
 ---
@@ -21,9 +21,11 @@ nav: blog
 <meta property="og:title" content="{{ page.og_title | default: page.title | escape }}">
 <meta property="og:description" content="{{ page.og_description | default: desc | escape }}">
 <meta property="og:url" content="{{ canon }}">
-<meta property="og:image" content="{{ page.og_image | default: 'https://sandmotion.in/sandmotion-v1.png' }}">
+{% if page.image %}{% capture ogimg %}https://sandmotion.in{{ page.image }}{% endcapture %}{% else %}{% assign ogimg = page.og_image | default: 'https://sandmotion.in/sandmotion-v1.png' %}{% endif %}
+<meta property="og:image" content="{{ ogimg }}">
 <meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="627">
+<meta property="og:image:height" content="{% if page.image %}630{% else %}627{% endif %}">
+<meta name="twitter:image" content="{{ ogimg }}">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Sandmotion","url":"https://sandmotion.in","logo":"https://sandmotion.in/sandmotion-v1.png","email":"hello@sandmotion.in","contactPoint":{"@type":"ContactPoint","telephone":"+91-82080-72906","contactType":"sales","areaServed":["IN","AE"]}}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DYH5BFMVS0"></script>
@@ -240,6 +242,187 @@ main{display:block}
 </style>
 {% if page.css %}<link rel="stylesheet" href="/assets/css/{{ page.css }}.css">{% endif %}
 
+  <style>
+/* ===== Blog system: post layout, figures, widgets, lead forms, index ===== */
+.read-progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-hover));z-index:200;transition:width .08s linear}
+.post-wrap{max-width:1240px;margin:0 auto;padding:8.2rem 1.5rem 3rem;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,740px) minmax(0,1fr);column-gap:2.4rem}
+.post-main{grid-column:2;min-width:0}
+.post-aside{grid-column:3;position:relative}
+.toc{position:sticky;top:6.5rem;font-size:.86rem;line-height:1.5;border-left:1px solid var(--border);padding-left:1.1rem;max-width:230px}
+.toc p{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;font-weight:600}
+.toc a{display:block;color:var(--muted);text-decoration:none;padding:.32rem 0;transition:color .2s}
+.toc a:hover,.toc a.on{color:var(--white)}
+.toc a.on{border-left:2px solid var(--accent);margin-left:-1.1rem;padding-left:calc(1.1rem - 2px)}
+.toc-inline{display:none;margin:1.6rem 0;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem 1.2rem}
+.toc-inline summary{cursor:pointer;color:var(--white);font-weight:600;font-size:.95rem}
+.toc-inline a{display:block;color:var(--muted);text-decoration:none;padding:.4rem 0;font-size:.95rem}
+.post-chips{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.chip{display:inline-block;padding:.35rem .8rem;border:1px solid rgba(201,169,110,.5);color:var(--accent);border-radius:20px;font-weight:600;letter-spacing:.12em}
+.post-head h1{font-size:clamp(2.1rem,4.6vw,3.2rem);line-height:1.12;margin:1rem 0 .9rem}
+.post-head .lede{color:var(--body-text);font-size:1.2rem;line-height:1.6;max-width:62ch}
+.byline{display:flex;flex-wrap:wrap;gap:1rem 1.6rem;align-items:center;justify-content:space-between;margin:1.6rem 0 1.4rem;padding:1rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:.9rem;color:var(--muted)}
+.byline strong{color:var(--white)}
+.share{display:flex;gap:.5rem;align-items:center}
+.share a,.share button{display:inline-flex;align-items:center;gap:.4rem;font:inherit;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--body-text);background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:.45rem .9rem;text-decoration:none;cursor:pointer;transition:border-color .2s,color .2s}
+.share a:hover,.share button:hover{color:var(--accent);border-color:rgba(201,169,110,.6)}
+.hero-img{margin:0 0 2.4rem;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--charcoal)}
+.hero-img img{display:block;width:100%;height:auto}
+.post-body figure.fig{margin:2.4rem 0;border-radius:12px;overflow:hidden}
+.post-body figure.fig img{display:block;width:100%;height:auto;border-radius:12px}
+.post-body figcaption{margin-top:.7rem;font-size:.85rem;color:var(--muted);text-align:center;line-height:1.5}
+.post-body figure.shot{margin:2.2rem 0}
+.post-body figure.shot img{border:1px solid var(--border);box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.post-body .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin:2.2rem 0}
+.post-body .stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1rem;text-align:center}
+.post-body .stat b{display:block;font-family:var(--font-display);font-size:2.1rem;color:var(--accent);font-weight:500;line-height:1.1}
+.post-body .stat span{display:block;margin-top:.4rem;font-size:.85rem;color:var(--muted);line-height:1.4}
+.post-body .pull{margin:2.4rem 0;padding:.4rem 0 .4rem 1.4rem;border-left:3px solid var(--accent);font-family:var(--font-display);font-size:1.7rem;line-height:1.35;color:var(--white)}
+.post-body .callout{margin:2rem 0;padding:1.2rem 1.4rem;background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.3);border-radius:10px}
+.post-body .callout p{margin:0;font-size:1.02rem}
+.post-body .callout .label{display:block;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:.4rem}
+.post-body .scenario{margin:2rem 0;padding:1.4rem 1.6rem;background:var(--surface);border-radius:10px;border:1px solid var(--border);font-size:1.05rem}
+.post-body .scenario .label{display:block;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--steel);font-weight:700;margin-bottom:.5rem}
+.post-body .copy-box{margin:1.6rem 0;padding:1.2rem 1.4rem;background:#0f1219;border:1px dashed rgba(201,169,110,.45);border-radius:10px;font-size:1rem;line-height:1.65;color:var(--white)}
+.post-body .copy-box .label{display:block;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:.5rem}
+.post-body details.faq{margin:.6rem 0;border-bottom:1px solid var(--border);padding:.3rem 0}
+.post-body details.faq summary{cursor:pointer;color:var(--white);font-weight:600;padding:.8rem 0;list-style:none}
+.post-body details.faq summary::after{content:'+';float:right;color:var(--accent);font-size:1.3rem}
+.post-body details.faq[open] summary::after{content:'−'}
+.post-body details.faq p{margin:0 0 1rem;font-size:1.02rem}
+
+/* ----- widgets ----- */
+.sm-widget{margin:2.8rem 0;background:linear-gradient(180deg,var(--surface),var(--charcoal));border:1px solid rgba(201,169,110,.32);border-radius:14px;padding:1.8rem 1.6rem 1.6rem;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.sm-widget h3{font-size:1.7rem;margin:.2rem 0 .5rem}
+.sm-widget .sm-sub{color:var(--muted);font-size:.98rem;line-height:1.6;margin:0 0 1.3rem}
+.sm-tag{display:inline-block;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.sm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem 1rem}
+.sm-field label{display:block;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;font-weight:500}
+.sm-field input,.sm-field select{width:100%;min-height:46px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.18);border-radius:6px;color:var(--white);font-family:var(--font-body);font-size:1rem;padding:.6rem .8rem}
+.sm-field input:focus,.sm-field select:focus{outline:none;border-color:var(--accent)}
+.sm-field.full{grid-column:1/-1}
+.sm-out{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin:1.4rem 0 .4rem}
+.sm-card{background:rgba(0,0,0,.35);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center}
+.sm-card b{display:block;font-family:var(--font-display);font-size:1.8rem;color:var(--accent);font-weight:500;line-height:1.15}
+.sm-card span{display:block;font-size:.8rem;color:var(--muted);margin-top:.3rem;line-height:1.4}
+.sm-card.hot b{color:var(--ok)}
+.sm-note{font-size:.85rem;color:var(--muted);margin-top:.8rem;line-height:1.55}
+.sm-q{display:flex;gap:.8rem;align-items:flex-start;padding:.75rem .2rem;border-bottom:1px solid var(--border);cursor:pointer;font-size:1rem}
+.sm-q input{width:20px;height:20px;margin-top:3px;accent-color:var(--accent);flex-shrink:0}
+.sm-meter{height:10px;background:#222839;border-radius:6px;overflow:hidden;margin:1rem 0 .6rem}
+.sm-meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .35s var(--ease)}
+.sm-verdict{font-size:1.05rem;color:var(--white);line-height:1.6;margin:.6rem 0}
+.sm-verdict b{color:var(--accent)}
+.sm-range{display:grid;grid-template-columns:1fr auto;gap:.3rem 1rem;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--border)}
+.sm-range label{font-size:.98rem;color:var(--body-text)}
+.sm-range output{color:var(--accent);font-weight:700;min-width:1.6rem;text-align:right}
+.sm-range input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--accent)}
+.sm-steps{display:flex;gap:.4rem;margin-bottom:1rem}
+.sm-steps i{flex:1;height:4px;border-radius:3px;background:#222839}
+.sm-steps i.on{background:var(--accent)}
+.sm-opt{display:block;width:100%;text-align:left;margin:.5rem 0;padding:.9rem 1rem;background:rgba(0,0,0,.35);border:1px solid var(--border);border-radius:8px;color:var(--white);font:inherit;font-size:1rem;cursor:pointer;transition:border-color .2s,background .2s}
+.sm-opt:hover{border-color:var(--accent);background:rgba(201,169,110,.08)}
+.sm-reset{background:none;border:0;color:var(--muted);font:inherit;font-size:.85rem;text-decoration:underline;cursor:pointer;margin-top:.6rem}
+.sun-stage{background:#0c0f16;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.sun-stage svg{display:block;width:100%;height:auto}
+.cmp{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:#0c0f16;aspect-ratio:1200/630}
+.cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cmp .top{clip-path:inset(0 50% 0 0)}
+.cmp .bar{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--accent);box-shadow:0 0 14px rgba(201,169,110,.8)}
+.cmp .bar::after{content:'↔';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;background:var(--accent);color:var(--black);display:flex;align-items:center;justify-content:center;font-weight:700}
+.cmp input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize}
+.cmp .tagl,.cmp .tagr{position:absolute;bottom:12px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;background:rgba(0,0,0,.6);color:var(--white);padding:.3rem .7rem;border-radius:4px}
+.cmp .tagl{left:12px}.cmp .tagr{right:12px}
+
+/* ----- lead forms ----- */
+.sm-lead{margin-top:1.6rem;padding-top:1.4rem;border-top:1px dashed rgba(201,169,110,.35)}
+.sm-lead .sm-lead-title{font-family:var(--font-display);font-size:1.45rem;color:var(--white);line-height:1.25;margin:0 0 .3rem}
+.sm-lead .sm-lead-sub{font-size:.92rem;color:var(--muted);margin:0 0 1rem}
+.sm-lead .sm-row{display:grid;grid-template-columns:1fr 1.3fr;gap:.7rem;margin-bottom:.7rem}
+.sm-lead input,.sm-lead select{width:100%;min-height:48px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.18);border-radius:6px;color:var(--white);font-family:var(--font-body);font-size:1rem;padding:.6rem .8rem}
+.sm-lead input:focus,.sm-lead select:focus{outline:none;border-color:var(--accent)}
+.sm-lead .sm-phone{display:grid;grid-template-columns:96px 1fr;gap:.5rem}
+.sm-lead .full{margin-bottom:.7rem}
+.sm-lead .cta{width:100%;margin-top:.3rem}
+.sm-lead .sm-consent{font-size:.78rem;color:var(--muted);margin-top:.7rem;line-height:1.5}
+.sm-lead .sm-consent a{color:var(--accent)}
+.sm-lead .bad{border-color:var(--error)!important}
+.sm-thanks{display:none;text-align:center;padding:1.4rem .6rem}
+.sm-thanks h4{font-family:var(--font-display);font-size:1.7rem;color:var(--white);margin-bottom:.5rem;font-weight:500}
+.sm-thanks p{color:var(--muted);font-size:1rem}
+.end-form{margin:3.4rem 0 1rem;padding:2.2rem 1.8rem;background:radial-gradient(120% 140% at 100% 0%,rgba(201,169,110,.16),transparent 60%),var(--surface);border:1px solid rgba(201,169,110,.4);border-radius:16px}
+.end-form h2{font-size:clamp(1.8rem,3.6vw,2.4rem);line-height:1.15;margin-bottom:.5rem}
+.end-form h2 em{color:var(--accent)}
+.end-form .lede2{color:var(--body-text);margin-bottom:1.2rem;font-size:1.02rem}
+.end-form .perks{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin:0 0 1.2rem;padding:0;list-style:none;font-size:.9rem;color:var(--muted)}
+.end-form .perks li::before{content:'✓ ';color:var(--ok);font-weight:700}
+.end-form .sm-lead{border-top:0;margin-top:0;padding-top:0}
+.wa-alt{display:inline-flex;align-items:center;gap:.6rem;margin-top:1rem;color:var(--accent);font-size:.9rem;text-decoration:none;border-bottom:1px solid rgba(201,169,110,.4)}
+
+/* ----- sticky CTA ----- */
+.sticky-cta{position:fixed;left:50%;bottom:1rem;transform:translate(-50%,140%);z-index:95;display:flex;align-items:center;gap:1rem;max-width:min(680px,calc(100% - 1.4rem));width:max-content;padding:.7rem .8rem .7rem 1.2rem;background:rgba(17,19,26,.96);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(201,169,110,.5);border-radius:40px;box-shadow:0 16px 50px rgba(0,0,0,.55);transition:transform .45s var(--ease)}
+.sticky-cta.show{transform:translate(-50%,0)}
+.sticky-cta span{font-size:.92rem;color:var(--white)}
+.sticky-cta .cta{min-height:40px;padding:.6rem 1.3rem;font-size:.72rem;box-shadow:none;white-space:nowrap}
+.sticky-cta button{background:none;border:0;color:var(--muted);font-size:1.4rem;cursor:pointer;line-height:1;padding:0 .4rem;min-width:36px;min-height:36px}
+@media(max-width:700px){.sticky-cta span{display:none}.sticky-cta{padding:.5rem .5rem .5rem .8rem}}
+
+/* ----- related ----- */
+.related-wrap{max-width:1100px;margin:1rem auto 5rem;padding:0 1.5rem}
+.related-wrap>h2{font-size:1.9rem;margin-bottom:1.4rem;text-align:center}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.6rem}
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .35s var(--ease),border-color .35s}
+.card:hover{transform:translateY(-6px);border-color:rgba(201,169,110,.5)}
+.card .thumb{aspect-ratio:1200/630;background:var(--charcoal);overflow:hidden}
+.card .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease)}
+.card:hover .thumb img{transform:scale(1.05)}
+.card .body{padding:1.2rem 1.3rem 1.4rem;display:flex;flex-direction:column;gap:.55rem;flex:1}
+.card .meta{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.card h3{font-size:1.4rem;line-height:1.25;color:var(--white)}
+.card p{font-size:.95rem;color:var(--muted);line-height:1.55}
+.card .more{margin-top:auto;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+
+/* ----- blog index ----- */
+.blog-hero{padding:9rem 1.5rem 2rem;text-align:center;max-width:900px;margin:0 auto}
+.blog-hero h1{font-size:clamp(2.4rem,5.4vw,4.1rem);line-height:1.08}
+.blog-hero h1 em{color:var(--accent)}
+.blog-hero p{color:var(--body-text);font-size:1.15rem;max-width:58ch;margin:1.2rem auto 0}
+.blog-stats{display:flex;justify-content:center;flex-wrap:wrap;gap:.6rem 2.2rem;margin-top:1.8rem;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.blog-stats b{color:var(--accent);font-weight:700}
+.featured{max-width:1100px;margin:2.2rem auto 1rem;padding:0 1.5rem}
+.featured a{display:grid;grid-template-columns:1.15fr 1fr;gap:0;background:var(--surface);border:1px solid rgba(201,169,110,.4);border-radius:16px;overflow:hidden;text-decoration:none;color:inherit;transition:border-color .3s}
+.featured a:hover{border-color:var(--accent)}
+.featured .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.featured .body{padding:2.2rem 2rem;display:flex;flex-direction:column;justify-content:center;gap:.8rem}
+.featured .meta{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.featured h2{font-size:clamp(1.7rem,3vw,2.4rem);line-height:1.15;color:var(--white)}
+.featured p{color:var(--muted);font-size:1.02rem;line-height:1.6}
+.featured .more{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;max-width:1100px;margin:2.2rem auto 1.8rem;padding:0 1.5rem}
+.chips button{font:inherit;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:.6rem 1.1rem;border-radius:24px;background:transparent;border:1px solid var(--border);color:var(--body-text);cursor:pointer;transition:all .25s}
+.chips button:hover{border-color:rgba(201,169,110,.6);color:var(--white)}
+.chips button.on{background:var(--accent);border-color:var(--accent);color:var(--black)}
+.index-grid{max-width:1100px;margin:0 auto;padding:0 1.5rem 3rem}
+.banner{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:1.4rem;flex-wrap:wrap;padding:1.8rem 2rem;border-radius:14px;background:radial-gradient(120% 160% at 0% 0%,rgba(201,169,110,.2),transparent 60%),var(--surface);border:1px solid rgba(201,169,110,.45)}
+.banner h3{font-size:1.7rem;line-height:1.2;color:var(--white)}
+.banner h3 em{color:var(--accent)}
+.banner p{color:var(--muted);margin-top:.3rem;font-size:.98rem}
+.banner .row{display:flex;gap:.8rem;flex-wrap:wrap}
+.empty-note{display:none;text-align:center;color:var(--muted);padding:2rem}
+.index-form{max-width:760px;margin:0 auto 6rem;padding:0 1.5rem}
+
+@media(max-width:1180px){
+  .post-wrap{grid-template-columns:minmax(0,1fr);max-width:780px;padding-top:7.4rem}
+  .post-main{grid-column:1}.post-aside{display:none}.toc-inline{display:block}
+}
+@media(max-width:800px){
+  .featured a{grid-template-columns:1fr}
+  .sm-grid{grid-template-columns:1fr}
+  .sm-lead .sm-row{grid-template-columns:1fr}
+  .byline{flex-direction:column;align-items:flex-start}
+  .banner{padding:1.4rem 1.2rem}
+}
+
+</style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Blog","name":"Sandmotion Insights","url":"https://sandmotion.in/blog/","publisher":{"@type":"Organization","name":"Sandmotion"}}</script>
 </head>
 <body>
@@ -259,36 +442,42 @@ main{display:block}
 </nav>
 
   <main id="main">
-    <header class="page-hero">
-      <span class="eyebrow">Insights</span>
-      <h1>Selling real estate <em>before it's built</em></h1>
-      <p>Practical guides for developers, channel partners and architects on digital sample flats, 3D walkthroughs and faster buyer decisions.</p>
+    <header class="blog-hero">
+      <span class="eyebrow">Sandmotion insights</span>
+      <h1>Sell the home <em>before</em> it is built</h1>
+      <p>Playbooks, market data and free calculators for developers, brokers, architects and manufacturers in India, Dubai and worldwide.</p>
+      <div class="blog-stats"><span><b>{{ site.posts.size }}</b> articles</span><span><b>52</b> interactive tools</span><span><b>India · Dubai · Global</b></span></div>
     </header>
 
-    <ul class="post-list">
-      {% for post in site.posts %}
-      {% assign blurb = post.description | default: post.excerpt | strip_html | strip_newlines | truncatewords: 32 %}
-      {% assign mins = post.content | number_of_words | divided_by: 200 | plus: 1 %}
-      <li class="post-card">
-        <div class="post-meta">
-          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %B %Y" }}</time>
-          <span class="dot">·</span><span>{{ mins }} min read</span>
-        </div>
-        <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-        <p>{{ blurb }}</p>
-        <a href="{{ post.url }}" class="read-more" aria-label="Read: {{ post.title | escape }}">Read the article →</a>
-      </li>
-      {% endfor %}
-    </ul>
+    {% assign feat = nil %}
+    {% for p in site.posts %}{% if p.featured and feat == nil %}{% assign feat = p %}{% endif %}{% endfor %}
+    {% if feat %}
+    <section class="featured"><a href="{{ feat.url }}"><div class="thumb"><img src="{{ feat.image | replace: '.png', '.svg' }}" alt=""></div>
+      <div class="body"><span class="meta">Featured · {{ feat.label }}</span><h2>{{ feat.title }}</h2><p>{{ feat.description }}</p><span class="more">Read the report →</span></div></a></section>
+    {% endif %}
 
-    <aside class="cta-band">
-      <h2>See your floor plan in 3D, <em>free</em></h2>
-      <p>Send one floor plan and we'll turn it into a walkable 3D flat that opens from one link on any phone. No app, no obligation.</p>
-      <div class="row">
-        <a class="cta" href="/#free-plan" data-track="blog_cta_click" data-label="list">Get My Free 3D Demo</a>
-        <a class="btn-ghost" href="https://app.sandmotion.in/" target="_blank" rel="noopener" data-track="live_demo_click" data-label="blog list">Try a Live Demo</a>
-      </div>
-    </aside>
+    <nav class="chips" aria-label="Filter articles">
+      <button class="on" data-f="all">All</button><button data-f="india">India</button><button data-f="dubai">Dubai and GCC</button><button data-f="global">Global</button>
+      <button data-f="developers">Developers</button><button data-f="architects">Architects</button><button data-f="industrial">Industrial</button><button data-f="technology">Technology</button>
+    </nav>
+
+    <section class="index-grid"><div class="card-grid">
+      {% assign n = 0 %}
+      {% for post in site.posts %}
+        {% assign n = n | plus: 1 %}
+        {% assign blurb = post.description | default: post.excerpt | strip_html | strip_newlines | truncatewords: 30 %}
+        {% assign mins = post.content | number_of_words | divided_by: 200 | plus: 1 %}
+        <a class="card" href="{{ post.url }}" data-topics="{{ post.topics | join: ' ' }}">
+          <div class="thumb"><img src="{% if post.image %}{{ post.image | replace: '.png', '.svg' }}{% else %}/assets/blog/default.svg{% endif %}" alt="" loading="lazy"></div>
+          <div class="body"><span class="meta">{{ post.label | default: 'Insight' }} · {{ mins }} min</span><h3>{{ post.title }}</h3><p>{{ blurb }}</p><span class="more">Read →</span></div>
+        </a>
+        {% if n == 6 %}
+        <div class="banner"><div><h3>See your floor plan in <em>3D, free</em></h3><p>One floor plan in, a walkable flat out. No app for your buyers.</p></div><div class="row"><a class="cta" href="#get-demo-index" data-track="blog_cta_click" data-label="banner">Get my free demo</a><a class="btn-ghost" href="https://app.sandmotion.in/" target="_blank" rel="noopener" data-track="live_demo_click" data-label="blog banner">Try the live demo</a></div></div>
+        {% endif %}
+      {% endfor %}
+    </div><p class="empty-note">No articles in this topic yet.</p></section>
+
+    <section class="index-form" id="get-demo-index"><div class="end-form" id="index-form"><h2>Start with <em>one floor plan</em></h2><p class="lede2">We build your first floor free. You judge the quality on your own phone before you commit.</p><div class="lead-slot"></div></div></section>
   </main>
   <footer class="site-footer">
   <div class="footer-logo">Sand<span>motion</span></div>
@@ -439,5 +628,335 @@ main{display:block}
 
 </script>
 
+  <script>
+/* Sandmotion blog: reading UX, lead forms and interactive widgets */
+(function () {
+  'use strict';
+  var d = document;
+  function $(s, r) { return (r || d).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || d).querySelectorAll(s)); }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function num(v) { var n = parseFloat(String(v).replace(/,/g, '')); return isFinite(n) ? n : 0; }
+  var h1 = $('h1');
+  var POST = (h1 && h1.textContent.trim()) || d.title;
+  var WA = '918208072906';
+
+  function track(n, p) { if (window.smTrack) window.smTrack(n, p || {}); }
+  function money(v, cur) {
+    cur = cur || '₹';
+    if (!isFinite(v)) return '-';
+    var a = Math.abs(v), s;
+    if (cur === '₹') {
+      if (a >= 1e7) s = (v / 1e7).toFixed(2) + ' Cr';
+      else if (a >= 1e5) s = (v / 1e5).toFixed(2) + ' lakh';
+      else s = Math.round(v).toLocaleString('en-IN');
+      return '₹' + s;
+    }
+    if (a >= 1e6) s = (v / 1e6).toFixed(2) + 'M'; else s = Math.round(v).toLocaleString('en-US');
+    return (cur === 'AED' ? 'AED ' : '$') + s;
+  }
+
+  /* ---------- reading progress + TOC + share ---------- */
+  var body = $('.post-body');
+  if (body) {
+    var bar = $('.read-progress');
+    var onScroll = function () {
+      var h = d.documentElement; var max = h.scrollHeight - h.clientHeight;
+      if (bar) bar.style.width = (max > 0 ? Math.min(100, (h.scrollTop / max) * 100) : 0) + '%';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+    var heads = $$('h2', body).filter(function (h) { return h.textContent.trim().toLowerCase() !== 'sources'; });
+    heads.forEach(function (h, i) { if (!h.id) h.id = 's' + (i + 1) + '-' + h.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40); });
+    var tocHTML = heads.map(function (h) { return '<a href="#' + h.id + '">' + esc(h.textContent) + '</a>'; }).join('');
+    var aside = $('.toc'); if (aside && heads.length > 2) aside.insertAdjacentHTML('beforeend', tocHTML); else if (aside) aside.style.display = 'none';
+    var inl = $('.toc-inline'); if (inl && heads.length > 2) inl.insertAdjacentHTML('beforeend', tocHTML); else if (inl) inl.style.display = 'none';
+    if ('IntersectionObserver' in window && aside) {
+      var links = $$('a', aside);
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { links.forEach(function (l) { l.classList.toggle('on', l.getAttribute('href') === '#' + e.target.id); }); } });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+      heads.forEach(function (h) { io.observe(h); });
+    }
+    var u = encodeURIComponent(location.href.split('#')[0]), t = encodeURIComponent(POST + ' | Sandmotion');
+    var wa = $('.share-wa'), li = $('.share-li'), cp = $('.share-copy');
+    if (wa) { wa.href = 'https://wa.me/?text=' + t + '%20' + u; wa.target = '_blank'; wa.rel = 'noopener'; wa.addEventListener('click', function () { track('share_click', { channel: 'whatsapp' }); }); }
+    if (li) { li.href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + u; li.target = '_blank'; li.rel = 'noopener'; li.addEventListener('click', function () { track('share_click', { channel: 'linkedin' }); }); }
+    if (cp) cp.addEventListener('click', function () {
+      var done = function () { cp.textContent = 'Copied'; setTimeout(function () { cp.textContent = 'Copy link'; }, 1800); track('share_click', { channel: 'copy' }); };
+      if (navigator.clipboard) navigator.clipboard.writeText(location.href.split('#')[0]).then(done, done); else done();
+    });
+  }
+
+  /* ---------- sticky CTA ---------- */
+  var sticky = $('.sticky-cta');
+  if (sticky) {
+    var dismissed = false; try { dismissed = sessionStorage.getItem('sm_sticky') === '1'; } catch (e) {}
+    var endForm = $('#get-demo'), formVisible = false;
+    if (endForm && 'IntersectionObserver' in window) new IntersectionObserver(function (es) { formVisible = es[0].isIntersecting; upd(); }).observe(endForm);
+    var scrolled = false;
+    function upd() { sticky.classList.toggle('show', scrolled && !formVisible && !dismissed); }
+    window.addEventListener('scroll', function () {
+      var h = d.documentElement; var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+      scrolled = p > 0.28; upd();
+    }, { passive: true });
+    var x = $('button', sticky); if (x) x.addEventListener('click', function () { dismissed = true; try { sessionStorage.setItem('sm_sticky', '1'); } catch (e) {} upd(); });
+  }
+
+  /* ---------- lead form ---------- */
+  var CC = [['+91', 'IN +91'], ['+971', 'AE +971'], ['+44', 'UK +44'], ['+1', 'US +1'], ['+65', 'SG +65'], ['+61', 'AU +61'], ['+966', 'SA +966'], ['+974', 'QA +974']];
+  function leadForm(opt) {
+    var cc = CC.map(function (c) { return '<option value="' + c[0] + '">' + c[1] + '</option>'; }).join('');
+    var role = opt.role ? '<div class="full"><select name="role" aria-label="Your role"><option value="">Your role (optional)</option><option>Developer / Builder</option><option>Channel Partner / Broker</option><option>Architect / Designer</option><option>Manufacturing / Industrial</option><option>Other</option></select></div>' : '';
+    return '<form class="sm-lead" novalidate data-ctx="' + esc(opt.ctx) + '">' +
+      '<p class="sm-lead-title">' + esc(opt.title) + '</p>' + (opt.sub ? '<p class="sm-lead-sub">' + esc(opt.sub) + '</p>' : '') +
+      '<div class="sm-row"><input name="name" placeholder="Your name" autocomplete="name" aria-label="Your name"><div class="sm-phone"><select name="cc" aria-label="Country code">' + cc + '</select><input name="phone" type="tel" placeholder="WhatsApp number" autocomplete="tel-national" aria-label="WhatsApp number"></div></div>' +
+      role + '<div class="full"><input name="project" placeholder="Project name and city (optional)" aria-label="Project name and city"></div>' +
+      '<input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+      '<button type="submit" class="cta">' + esc(opt.button || 'Send me this') + '</button>' +
+      '<p class="sm-consent">By sending, you agree to be contacted on WhatsApp about this request and to our <a href="/privacy.html">Privacy Policy</a>.</p>' +
+      '<div class="form-status" role="status" aria-live="polite"></div></form>' +
+      '<div class="sm-thanks" role="status"><h4>Thank you, we have it.</h4><p>We will message you on WhatsApp within 10 minutes (9 AM to 9 PM IST). Want to speak right now?</p><p style="margin-top:1rem"><a class="btn-ghost" target="_blank" rel="noopener" href="https://wa.me/' + WA + '?text=' + encodeURIComponent('Hi Sandmotion, I just sent a request from your article: ' + POST) + '">Chat on WhatsApp</a></p></div>';
+  }
+  function bindLead(root, getData) {
+    var form = $('.sm-lead', root); if (!form) return;
+    var thanks = $('.sm-thanks', root), st = $('.form-status', form);
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (form.website.value) { form.style.display = 'none'; thanks.style.display = 'block'; return; }
+      var name = form.name.value.trim(), digits = form.phone.value.replace(/\D/g, '');
+      form.name.classList.toggle('bad', !name); form.phone.classList.toggle('bad', digits.length < 7 || digits.length > 12);
+      if (!name || digits.length < 7 || digits.length > 12) { window.smStatus && smStatus(st, 'err', 'Please add your name and a valid WhatsApp number.'); return; }
+      var btn = $('.cta', form), old = btn.textContent; btn.disabled = true; btn.textContent = 'Sending…';
+      var payload = {
+        form: 'blog_' + form.getAttribute('data-ctx'), fullName: name, whatsapp: form.cc.value + digits,
+        role: form.role ? form.role.value : '', projectName: form.project.value.trim(),
+        post: POST, postUrl: location.href.split('#')[0], widgetData: JSON.stringify(getData ? getData() : {})
+      };
+      if (!window.smSubmitLead) { btn.disabled = false; btn.textContent = old; return; }
+      smSubmitLead(payload, null).then(function () {
+        form.style.display = 'none'; thanks.style.display = 'block';
+      }).catch(function () {
+        btn.disabled = false; btn.textContent = old;
+        smStatus(st, 'err', 'Something went wrong. Please message us on WhatsApp at +91 82080 72906.');
+      });
+    });
+  }
+
+  /* end-of-post form */
+  var end = $('#get-demo .lead-slot');
+  if (end) { end.innerHTML = leadForm({ ctx: 'end_form', title: 'Where should we send your demo?', button: 'Get my free 3D demo', role: true }); bindLead(end, function () { return { type: 'free_demo_request' }; }); }
+  var idx = $('#index-form .lead-slot');
+  if (idx) { idx.innerHTML = leadForm({ ctx: 'index_form', title: 'Send us one floor plan', sub: 'We reply on WhatsApp within 10 minutes (9 AM to 9 PM IST).', button: 'Get my free 3D demo', role: true }); bindLead(idx, function () { return { type: 'free_demo_request' }; }); }
+
+  /* ---------- widget shell ---------- */
+  function shell(root, tag, title, sub, inner) {
+    root.className = 'sm-widget';
+    root.innerHTML = '<span class="sm-tag">' + esc(tag) + '</span><h3>' + esc(title) + '</h3>' + (sub ? '<p class="sm-sub">' + esc(sub) + '</p>' : '') + inner;
+  }
+  function field(id, label, val, type, full, opts) {
+    var ctl = opts ? '<select id="' + id + '">' + opts.map(function (o) { return '<option' + (o === val ? ' selected' : '') + '>' + esc(o) + '</option>'; }).join('') + '</select>'
+      : '<input id="' + id + '" type="' + (type || 'number') + '" value="' + esc(val) + '" inputmode="decimal">';
+    return '<div class="sm-field' + (full ? ' full' : '') + '"><label for="' + id + '">' + esc(label) + '</label>' + ctl + '</div>';
+  }
+
+  var W = {};
+
+  /* 1. Sample-flat cost calculator */
+  W['cost-calc'] = function (root, n) {
+    var pre = 'cc' + n;
+    shell(root, 'Free calculator', 'What does your physical sample flat really cost?', 'Example values are filled in. Replace them with your own numbers. Nothing is stored unless you send it to us.',
+      '<div class="sm-grid">' + field(pre + 'cur', 'Currency', '₹', 'text', false, ['₹', 'AED', '$']) + field(pre + 'mo', 'Months the flat stays open', 12) +
+      field(pre + 'fit', 'Fit-out and furnishing (one-time)', 2000000) + field(pre + 'rent', 'Space cost per month (rent or opportunity)', 60000) +
+      field(pre + 'up', 'Upkeep, electricity, cleaning per month', 20000) + field(pre + 'staff', 'Staff per month', 80000) +
+      field(pre + 'mar', 'Your net margin per booking', 500000, 'number', true) + '</div>' +
+      '<div class="sm-out"><div class="sm-card"><b id="' + pre + 'a">-</b><span>Total cost over the period</span></div><div class="sm-card"><b id="' + pre + 'b">-</b><span>Cost per month</span></div><div class="sm-card hot"><b id="' + pre + 'c">-</b><span>Extra bookings needed to break even</span></div></div>' +
+      '<p class="sm-note">A digital sample flat does not replace material feel, but it can pre-qualify visitors and reach people who never visit. Compare this total with a quote.</p>' +
+      leadForm({ ctx: 'cost_calc', title: 'Get a quote to compare', sub: 'We will send a digital sample flat quote on WhatsApp so you can compare line by line.', button: 'Send me the comparison' }));
+    var g = function (s) { return $('#' + pre + s, root); };
+    function calc() {
+      var cur = g('cur').value, mo = num(g('mo').value), one = num(g('fit').value), m = num(g('rent').value) + num(g('up').value) + num(g('staff').value), tot = one + m * mo, mar = num(g('mar').value);
+      g('a').textContent = money(tot, cur); g('b').textContent = money(mo ? tot / mo : 0, cur); g('c').textContent = mar > 0 ? (Math.ceil(tot / mar * 10) / 10) : '-';
+      return { currency: cur, months: mo, oneTime: one, monthly: m, total: tot, marginPerBooking: mar };
+    }
+    $$('input,select', root).forEach(function (el) { if (el.id && el.id.indexOf(pre) === 0) el.addEventListener('input', function () { calc(); track('widget_use', { widget: 'cost-calc' }); }); });
+    calc(); bindLead(root, calc);
+  };
+
+  /* 2. Funnel calculator */
+  W['funnel-calc'] = function (root, n) {
+    var pre = 'fc' + n;
+    shell(root, 'Free calculator', 'What is each site visit and booking really costing you?', 'Defaults use the middle of published Indian benchmarks (about 10% lead-to-visit, 25% visit-to-booking). Replace with your own numbers.',
+      '<div class="sm-grid">' + field(pre + 'cur', 'Currency', '₹', 'text', false, ['₹', 'AED', '$']) + field(pre + 'sp', 'Marketing spend per month', 500000) +
+      field(pre + 'ld', 'Leads per month', 400) + field(pre + 'l2v', 'Lead → site visit (%)', 10) + field(pre + 'v2b', 'Visit → booking (%)', 25) + field(pre + 'mar', 'Net margin per booking', 300000) +
+      '<div class="sm-field full"><label for="' + pre + 'up">If faster replies plus a walkable 3D flat lift lead → visit by (relative %)</label><input id="' + pre + 'up" type="range" min="0" max="60" value="20"><output id="' + pre + 'upv" style="color:var(--accent);font-weight:700">+20%</output></div></div>' +
+      '<div class="sm-out"><div class="sm-card"><b id="' + pre + 'cl">-</b><span>Cost per lead</span></div><div class="sm-card"><b id="' + pre + 'cv">-</b><span>Cost per site visit</span></div><div class="sm-card"><b id="' + pre + 'cb">-</b><span>Cost per booking</span></div></div>' +
+      '<div class="sm-out"><div class="sm-card"><b id="' + pre + 'bk">-</b><span>Bookings per month today</span></div><div class="sm-card hot"><b id="' + pre + 'bk2">-</b><span>With the uplift</span></div><div class="sm-card hot"><b id="' + pre + 'ex">-</b><span>Extra margin per year</span></div></div>' +
+      '<p class="sm-note">This is a what-if, not a promise. Test the uplift on one project for 30 days and measure it.</p>' +
+      leadForm({ ctx: 'funnel_calc', title: 'Want to test the uplift?', sub: 'Send us one floor plan and we will build a walkable flat for your next 30-day test.', button: 'Start my 30-day test' }));
+    var g = function (s) { return $('#' + pre + s, root); };
+    function calc() {
+      var cur = g('cur').value, sp = num(g('sp').value), ld = num(g('ld').value), a = num(g('l2v').value) / 100, b = num(g('v2b').value) / 100, mar = num(g('mar').value), up = num(g('up').value) / 100;
+      g('upv').textContent = '+' + Math.round(up * 100) + '%';
+      var vis = ld * a, bk = vis * b, vis2 = ld * Math.min(1, a * (1 + up)), bk2 = vis2 * b;
+      g('cl').textContent = ld ? money(sp / ld, cur) : '-'; g('cv').textContent = vis ? money(sp / vis, cur) : '-'; g('cb').textContent = bk ? money(sp / bk, cur) : '-';
+      g('bk').textContent = bk.toFixed(1); g('bk2').textContent = bk2.toFixed(1); g('ex').textContent = money((bk2 - bk) * mar * 12, cur);
+      return { currency: cur, spend: sp, leads: ld, leadToVisit: a, visitToBooking: b, marginPerBooking: mar, uplift: up, bookings: bk, bookingsWithUplift: bk2 };
+    }
+    $$('input,select', root).forEach(function (el) { if (el.id && el.id.indexOf(pre) === 0) el.addEventListener('input', function () { calc(); track('widget_use', { widget: 'funnel-calc' }); }); });
+    calc(); bindLead(root, calc);
+  };
+
+  /* 3. Checklist (items in data-items, separated by |) */
+  W['checklist'] = function (root, n) {
+    var items = (root.getAttribute('data-items') || '').split('|').filter(Boolean), title = root.getAttribute('data-title') || 'Checklist';
+    var key = 'smcl:' + location.pathname + ':' + n, saved = []; try { saved = JSON.parse(localStorage.getItem(key) || '[]'); } catch (e) {}
+    shell(root, root.getAttribute('data-tag') || 'Interactive checklist', title, root.getAttribute('data-sub') || 'Tick items as you go. Your progress is saved in this browser.',
+      '<div class="sm-meter"><i></i></div><p class="sm-verdict"></p>' + items.map(function (t, i) { return '<label class="sm-q"><input type="checkbox" data-i="' + i + '"' + (saved.indexOf(i) > -1 ? ' checked' : '') + '><span>' + esc(t) + '</span></label>'; }).join('') +
+      leadForm({ ctx: 'checklist', title: 'Want help with the items still open?', sub: 'Send us your project and we will tell you what to do first.', button: 'Send me my open items' }));
+    var meter = $('.sm-meter i', root), vd = $('.sm-verdict', root);
+    function state() { var on = $$('input[type=checkbox]', root).filter(function (c) { return c.checked; }).map(function (c) { return +c.getAttribute('data-i'); }); return on; }
+    function upd() {
+      var on = state(); meter.style.width = (items.length ? on.length / items.length * 100 : 0) + '%';
+      vd.innerHTML = '<b>' + on.length + ' of ' + items.length + '</b> done' + (on.length === items.length ? '. Nicely done. You are launch-ready.' : '.');
+      try { localStorage.setItem(key, JSON.stringify(on)); } catch (e) {}
+    }
+    root.addEventListener('change', function (e) { if (e.target.type === 'checkbox') { upd(); track('widget_use', { widget: 'checklist' }); } });
+    upd(); bindLead(root, function () { var on = state(); return { title: title, done: on.length, total: items.length, open: items.filter(function (_, i) { return on.indexOf(i) < 0; }) }; });
+  };
+
+  /* 4. Scorecard (sliders) */
+  W['scorecard'] = function (root, n) {
+    var items = (root.getAttribute('data-items') || '').split('|').filter(Boolean), max = +(root.getAttribute('data-max') || 5);
+    var low = root.getAttribute('data-low') || 'Strong room for improvement.', mid = root.getAttribute('data-mid') || 'A solid base. A few fixes will help.', high = root.getAttribute('data-high') || 'Excellent.';
+    shell(root, root.getAttribute('data-tag') || 'Self-assessment', root.getAttribute('data-title') || 'Score it', root.getAttribute('data-sub') || 'Rate each item from 1 (weak) to ' + max + ' (strong).',
+      items.map(function (t, i) { return '<div class="sm-range"><label for="sc' + n + '_' + i + '">' + esc(t) + '</label><output>3</output><input id="sc' + n + '_' + i + '" type="range" min="1" max="' + max + '" value="3"></div>'; }).join('') +
+      '<div class="sm-meter"><i></i></div><p class="sm-verdict"></p>' +
+      leadForm({ ctx: 'scorecard', title: 'Want an expert second opinion?', sub: 'Send us your project and we will review it against this scorecard.', button: 'Get my review' }));
+    var meter = $('.sm-meter i', root), vd = $('.sm-verdict', root);
+    function calc() {
+      var rs = $$('input[type=range]', root), tot = 0, vals = [], worst = null;
+      rs.forEach(function (r, i) { var v = +r.value; r.parentNode.querySelector('output').textContent = v; tot += v; vals.push(v); if (worst === null || v < vals[worst]) worst = i; });
+      var maxT = items.length * max, pct = tot / maxT; meter.style.width = pct * 100 + '%';
+      vd.innerHTML = '<b>' + tot + ' / ' + maxT + '</b>. ' + (pct < .5 ? low : pct < .8 ? mid : high) + (pct < .8 && items[worst] ? ' Weakest area: <b>' + esc(items[worst]) + '</b>.' : '');
+      return { scores: items.map(function (t, i) { return [t, vals[i]]; }), total: tot, max: maxT };
+    }
+    root.addEventListener('input', function (e) { if (e.target.type === 'range') { calc(); track('widget_use', { widget: 'scorecard' }); } });
+    calc(); bindLead(root, calc);
+  };
+
+  /* 5. Wizard (config JSON in a <script type="application/json">) */
+  W['wizard'] = function (root, n) {
+    var cfg; try { cfg = JSON.parse($('script', root).textContent); } catch (e) { return; }
+    var qs = cfg.questions, res = cfg.results, ans = [], i = 0;
+    function render() {
+      var inner;
+      if (i < qs.length) {
+        inner = '<div class="sm-steps">' + qs.map(function (_, k) { return '<i class="' + (k <= i ? 'on' : '') + '"></i>'; }).join('') + '</div><p class="sm-verdict"><b>' + (i + 1) + '/' + qs.length + '</b> ' + esc(qs[i].q) + '</p>' +
+          qs[i].o.map(function (o, k) { return '<button type="button" class="sm-opt" data-k="' + k + '">' + esc(o[0]) + '</button>'; }).join('');
+      } else {
+        var sc = {}; ans.forEach(function (o) { Object.keys(o[1]).forEach(function (k) { sc[k] = (sc[k] || 0) + o[1][k]; }); });
+        var best = Object.keys(sc).sort(function (a, b) { return sc[b] - sc[a]; })[0] || Object.keys(res)[0], r = res[best];
+        inner = '<p class="sm-verdict">Recommended: <b>' + esc(r.title) + '</b></p><p class="sm-sub">' + esc(r.text) + '</p><button type="button" class="sm-reset">Start again</button>' +
+          leadForm({ ctx: 'wizard', title: cfg.leadTitle || 'Want us to confirm this for your project?', sub: cfg.leadSub || 'Send your details and we will review it on WhatsApp.', button: 'Send me my recommendation' });
+        window.setTimeout(function () { bindLead(root, function () { return { recommended: best, answers: ans.map(function (a) { return a[0]; }) }; }); }, 0);
+        track('widget_complete', { widget: 'wizard', result: best });
+      }
+      $('.wz', root).innerHTML = inner;
+    }
+    shell(root, cfg.tag || 'Quick guide', cfg.title, cfg.sub || '', '<div class="wz"></div>');
+    root.addEventListener('click', function (e) {
+      var b = e.target.closest('.sm-opt'); if (b) { ans.push(qs[i].o[+b.getAttribute('data-k')]); i++; render(); }
+      if (e.target.closest('.sm-reset')) { ans = []; i = 0; render(); }
+    });
+    render();
+  };
+
+  /* 5b. ROI calculator */
+  W['roi-calc'] = function (root, n) {
+    var pre = 'rc' + n;
+    shell(root, 'Free calculator', 'What could faster sales be worth to your project?', 'Example values are filled in. Replace them with your own numbers. This is a what-if model, not a promise.',
+      '<div class="sm-grid">' + field(pre + 'cur', 'Currency', '₹', 'text', false, ['₹', 'AED', '$']) + field(pre + 'inv', 'Visualization investment', 300000) +
+      field(pre + 'carry', 'Monthly carrying cost of unsold inventory (interest, overheads)', 1500000) + field(pre + 'mo', 'Months faster to sell out (your estimate)', 1) +
+      field(pre + 'ex', 'Extra bookings from wider reach (your estimate)', 2) + field(pre + 'mar', 'Net margin per booking', 500000) + '</div>' +
+      '<div class="sm-out"><div class="sm-card"><b id="' + pre + 'a">-</b><span>Carrying cost saved</span></div><div class="sm-card"><b id="' + pre + 'b">-</b><span>Extra margin from reach</span></div><div class="sm-card hot"><b id="' + pre + 'c">-</b><span>Total benefit</span></div></div>' +
+      '<div class="sm-out"><div class="sm-card hot"><b id="' + pre + 'd">-</b><span>Benefit per 1 invested</span></div><div class="sm-card"><b id="' + pre + 'e">-</b><span>Months to pay back</span></div></div>' +
+      '<p class="sm-note">Use conservative estimates and test on one project first. Benefits come from your sales process as well as the visuals.</p>' +
+      leadForm({ ctx: 'roi_calc', title: 'Get a quote for your project', sub: 'We will send a written quote so you can plug in the real investment.', button: 'Send me a quote' }));
+    var g = function (s) { return $('#' + pre + s, root); };
+    function calc() {
+      var cur = g('cur').value, inv = num(g('inv').value), carry = num(g('carry').value), mo = num(g('mo').value), ex = num(g('ex').value), mar = num(g('mar').value);
+      var a = carry * mo, b = ex * mar, t = a + b;
+      g('a').textContent = money(a, cur); g('b').textContent = money(b, cur); g('c').textContent = money(t, cur);
+      g('d').textContent = inv > 0 ? (t / inv).toFixed(1) + 'x' : '-'; g('e').textContent = t > 0 && inv > 0 ? Math.max(0.1, inv / (t / Math.max(1, mo || 1))).toFixed(1) : '-';
+      return { currency: cur, investment: inv, carryingCostPerMonth: carry, monthsFaster: mo, extraBookings: ex, marginPerBooking: mar, totalBenefit: t };
+    }
+    $$('input,select', root).forEach(function (el) { if (el.id && el.id.indexOf(pre) === 0) el.addEventListener('input', function () { calc(); track('widget_use', { widget: 'roi-calc' }); }); });
+    calc(); bindLead(root, calc);
+  };
+
+  /* 6. Sun and light slider (plan view of a room) */
+  W['sun-slider'] = function (root, n) {
+    var id = 'sn' + n;
+    shell(root, 'Try it', 'Watch the light move through a room', 'Pick which way the window faces and drag the time. This is how a sun-path slider works inside a Sandmotion walkthrough (plan view).',
+      '<div class="sm-grid">' + field(id + 'f', 'Window faces', 'West', 'text', false, ['East', 'South', 'West', 'North']) + '<div class="sm-field"><label for="' + id + 't">Time of day: <span id="' + id + 'l">4:00 PM</span></label><input id="' + id + 't" type="range" min="6" max="18" step="0.25" value="16"></div></div>' +
+      '<div class="sun-stage"><svg viewBox="0 0 800 380" role="img" aria-label="Plan view of a room with sunlight entering through a window"><defs><clipPath id="' + id + 'c"><rect x="200" y="70" width="400" height="240"/></clipPath></defs>' +
+      '<rect width="800" height="380" fill="#0c0f16"/><ellipse cx="400" cy="190" rx="330" ry="165" fill="none" stroke="#C9A96E" stroke-opacity=".3" stroke-dasharray="5 6"/>' +
+      '<rect x="200" y="70" width="400" height="240" fill="#161a27" stroke="#C9A96E" stroke-width="3"/>' +
+      '<g clip-path="url(#' + id + 'c)"><polygon id="' + id + 'w" points="" fill="#DBBF82" opacity="0"/></g>' +
+      '<rect x="250" y="130" width="120" height="50" rx="6" fill="#C9A96E" fill-opacity=".85"/><rect x="450" y="215" width="90" height="70" rx="6" fill="#2b3350"/><rect x="230" y="235" width="80" height="55" rx="6" fill="#2b3350"/>' +
+      '<line id="' + id + 'win" x1="0" y1="0" x2="0" y2="0" stroke="#8FA7B8" stroke-width="9" stroke-linecap="round"/>' +
+      '<circle id="' + id + 'sun" r="20" fill="#DBBF82"/><text x="400" y="30" fill="#A9A59A" font-size="16" text-anchor="middle" font-family="Arial">N</text><text x="770" y="196" fill="#A9A59A" font-size="16" text-anchor="middle" font-family="Arial">E</text><text x="30" y="196" fill="#A9A59A" font-size="16" text-anchor="middle" font-family="Arial">W</text><text x="400" y="366" fill="#A9A59A" font-size="16" text-anchor="middle" font-family="Arial">S</text></svg></div>' +
+      '<div class="sm-out"><div class="sm-card"><b id="' + id + 'i">-</b><span>Direct light in the room</span></div><div class="sm-card"><b id="' + id + 'a">-</b><span>Sun height</span></div></div><p class="sm-note" id="' + id + 'n"></p>' +
+      leadForm({ ctx: 'sun_slider', title: 'See this on your own unit', sub: 'Send us a floor plan and we will build a location-accurate sun slider for your project.', button: 'Show me on my plan' }));
+    var g = function (s) { return $('#' + id + s, root); };
+    var az = { East: 90, South: 180, West: 270, North: 0 };
+    var win = { East: [[600, 130], [600, 250]], West: [[200, 130], [200, 250]], South: [[300, 310], [500, 310]], North: [[300, 70], [500, 70]] };
+    function upd() {
+      var h = +g('t').value, face = g('f').value, ang = Math.PI * (h - 6) / 12, alt = Math.max(0, Math.sin(ang));
+      var azS = (90 + 180 * (h - 6) / 12) * Math.PI / 180, sx = 400 + 330 * Math.sin(azS), sy = 190 - 165 * Math.cos(azS);
+      var diff = Math.cos(azS - az[face] * Math.PI / 180), inten = Math.max(0, diff) * alt;
+      var sun = g('sun'); sun.setAttribute('cx', sx.toFixed(1)); sun.setAttribute('cy', sy.toFixed(1)); sun.setAttribute('opacity', alt > 0.02 ? 1 : 0.2);
+      var w = win[face], dx = -Math.sin(azS), dy = Math.cos(azS), L = 90 + 330 * inten;
+      var p = [w[0], w[1], [w[1][0] + dx * L, w[1][1] + dy * L], [w[0][0] + dx * L, w[0][1] + dy * L]];
+      g('w').setAttribute('points', p.map(function (q) { return q[0].toFixed(1) + ',' + q[1].toFixed(1); }).join(' ')); g('w').setAttribute('opacity', (inten * 0.55).toFixed(2));
+      var wl = g('win'); wl.setAttribute('x1', w[0][0]); wl.setAttribute('y1', w[0][1]); wl.setAttribute('x2', w[1][0]); wl.setAttribute('y2', w[1][1]);
+      var hh = Math.floor(h), mm = Math.round((h - hh) * 60), ap = hh >= 12 ? 'PM' : 'AM'; g('l').textContent = ((hh + 11) % 12 + 1) + ':' + (mm < 10 ? '0' : '') + mm + ' ' + ap;
+      g('i').textContent = inten > .55 ? 'Strong' : inten > .2 ? 'Moderate' : inten > 0 ? 'Soft' : 'None'; g('a').textContent = Math.round(alt * 90) + '°';
+      g('n').textContent = face + '-facing windows get ' + (face === 'East' ? 'bright morning sun and a cooler afternoon.' : face === 'West' ? 'strong, warm afternoon sun, so plan shading and glass carefully.' : face === 'South' ? 'high midday light, with deeper shadows in other seasons.' : 'soft, even light with little direct sun.') + ' Real projects use the exact site latitude, date and building shadows.';
+    }
+    $$('input,select', root).forEach(function (el) { if (el.id && el.id.indexOf(id) === 0) el.addEventListener('input', function () { upd(); track('widget_use', { widget: 'sun-slider' }); }); });
+    upd(); bindLead(root, function () { return { facing: g('f').value, hour: g('t').value }; });
+  };
+
+  /* 7. 2D to 3D comparison slider */
+  W['plan-slider'] = function (root, n) {
+    var a = root.getAttribute('data-a'), b = root.getAttribute('data-b');
+    shell(root, 'Try it', 'Drag to turn a 2D plan into a walkable 3D flat', null,
+      '<div class="cmp"><img src="' + esc(b) + '" alt="3D walkthrough of the same plan"><img class="top" src="' + esc(a) + '" alt="2D floor plan"><div class="bar"></div><span class="tagl">2D plan</span><span class="tagr">3D walkthrough</span><input type="range" min="0" max="100" value="50" aria-label="Compare 2D plan and 3D walkthrough"></div>' +
+      leadForm({ ctx: 'plan_slider', title: 'Turn your own plan into 3D', sub: 'Send one floor plan and we will build your first floor free.', button: 'Get my free 3D demo' }));
+    var top = $('.top', root), bar = $('.bar', root), r = $('input[type=range]', root);
+    r.addEventListener('input', function () { top.style.clipPath = 'inset(0 ' + (100 - r.value) + '% 0 0)'; bar.style.left = r.value + '%'; track('widget_use', { widget: 'plan-slider' }); });
+    bindLead(root, function () { return {}; });
+  };
+
+  $$('[data-widget]').forEach(function (el, i) { var f = W[el.getAttribute('data-widget')]; if (f) f(el, i); });
+
+  /* ---------- blog index filter ---------- */
+  var chips = $('.chips');
+  if (chips) {
+    var cards = $$('.index-grid .card'), note = $('.empty-note');
+    chips.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      $$('button', chips).forEach(function (x) { x.classList.toggle('on', x === b); });
+      var f = b.getAttribute('data-f'), n = 0;
+      cards.forEach(function (c) { var show = f === 'all' || (' ' + c.getAttribute('data-topics') + ' ').indexOf(' ' + f + ' ') > -1; c.style.display = show ? '' : 'none'; if (show) n++; });
+      $$('.banner').forEach(function (bn) { bn.style.display = f === 'all' ? '' : 'none'; });
+      if (note) note.style.display = n ? 'none' : 'block'; track('blog_filter', { topic: f });
+    });
+  }
+})();
+
+</script>
 </body>
 </html>
