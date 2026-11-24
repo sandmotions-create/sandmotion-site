@@ -23,389 +23,187 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DYH5BFMVS0');document.documentElement.className+=' js';</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.8.0/build/css/intlTelInput.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
 <style>
-/* ==========================================================
-   Sandmotion shared design system
-   One source of truth for tokens, nav, footer, buttons, forms,
-   blog/prose. Page-specific CSS lives in home.css / studio.css /
-   industrial.css. Change a colour or size here and every page follows.
-   ========================================================== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --black:#0B0D12;--charcoal:#11131A;--surface:#161922;--surface-2:#1C1F29;
-  --border:rgba(255,255,255,0.1);
-  --white:#F5F4F0;--body-text:#D8D5CC;--muted:#A9A59A;--faint:#8A8678;
-  --accent:#C9A96E;--accent-hover:#DBBF82;--accent-dim:rgba(201,169,110,0.18);
-  --steel:#8FA7B8;--ok:#6FBF7A;--warn:#DBA234;--crit:#E2555B;--error:#E08585;
-  --font-display:'Cormorant Garamond',Georgia,serif;
-  --font-body:'Montserrat','Helvetica Neue',Arial,sans-serif;
-  --ease:cubic-bezier(0.16,1,0.3,1);
-}
-html{scroll-behavior:smooth;font-size:16px;scroll-padding-top:5rem}
-body{background:var(--black);color:var(--body-text);font-family:var(--font-body);font-weight:400;font-size:1.125rem;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-img{max-width:100%;height:auto}
-a{color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.skip-link{position:absolute;left:-999px;top:0;background:var(--accent);color:var(--black);padding:.8rem 1.2rem;z-index:1000;font-weight:600}
-.skip-link:focus{left:0}
-h1,h2,h3{font-family:var(--font-display);font-weight:400;color:var(--white)}
-em{font-style:italic}
+:root{--gold:#C9A96E;--fg:#F5F5F7;--mute:#86868B;--dim:#3a3a3e;--line:rgba(255,255,255,.12);--ease:cubic-bezier(.16,1,.3,1)}
+html{scroll-behavior:smooth}
+body{background:#000;color:var(--fg);font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+a{color:inherit;text-decoration:none}img{max-width:100%;height:auto}
+:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:4px}
+.skip-link{position:absolute;left:-999px;background:var(--gold);color:#000;padding:.8rem 1.2rem;z-index:200}.skip-link:focus{left:0}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0}
+main,footer{position:relative;z-index:1}
+.wrap{width:min(1100px,100% - 3rem);margin:0 auto}
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 max(1.5rem,calc((100% - 1100px)/2));background:rgba(0,0,0,.55);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+.logo{font-weight:600;font-size:1.05rem;letter-spacing:-.02em}.logo span{color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:1.8rem;font-size:.78rem;color:var(--mute)}
+.nav-link:hover,.nav-link.current{color:var(--fg)}
+.nav-cta{background:var(--gold);color:#000;font-weight:600;padding:.42rem .95rem;border-radius:99px}
+.nav-toggle{display:none}
+@media(max-width:820px){.nav-link{display:none}}
 
-/* ---------- Navigation (identical on every page) ---------- */
-.site-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(11,13,18,.92) 0%,transparent 100%);transition:background .3s,padding .3s,border-color .3s;border-bottom:1px solid transparent}
-.site-nav.scrolled{background:rgba(11,13,18,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);padding:1rem 3rem;border-bottom-color:var(--border)}
-.logo{font-family:var(--font-display);font-size:1.5rem;font-weight:500;letter-spacing:.12em;color:var(--white);text-decoration:none}
-.logo span{color:var(--accent)}
-.nav-links{display:flex;align-items:center;gap:2rem}
-.nav-link{font-size:.78rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--body-text);text-decoration:none;transition:color .3s;padding:.4rem 0;border-bottom:1px solid transparent}
-.nav-link:hover{color:var(--accent)}
-.nav-link.current{color:var(--accent);border-bottom-color:var(--accent)}
-.nav-cta{font-size:.74rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--black);background:var(--accent);padding:.8rem 1.4rem;border-radius:2px;text-decoration:none;transition:background .3s;white-space:nowrap}
-.nav-cta:hover{background:var(--accent-hover)}
-.nav-toggle{display:none;background:none;border:0;cursor:pointer;width:44px;height:44px;position:relative;z-index:120}
-.nav-toggle span{display:block;width:24px;height:2px;background:var(--white);margin:5px auto;transition:transform .3s,opacity .3s}
-.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
-.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-@media(max-width:960px){
-  .site-nav,.site-nav.scrolled{padding:1rem 1.5rem}
-  .logo{font-size:1.3rem;position:relative;z-index:120}
-  .nav-toggle{display:block}
-  .nav-links{position:fixed;inset:0;background:rgba(11,13,18,.98);flex-direction:column;justify-content:center;gap:1.6rem;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;z-index:110}
-  .nav-links.open{opacity:1;visibility:visible}
-  .nav-link{font-size:1rem}
-  .nav-cta{font-size:.85rem;padding:1rem 2rem}
-}
+.story{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;touch-action:pan-y}
+.track{display:flex;height:100%;width:100%;transition:transform .9s var(--ease);will-change:transform}
+.ch{flex:0 0 100%;width:100%;height:100%;display:flex;align-items:center;padding:52px max(1.5rem,calc((100% - 1100px)/2)) 5rem}
+.ctl{position:absolute;left:0;right:0;bottom:1.6rem;z-index:6;display:flex;align-items:center;justify-content:center;gap:1.1rem}
+.arrow{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--fg);background:rgba(255,255,255,.08);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--line);transition:transform .4s var(--ease),background .3s,opacity .3s}
+.arrow:hover:not(:disabled){background:var(--gold);color:#000;transform:scale(1.08)}
+.arrow:disabled{opacity:.25;cursor:default}
+.arrow svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dots{display:flex;gap:.55rem;align-items:center}
+.dot{width:8px;height:8px;border-radius:99px;border:0;padding:0;cursor:pointer;background:rgba(255,255,255,.28);transition:width .5s var(--ease),background .3s}
+.dot.on{width:26px;background:var(--gold)}
+.ch .t{width:min(540px,100%);opacity:.08;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.ch.on .t{opacity:1;transform:none}
+.eyebrow{font-size:.85rem;font-weight:600;color:var(--gold);margin-bottom:1.2rem;display:block}
+h1,h2{font-weight:700;letter-spacing:-.045em;line-height:1.03}
+h1{font-size:clamp(2.9rem,7.2vw,6rem)}
+.ch h2{font-size:clamp(2.6rem,6vw,4.8rem)}
+h1,.ch h2{background:linear-gradient(180deg,#fff 35%,#8d8d93);-webkit-background-clip:text;background-clip:text;color:transparent}
+em{font-style:normal;color:var(--gold);-webkit-text-fill-color:var(--gold)}
+.ch p.l{margin-top:1.6rem;font-size:clamp(1.1rem,1.9vw,1.35rem);color:var(--mute);letter-spacing:-.01em;line-height:1.4;max-width:30ch}
+.acts{display:flex;gap:1.6rem;align-items:center;flex-wrap:wrap;margin-top:2.2rem}
+.cta,.submit-btn{display:inline-block;border:0;cursor:pointer;background:var(--gold);color:#000;font:600 1rem Inter,sans-serif;padding:.9rem 1.8rem;border-radius:99px;transition:transform .4s var(--ease)}
+.cta:hover,.submit-btn:hover{transform:scale(1.04)}
+.btn-ghost,.lk{color:var(--gold);font-size:1rem}.btn-ghost:hover,.lk:hover{text-decoration:underline}
+.proof{margin-top:2.2rem;font-size:.8rem;color:var(--mute)}
+.hint{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%);z-index:5;font-size:.75rem;color:var(--mute);transition:opacity .5s}
 
-/* ---------- Buttons ---------- */
-.cta{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:1rem 2.4rem;font-family:var(--font-body);font-size:.82rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--black);background:var(--accent);border:none;border-radius:2px;text-decoration:none;cursor:pointer;transition:background .4s,transform .3s,box-shadow .4s;box-shadow:0 0 40px rgba(201,169,110,.2)}
-.cta:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 8px 50px rgba(201,169,110,.35)}
-.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:.8rem;min-height:48px;padding:1rem 2.2rem;font-family:var(--font-body);font-size:.78rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);background:transparent;border:1px solid rgba(201,169,110,.45);border-radius:2px;text-decoration:none;cursor:pointer;transition:all .35s}
-.btn-ghost:hover{background:var(--accent-dim);border-color:rgba(201,169,110,.7);transform:translateY(-2px)}
-.wa-icon{width:18px;height:18px;fill:currentColor}
-
-/* ---------- Section headings (shared) ---------- */
-.eyebrow{display:block;font-size:.78rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
-.section-head{max-width:720px;margin:0 auto 4rem;text-align:center}
-.section-head.left{margin-left:0;text-align:left}
-.section-head h2{font-size:clamp(2rem,4.4vw,3.1rem);line-height:1.15}
-.section-head h2 em{color:var(--accent)}
-.section-head p{margin:1.1rem auto 0;color:var(--muted);font-size:1.05rem;line-height:1.7;max-width:60ch}
-.section-head.left p{margin-left:0}
-main{display:block}
-
-/* ---------- Forms ---------- */
-.form-container{background:var(--surface);border:1px solid rgba(201,169,110,.2);border-radius:8px;padding:3rem;width:100%;max-width:640px;box-shadow:0 30px 60px rgba(0,0,0,.6)}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
-.form-group{margin-bottom:1.6rem}
-.form-group label{display:block;margin-bottom:.6rem;color:var(--white);font-size:.8rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase}
-.form-group input,.form-group select,.form-group textarea{width:100%;min-height:50px;padding:.95rem 1rem;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.18);border-radius:4px;color:var(--white);font-family:var(--font-body);font-size:1rem;transition:border-color .3s,background .3s}
-.form-group textarea{resize:vertical;min-height:100px}
-.form-group input::placeholder,.form-group textarea::placeholder{color:var(--faint)}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--accent);background:rgba(0,0,0,.7)}
-.form-group input[type="file"]{padding:.8rem;cursor:pointer;color:var(--muted);font-size:.9rem}
-.form-group select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c9a96e'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem}
-.form-group select option{background:var(--surface);color:var(--white)}
-.iti{width:100%}
-.file-hint{font-size:.82rem;color:var(--muted);margin-top:.6rem;display:block}
-.field-error{display:none;color:var(--error);font-size:.85rem;margin-top:.5rem}
-.form-group.invalid input,.form-group.invalid select,.form-group.invalid textarea{border-color:var(--error)}
-.form-group.invalid .field-error{display:block}
-.checkbox-group{display:flex;align-items:flex-start;gap:.8rem;margin:.4rem 0 1.5rem;font-size:.95rem;color:var(--body-text);cursor:pointer}
-.checkbox-group input[type="checkbox"]{width:20px;height:20px;margin-top:2px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
-.checkbox-group label{margin:0;cursor:pointer;text-transform:none;letter-spacing:0;font-weight:400;font-size:.95rem;color:var(--body-text)}
-.submit-btn{width:100%;min-height:52px;padding:1.1rem;background:var(--accent);color:var(--black);border:none;border-radius:4px;font-family:var(--font-body);font-size:.85rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .3s;margin-top:.4rem}
-.submit-btn:hover:not(:disabled){background:var(--accent-hover);box-shadow:0 0 30px rgba(201,169,110,.25);transform:translateY(-2px)}
-.submit-btn:disabled{opacity:.6;cursor:not-allowed}
-.link-btn{background:none;border:none;color:var(--muted);width:100%;margin-top:1rem;cursor:pointer;font-family:var(--font-body);font-size:.9rem;padding:.6rem}
-.link-btn:hover{color:var(--accent)}
-.disclaimer{margin-top:1.6rem;font-size:.88rem;color:var(--muted);text-align:center;line-height:1.6}
-.disclaimer a,.consent a{color:var(--accent)}
-.consent{font-size:.82rem;color:var(--muted);line-height:1.55;margin:.2rem 0 1.2rem}
+.sec{background:#000;padding:8rem 0}
+.sec h2{font-size:clamp(2.2rem,5vw,4rem);text-align:center}
+.sec .sub{text-align:center;color:var(--mute);font-size:1.2rem;margin:1.2rem auto 0;max-width:36ch}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:3rem;margin-top:4rem}
+.cols b{display:block;color:var(--gold);font-size:.85rem;margin-bottom:.8rem}
+.cols h3{font-size:1.5rem;letter-spacing:-.03em;line-height:1.2;margin-bottom:.6rem}
+.cols p{color:var(--mute)}
+.phones{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-top:4rem}
+.proof-card{background:none;border:0;color:inherit;cursor:pointer;text-align:center;font:inherit}
+.s-phone{width:min(230px,70vw);aspect-ratio:1/2;border-radius:34px;overflow:hidden;border:6px solid #1b1b1d;box-shadow:0 0 0 1px var(--line),0 30px 80px rgba(201,169,110,.12);margin:0 auto}
+.s-phone img{width:100%;height:100%;object-fit:cover;display:block}
+.proof-caption{margin-top:1.2rem;color:var(--mute);font-size:.95rem}
+.proof-note{text-align:center;margin-top:2.5rem;color:var(--mute)}.proof-note a{color:var(--gold)}
+#imageModal{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:1rem}
+#imageModal.open{display:flex}#imageModal img{max-height:92vh;border-radius:20px}
+.close-modal{position:absolute;top:1rem;right:1.5rem;background:none;border:0;color:#fff;font-size:2.4rem;cursor:pointer}
+.line{border-top:1px solid var(--line)}
+.free .form-container{max-width:480px;margin:3.5rem auto 0;padding:2rem;border:1px solid var(--line);border-radius:28px;background:#0a0a0b}
+.form-group{margin-bottom:1.1rem}
+label{display:block;font-size:.85rem;color:var(--mute);margin-bottom:.4rem}
+input[type=text],input[type=tel],select,input[type=file]{width:100%;background:#151517;border:1px solid var(--line);color:var(--fg);font:1rem Inter,sans-serif;padding:.85rem 1rem;border-radius:12px}
+input:focus,select:focus{outline:0;border-color:var(--gold)}
+.iti{width:100%}.iti__country-list{color:#000}
+.step-label{font-size:.8rem;color:var(--gold);font-weight:600;margin-bottom:1.2rem}
+.form-step-2,.form-success{display:none}
+.form-success{text-align:center;padding:1rem 0}.form-success svg{width:44px;height:44px;stroke:var(--gold);margin-bottom:1rem}.form-success p{color:var(--mute);margin-top:.6rem}
+.field-error{display:none;color:#E08585;font-size:.8rem;margin-top:.3rem}.invalid .field-error{display:block}.invalid input,.invalid select{border-color:#E08585}
+.file-hint,.consent,.disclaimer{display:block;font-size:.78rem;color:var(--mute);margin-top:.5rem}.consent a{color:var(--gold)}
+.checkbox-group{display:flex;gap:.6rem;align-items:flex-start;margin:.4rem 0 1.4rem}.checkbox-group label{margin:0}
+.submit-btn{width:100%;margin-top:.6rem}.submit-btn:disabled{opacity:.5}
+.link-btn{background:none;border:0;color:var(--mute);cursor:pointer;margin-top:1rem;font:inherit}
+.form-status{display:none;margin-top:1rem;font-size:.85rem}.form-status.show{display:block}.form-status.err{color:#E08585}.form-status.ok{color:#6FBF7A}
 .hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
-.form-status{display:none;margin-top:1.2rem;padding:1rem 1.2rem;border-radius:4px;font-size:.95rem;line-height:1.55}
-.form-status.show{display:block}
-.form-status.ok{background:rgba(111,191,122,.12);border:1px solid rgba(111,191,122,.4);color:#BFE5C5}
-.form-status.err{background:rgba(224,133,133,.12);border:1px solid rgba(224,133,133,.4);color:#F1C4C4}
-.form-success{display:none;text-align:center;padding:2.5rem 1rem}
-.form-success svg{width:48px;height:48px;stroke:var(--accent);margin-bottom:1.2rem}
-.form-success h3{font-size:1.8rem;margin-bottom:.8rem}
-.form-success p{color:var(--muted);font-size:1rem;line-height:1.6}
-@media(max-width:768px){.form-container{padding:2rem 1.4rem}.form-row{grid-template-columns:1fr}}
+.wa-link{text-align:center;margin-top:2rem}
+.faq-list{max-width:720px;margin:3.5rem auto 0}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-question{width:100%;display:flex;justify-content:space-between;gap:1rem;background:none;border:0;color:var(--fg);font:600 1.15rem Inter,sans-serif;letter-spacing:-.02em;text-align:left;padding:1.4rem 0;cursor:pointer}
+.plus{color:var(--gold);transition:transform .4s var(--ease)}.faq-item.open .plus{transform:rotate(45deg)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .5s var(--ease)}.faq-answer p{color:var(--mute);padding-bottom:1.4rem}
+footer{padding:2rem 0 3rem;font-size:.78rem;color:var(--mute);border-top:1px solid var(--line);background:#000}
+footer .wrap{display:flex;flex-wrap:wrap;gap:.6rem 2rem;justify-content:space-between}footer a:hover{color:var(--fg)}
+.wa{position:fixed;right:1.2rem;bottom:1.2rem;z-index:90;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.08);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--line);display:grid;place-items:center}
+.wa svg{width:22px;height:22px;fill:var(--fg)}
+.js .reveal{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease),transform 1s var(--ease)}.js .reveal.visible{opacity:1;transform:none}
+@media(max-width:900px){.ch .t{text-shadow:0 2px 24px #000}}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
 
-/* ---------- Footer (identical on every page) ---------- */
-.site-footer{padding:4rem 2rem 3.5rem;border-top:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:1.4rem;text-align:center}
-.footer-logo{font-family:var(--font-display);font-size:1.4rem;font-weight:500;letter-spacing:.14em;color:var(--white)}
-.footer-logo span{color:var(--accent)}
-.footer-tagline{font-size:.95rem;color:var(--muted);max-width:46ch}
-.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem 1.8rem}
-.footer-links a,.footer-contact a{font-size:.85rem;letter-spacing:.08em;color:var(--body-text);text-decoration:none;transition:color .3s}
-.footer-links a:hover,.footer-contact a:hover{color:var(--accent)}
-.footer-contact{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem 2rem}
-.footer-copy{font-size:.8rem;letter-spacing:.08em;color:var(--faint);margin-top:.4rem}
-
-/* ---------- Floating WhatsApp ---------- */
-.floating-wa{position:fixed;bottom:1.8rem;right:1.8rem;z-index:90;width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.5),0 0 25px rgba(201,169,110,.25);text-decoration:none;transition:transform .3s}
-.floating-wa:hover{transform:scale(1.08)}
-.floating-wa svg{width:26px;height:26px;fill:var(--black)}
-@media(max-width:768px){.floating-wa{width:52px;height:52px;bottom:1.1rem;right:1.1rem}}
-
-/* ---------- Reveal on scroll (only hides content when JS is running) ---------- */
-.js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
-.js .reveal.visible{opacity:1;transform:none}
-.delay-1{transition-delay:.12s}.delay-2{transition-delay:.24s}.delay-3{transition-delay:.36s}
-@media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .js .reveal{opacity:1;transform:none;transition:none}
-  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+h1{font-size:clamp(2.5rem,5.6vw,4.9rem)}
+.form-container{max-width:640px;margin:3.5rem auto 0;padding:2rem;border:1px solid var(--line);border-radius:28px;background:#0a0a0b}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem}
+textarea{width:100%;min-height:110px;background:#151517;border:1px solid var(--line);color:var(--fg);font:1rem Inter,sans-serif;padding:.85rem 1rem;border-radius:12px;resize:vertical}
+input[type=email]{width:100%;background:#151517;border:1px solid var(--line);color:var(--fg);font:1rem Inter,sans-serif;padding:.85rem 1rem;border-radius:12px}
+.invalid input,.invalid select{border-color:#E08585}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.6rem;margin-top:4rem}
+.project-card{background:none;border:0;color:inherit;text-align:left;cursor:pointer;font:inherit}
+.project-thumb{display:block;overflow:hidden;border-radius:22px}
+.project-thumb img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform .8s var(--ease)}
+.project-card:hover img{transform:scale(1.05)}
+.project-cat{display:block;margin-top:1rem;font-size:.78rem;color:var(--gold);font-weight:600}
+.project-card h3{font-size:1.3rem;letter-spacing:-.02em}
+#studioImageModal{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.94);align-items:center;justify-content:center;cursor:zoom-out;padding:1rem}
+#studioImageModal.open{display:flex}#studioModalImg{max-width:92vw;max-height:88vh;border-radius:16px}
+.pipe-item{display:grid;grid-template-columns:3.5rem 1fr;gap:1rem;padding:3rem 0;border-top:1px solid var(--line)}
+.pipe-index{color:var(--gold);font-size:1.4rem;font-weight:600}
+.pipe-body h3{font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:-.035em;line-height:1.15}
+.pipe-body>p{color:var(--mute);margin-top:.8rem;max-width:56ch}
+.deliverables{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.6rem;margin-top:1.8rem}
+.deliverable-title{font-weight:600;margin-bottom:.3rem}.deliverable-desc{color:var(--mute);font-size:.95rem}
+.tw{overflow-x:auto;margin-top:3rem}
+.industry-table{width:100%;min-width:640px;border-collapse:collapse}
+.industry-table th{text-align:left;font-size:.78rem;color:var(--mute);font-weight:500;padding:0 1rem 1rem 0}
+.industry-table td{padding:1.4rem 1rem 1.4rem 0;border-top:1px solid var(--line);vertical-align:top}
+.industry-name{font-weight:600}.industry-build,.industry-value{color:var(--mute)}
+.dot{display:inline-block;width:.65rem;height:.65rem;border-radius:50%;margin:0 .4rem 0 1rem}.dot:first-child{margin-left:0}
+@media(max-width:700px){.form-row{grid-template-columns:1fr}.pipe-item{grid-template-columns:1fr;gap:.4rem}}
+/* ---- bigger nav, serif headings, live demo buttons ---- */
+:root{--serif:"Cormorant Garamond","Cormorant",Georgia,"Times New Roman",serif}
+h1,h2,.logo{font-family:var(--serif)}
+h1,h2{font-weight:600;letter-spacing:-.015em;line-height:1.02}
+h1{font-size:clamp(3.2rem,8vw,6.8rem)}
+.ch h2{font-size:clamp(3rem,6.6vw,5.4rem)}
+.sec h2{font-size:clamp(2.5rem,5.6vw,4.5rem)}
+em{font-style:italic}
+.site-nav{height:72px}
+.logo{font-size:1.75rem;font-weight:600;letter-spacing:.01em}
+.nav-links{gap:2.2rem;font-size:1.02rem;font-weight:500;color:#d6d6db}
+.nav-link{position:relative;padding:.4rem 0;transition:color .3s}
+.nav-link:hover{color:var(--gold)}
+.nav-link.current{color:#fff}
+.nav-link.current::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--gold);border-radius:2px}
+.nav-demo,.btn-outline{display:inline-block;border:1.5px solid var(--gold);color:var(--gold);font-weight:600;border-radius:99px;transition:background .3s,color .3s,transform .4s var(--ease)}
+.nav-demo{padding:.6rem 1.25rem;font-size:1rem}
+.btn-outline{padding:.85rem 1.7rem;font-size:1rem}
+.nav-demo:hover,.btn-outline:hover{background:var(--gold);color:#000;transform:scale(1.04)}
+.nav-cta{font-size:1rem;padding:.65rem 1.4rem}
+.ch{padding-top:72px}
+@media(max-width:1000px){.nav-links{gap:1.2rem;font-size:.92rem}.nav-link[href^="blog"]{display:none}.nav-demo,.nav-cta{font-size:.9rem;padding:.55rem 1rem}}
+@media(max-width:820px){
+  .site-nav{height:60px}.logo{font-size:1.45rem}
+  .nav-links{gap:.55rem}
+  .nav-demo,.nav-cta{font-size:.85rem;padding:.5rem .95rem}
+  .ch{padding-top:60px}
 }
-
-/* ---------- Blog list ---------- */
-.page-hero{padding:9rem 2rem 3rem;text-align:center}
-.page-hero h1{font-size:clamp(2.4rem,5vw,4rem);line-height:1.1}
-.page-hero h1 em{color:var(--accent)}
-.page-hero p{max-width:56ch;margin:1.2rem auto 0;color:var(--muted);font-size:1.1rem}
-.post-list{max-width:780px;margin:0 auto;padding:2rem 2rem 6rem;list-style:none}
-.post-card{padding:2.6rem 0;border-bottom:1px solid var(--border)}
-.post-meta{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:500}
-.post-meta .dot{color:var(--faint)}
-.post-card h2{font-size:clamp(1.7rem,3.4vw,2.2rem);line-height:1.2;margin:.7rem 0 .8rem}
-.post-card h2 a{color:var(--white);text-decoration:none;transition:color .3s}
-.post-card h2 a:hover{color:var(--accent)}
-.post-card p{color:var(--muted);font-size:1.05rem;line-height:1.7}
-.read-more{display:inline-block;margin-top:1rem;color:var(--accent);font-size:.85rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(201,169,110,.4);padding-bottom:3px}
-.read-more:hover{color:var(--accent-hover)}
-
-/* ---------- CTA band (end of blog list and posts) ---------- */
-.cta-band{max-width:820px;margin:0 auto 6rem;padding:3rem 2.2rem;text-align:center;background:var(--surface);border:1px solid rgba(201,169,110,.25);border-radius:8px}
-.cta-band h2{font-size:clamp(1.7rem,3.6vw,2.4rem);line-height:1.2;margin-bottom:.8rem}
-.cta-band h2 em{color:var(--accent)}
-.cta-band p{color:var(--muted);max-width:52ch;margin:0 auto 1.8rem;font-size:1rem}
-.cta-band .row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-
-/* ---------- Article / prose ---------- */
-.article{max-width:720px;margin:0 auto;padding:9rem 1.6rem 4rem}
-.article header{margin-bottom:2.4rem}
-.article h1{font-size:clamp(2.2rem,5vw,3.2rem);line-height:1.12;margin:.9rem 0 1rem}
-.article .lede{color:var(--muted);font-size:1.2rem;line-height:1.6}
-.post-body{font-size:1.125rem;line-height:1.8;color:var(--body-text)}
-.post-body>*+*{margin-top:1.3rem}
-.post-body p,.post-body li{color:var(--body-text)}
-.post-body h2{font-size:clamp(1.7rem,3.4vw,2.2rem);line-height:1.2;margin-top:2.8rem;color:var(--white)}
-.post-body h3{font-size:1.5rem;line-height:1.25;margin-top:2rem;color:var(--white)}
-.post-body strong{color:var(--white);font-weight:600}
-.post-body a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
-.post-body ul,.post-body ol{padding-left:1.4rem}
-.post-body li+li{margin-top:.5rem}
-.post-body blockquote{border-left:3px solid var(--accent);padding:.4rem 0 .4rem 1.4rem;font-family:var(--font-display);font-size:1.4rem;line-height:1.5;color:var(--white)}
-.post-body img{border-radius:6px;display:block}
-.post-body table{width:100%;border-collapse:collapse;font-size:.98rem;display:block;overflow-x:auto}
-.post-body th,.post-body td{padding:.8rem 1rem;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
-.post-body th{color:var(--white);font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase}
-.post-body hr{border:0;border-top:1px solid var(--border);margin:2.4rem 0}
-.takeaways{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:4px;padding:1.4rem 1.6rem}
-.related{max-width:720px;margin:0 auto;padding:0 1.6rem 3rem}
-.related h2{font-size:1.6rem;margin-bottom:1rem}
-.related ul{list-style:none}
-.related li{padding:.9rem 0;border-bottom:1px solid var(--border)}
-.related a{color:var(--white);text-decoration:none;font-size:1.1rem}
-.related a:hover{color:var(--accent)}
-.back-link{display:inline-block;margin-top:2rem;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none}
-.back-link:hover{color:var(--accent)}
-
+@media(max-width:560px){.hide-sm{display:none}.nav-demo,.nav-cta{padding:.45rem .8rem;font-size:.8rem}}
+/* ---- balanced hero/chapter type: scales with screen width AND height so text always fits ---- */
+.ch{padding-bottom:6.5rem}
+.ch .t{width:min(640px,100%)}
+.story h1{font-size:clamp(2.4rem,min(4.6vw,7.2vh),4.2rem);line-height:1.04}
+.ch h2{font-size:clamp(2.2rem,min(4.4vw,6.8vh),3.8rem)}
+.ch p.l{font-size:clamp(1rem,1.5vw,1.2rem);max-width:36ch;margin-top:1.3rem}
+.eyebrow{margin-bottom:.9rem}
+.acts{margin-top:1.8rem;gap:1rem 1.2rem}
+.proof{margin-top:1.6rem}
+@media(max-height:720px){.ch p.l{margin-top:.9rem}.acts{margin-top:1.3rem}.eyebrow{margin-bottom:.6rem}.btn-outline,.cta{padding:.7rem 1.4rem}}
+@media(max-width:820px){.ch{padding-bottom:6rem}.story h1{font-size:clamp(2.2rem,9.5vw,3.2rem)}.ch h2{font-size:clamp(2rem,8.5vw,3rem)}}
 </style>
-<style>
-/* Studio page only. Shared styles come from sandmotion.css */
-section.s{padding:7rem 2rem;position:relative}
-.studio-hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding:9rem 2rem 6rem;text-align:center}
-#studio-canvas{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 1.2s var(--ease)}
-#studio-canvas.ready{opacity:1}
-.hero-veil{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(11,13,18,.4) 0%,rgba(11,13,18,.3) 40%,var(--black) 100%);pointer-events:none}
-.studio-hero-inner{position:relative;z-index:2;max-width:920px}
-.studio-hero h1{font-size:clamp(2.6rem,6.2vw,5.2rem);line-height:1.08;letter-spacing:-.01em}
-.studio-hero h1 em{color:var(--accent)}
-.studio-hero .sub{margin:1.6rem auto 0;max-width:640px;font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--body-text);line-height:1.7}
-.hero-cta-row{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;margin-top:2.4rem}
-.coords-tag{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
-
-.services{border-top:1px solid var(--border)}
-.services-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
-.service-card{background:var(--charcoal);padding:3rem 2.2rem;transition:background .5s}
-.service-card:hover{background:var(--surface)}
-.service-index{font-family:var(--font-display);font-style:italic;color:var(--accent);font-size:1.15rem;margin-bottom:1.4rem}
-.service-card h3{font-size:1.7rem;margin-bottom:.9rem}
-.service-card p{color:var(--muted);font-size:1rem;line-height:1.75;margin-bottom:1.4rem}
-.service-tags{display:flex;flex-wrap:wrap;gap:.5rem}
-.service-tag{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(201,169,110,.35);padding:.4rem .8rem;border-radius:20px}
-
-.portfolio{border-top:1px solid var(--border)}
-.portfolio-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem}
-.project-card{position:relative;display:block;width:100%;border-radius:6px;overflow:hidden;border:1px solid var(--border);aspect-ratio:4/5;cursor:pointer;background:none;padding:0;color:inherit;text-align:left;transition:transform .5s var(--ease),border-color .5s}
-.project-card:hover,.project-card:focus-visible{transform:translateY(-6px);border-color:rgba(201,169,110,.4)}
-.project-thumb{position:absolute;inset:0;overflow:hidden;background:#0c0c0d}
-.project-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease)}
-.project-card:hover .project-thumb img{transform:scale(1.05)}
-.project-info{position:absolute;left:0;right:0;bottom:0;padding:1.6rem;background:linear-gradient(to top,rgba(0,0,0,.88),transparent)}
-.project-cat{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem}
-.project-info h3{font-size:1.4rem}
-.portfolio-note{text-align:center;margin-top:2.5rem;font-size:.95rem;color:var(--muted)}
-.portfolio-note a{color:var(--accent)}
-
-.process{border-top:1px solid var(--border)}
-.process-grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2.5rem}
-.process-step{text-align:center}
-.process-num{font-family:var(--font-display);font-style:italic;font-size:2.4rem;color:var(--accent);margin-bottom:1rem;line-height:1}
-.process-step h3{font-family:var(--font-body);font-weight:600;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.7rem}
-.process-step p{font-size:1rem;color:var(--muted);line-height:1.7}
-
-.promises{border-top:1px solid var(--border)}
-.promises-grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border:1px solid var(--border)}
-.promise{background:var(--charcoal);padding:2.6rem 2rem;text-align:center}
-.promise-mark{font-family:var(--font-display);color:var(--accent);font-size:1.6rem;margin-bottom:.8rem}
-.promise h3{font-family:var(--font-body);font-size:.9rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.6rem}
-.promise p{font-size:1rem;color:var(--muted);line-height:1.7}
-
-.quote-section{border-top:1px solid var(--border);display:flex;flex-direction:column;align-items:center}
-#studioImageModal{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.94);align-items:center;justify-content:center;cursor:zoom-out;padding:1rem}
-#studioImageModal.open{display:flex}
-#studioModalImg{max-width:92vw;max-height:88vh;border-radius:6px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
-
-@media(max-width:900px){
-  .services-grid,.portfolio-grid,.promises-grid{grid-template-columns:1fr}
-  .process-grid{grid-template-columns:1fr 1fr;row-gap:2.6rem}
-}
-@media(max-width:768px){
-  body{font-size:1rem}
-  section.s{padding:5rem 1.5rem}
-  .process-grid{grid-template-columns:1fr}
-  .coords-tag{font-size:.68rem;letter-spacing:.12em}
-}
-
-</style>
-
-  <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
 </head>
 <body>
-  
 <a class="skip-link" href="#main">Skip to content</a>
-<nav class="site-nav" aria-label="Main">
-  <a href="index.html" class="logo">Sand<span>motion</span></a>
-  <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
-  <div class="nav-links" id="navLinks">
-    <a href="index.html" class="nav-link">Real Estate</a>
-    <a href="studio.html" class="nav-link current" aria-current="page">Studio</a>
-    <a href="industrial.html" class="nav-link">Industrial</a>
-    <a href="blog/" class="nav-link">Blog</a>
-    <a href="https://app.sandmotion.in/" class="nav-link" target="_blank" rel="noopener" data-track="live_demo_click">Live Demo ↗</a>
-    <a href="#quote" class="nav-cta" data-track="nav_cta_click">Get a Render Quote</a>
-  </div>
-</nav>
-
-  <main id="main">
-  <section class="studio-hero">
-    <canvas id="studio-canvas" aria-hidden="true"></canvas>
-    <div class="hero-veil"></div>
-    <div class="studio-hero-inner">
-      <span class="eyebrow">Sandmotion Studio</span>
-      <h1>3D Architecture<br>Visualization &amp; <em>Walkthrough</em> Studio</h1>
-      <p class="sub">Photoreal interior and exterior rendering, plus interactive 3D walkthroughs that let your buyers step inside a home before the first brick is laid.</p>
-      <div class="hero-cta-row">
-        <a href="#quote" class="cta" data-track="hero_cta_click" data-label="Get a free render quote">Get a Free Render Quote</a>
-        <a href="#portfolio" class="btn-ghost">See Our Work</a>
-      </div>
-    </div>
-    <div class="coords-tag">Interior · Exterior · Walkthrough</div>
-  </section>
-
-  <section class="s services">
-    <div class="section-head">
-      <span class="eyebrow reveal">What we build</span>
-      <h2 class="reveal">Three ways to <em>sell the unbuilt</em></h2>
-      <p class="reveal">Every project starts the same way: your floor plan or CAD file becomes exactly the visual asset your sales team needs.</p>
-    </div>
-    <div class="services-grid">
-      <div class="service-card reveal delay-1">
-        <div class="service-index">01</div>
-        <h3>Interior Rendering</h3>
-        <p>Photoreal renders of every room (living areas, kitchens, bedrooms, bathrooms) with accurate materials, furniture layouts and lighting that sells the lifestyle, not just the layout.</p>
-        <div class="service-tags"><span class="service-tag">Living Spaces</span><span class="service-tag">Material Studies</span><span class="service-tag">Mood Lighting</span></div>
-      </div>
-      <div class="service-card reveal delay-2">
-        <div class="service-index">02</div>
-        <h3>Exterior Rendering</h3>
-        <p>Facade, landscape and elevation renders that show your project in its real setting, with day and dusk lighting, correct massing and context that matches the actual site.</p>
-        <div class="service-tags"><span class="service-tag">Facade</span><span class="service-tag">Landscape</span><span class="service-tag">Site Context</span></div>
-      </div>
-      <div class="service-card reveal delay-3">
-        <div class="service-index">03</div>
-        <h3>3D Walkthrough</h3>
-        <p>A fully interactive walkthrough of the unit or project. Buyers walk the space themselves, on any phone, with no app or headset required.</p>
-        <div class="service-tags"><span class="service-tag">Web-Based</span><span class="service-tag">Any Device</span><span class="service-tag">One Link</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="portfolio" class="s portfolio">
-    <div class="section-head">
-      <span class="eyebrow reveal">Selected work</span>
-      <h2 class="reveal">A studio built for <em>architecture</em></h2>
-      <p class="reveal">A sample of the categories of projects we visualize, from single sample flats to full facade studies.</p>
-    </div>
-    <div class="portfolio-grid">
-      <button type="button" class="project-card reveal delay-1" data-modal="baloconysm.png" aria-label="Open larger view: Feeling the light">
-        <span class="project-thumb"><img src="baloconysm.png" alt="Feeling the light: interior walkthrough" loading="lazy"></span>
-        <span class="project-info"><span class="project-cat">3D Walkthrough</span><h3>Feeling The Light</h3></span>
-      </button>
-      <button type="button" class="project-card reveal delay-2" data-modal="interiorsm.png" aria-label="Open larger view: Walking the space">
-        <span class="project-thumb"><img src="interiorsm.png" alt="Walking the space: interior walkthrough" loading="lazy"></span>
-        <span class="project-info"><span class="project-cat">3D Walkthrough</span><h3>Walking The Space</h3></span>
-      </button>
-      <button type="button" class="project-card reveal delay-3" data-modal="exteriro%20sm.png" aria-label="Open larger view: Imagine life inside">
-        <span class="project-thumb"><img src="exteriro%20sm.png" alt="Imagine life inside: interior walkthrough" loading="lazy"></span>
-        <span class="project-info"><span class="project-cat">3D Walkthrough</span><h3>Imagine Life Inside</h3></span>
-      </button>
-    </div>
-    <p class="portfolio-note reveal">Have an interior render, exterior render or finished walkthrough of your own? <a href="#quote">Send it our way</a> and we'll feature it here.</p>
-  </section>
-
-  <div id="studioImageModal" role="dialog" aria-modal="true" aria-label="Expanded view">
+<canvas id="gl" aria-hidden="true"></canvas>
+<nav class="site-nav" aria-label="Main"><a href="index.html" class="logo">Sand<span>motion</span></a><button class="nav-toggle" type="button" aria-hidden="true" tabindex="-1"></button>
+<div class="nav-links" id="navLinks"><a href="index.html" class="nav-link">Real Estate</a><a href="studio.html" class="nav-link current" aria-current="page">Studio</a><a href="industrial.html" class="nav-link">Industrial</a><a href="blog/" class="nav-link">Blog</a><a href="https://app.sandmotion.in/" class="nav-demo" target="_blank" rel="noopener" data-track="live_demo_click"><span class="hide-sm">Try </span>Live Demo ↗</a><a href="#quote" class="nav-cta" data-track="nav_cta_click">Free Render Quote</a></div></nav>
+<main id="main">
+<div class="story" id="story" role="region" aria-roledescription="carousel" aria-label="Sandmotion Studio"><div class="track" id="track"><section class="ch"><div class="t"><span class="eyebrow">Sandmotion Studio</span><h1>3D Architecture Visualization &amp; <em>Walkthrough</em> Studio</h1><p class="l">Photoreal renders and interactive walkthroughs that let buyers step inside before the first brick is laid.</p><div class="acts"><a class="cta" href="#quote" data-track="hero_cta_click" data-label="Get a free render quote">Get a free render quote</a><a class="btn-outline" href="https://app.sandmotion.in/" target="_blank" rel="noopener" data-track="live_demo_click" data-label="hero">Try live demo ›</a><a class="btn-ghost" href="#portfolio">See our work ›</a></div></div></section><section class="ch"><div class="t"><span class="eyebrow">01 · Exterior</span><h2>Facades that sell at <em>golden hour.</em></h2><p class="l">Day and dusk lighting, correct massing, and context that matches your actual site.</p></div></section><section class="ch"><div class="t"><span class="eyebrow">02 · Interior</span><h2>Step inside <em>every room.</em></h2><p class="l">Accurate materials, furniture layouts and light that sells the lifestyle, not just the layout.</p></div></section><section class="ch"><div class="t"><span class="eyebrow">03 · Walkthrough</span><h2>Walk it on <em>any phone.</em></h2><p class="l">A fully interactive walkthrough in the browser. No app, no headset.</p></div></section><section class="ch"><div class="t"><span class="eyebrow">Start a project</span><h2>Sell the <em>unbuilt.</em></h2><p class="l">Interior, exterior and walkthrough from one studio, so everything matches.</p><div class="acts"><a class="cta" href="#quote" data-track="story_cta_click">Get a free render quote</a><a class="btn-outline" href="https://app.sandmotion.in/" target="_blank" rel="noopener" data-track="live_demo_click" data-label="story">Try live demo ›</a></div></div></section></div><div class="ctl">
+  <button class="arrow" id="prevBtn" type="button" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <div class="dots" id="dots"></div>
+  <button class="arrow" id="nextBtn" type="button" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+</div></div><section class="sec line" id="services"><div class="wrap"><h2 class="reveal">Three ways to <em>sell the unbuilt.</em></h2><div class="cols"><div class="reveal"><b>01</b><h3>Interior rendering</h3><p>Photoreal renders of every room, with accurate materials, furniture layouts and lighting.</p></div><div class="reveal"><b>02</b><h3>Exterior rendering</h3><p>Facade, landscape and elevation renders with day and dusk lighting and real site context.</p></div><div class="reveal"><b>03</b><h3>3D walkthrough</h3><p>Buyers walk the space themselves on any phone, with no app or headset.</p></div></div></div></section><section class="sec line" id="portfolio"><div class="wrap"><h2 class="reveal">A studio built for <em>architecture.</em></h2><div class="pgrid"><button type="button" class="project-card reveal" data-modal="baloconysm.png" aria-label="Open larger view: Feeling The Light"><span class="project-thumb"><img src="baloconysm.png" alt="Feeling The Light: interior walkthrough" loading="lazy"></span><span class="project-cat">3D Walkthrough</span><h3>Feeling The Light</h3></button><button type="button" class="project-card reveal" data-modal="interiorsm.png" aria-label="Open larger view: Walking The Space"><span class="project-thumb"><img src="interiorsm.png" alt="Walking The Space: interior walkthrough" loading="lazy"></span><span class="project-cat">3D Walkthrough</span><h3>Walking The Space</h3></button><button type="button" class="project-card reveal" data-modal="exteriro%20sm.png" aria-label="Open larger view: Imagine Life Inside"><span class="project-thumb"><img src="exteriro%20sm.png" alt="Imagine Life Inside: interior walkthrough" loading="lazy"></span><span class="project-cat">3D Walkthrough</span><h3>Imagine Life Inside</h3></button></div><p class="proof-note reveal">Have a render or walkthrough of your own? <a href="#quote">Send it our way ›</a></p></div></section><div id="studioImageModal" role="dialog" aria-modal="true" aria-label="Expanded view">
     <img id="studioModalImg" src="" alt="Expanded project view">
   </div>
 
-  <section class="s process">
-    <div class="section-head">
-      <span class="eyebrow reveal">How it works</span>
-      <h2 class="reveal">From plan to <em>walkthrough</em></h2>
-    </div>
-    <div class="process-grid">
-      <div class="process-step reveal delay-1"><div class="process-num">01</div><h3>Share Your Plan</h3><p>Send your 2D floor plan, CAD or elevation drawing. DWG, DXF, PDF or JPG all work.</p></div>
-      <div class="process-step reveal delay-2"><div class="process-num">02</div><h3>We Model in 3D</h3><p>Our studio builds an accurate 3D model with real materials, lighting and finishes.</p></div>
-      <div class="process-step reveal delay-3"><div class="process-num">03</div><h3>Review &amp; Refine</h3><p>You review renders or the walkthrough and request adjustments before final delivery.</p></div>
-      <div class="process-step reveal delay-3"><div class="process-num">04</div><h3>Delivered</h3><p>Final renders or a shareable walkthrough link, ready to send to any buyer, on any device.</p></div>
-    </div>
-  </section>
-
-  <section class="s promises">
-    <div class="section-head">
-      <span class="eyebrow reveal">Why Sandmotion Studio</span>
-      <h2 class="reveal">Built for <em>builders</em>, not just artists</h2>
-    </div>
-    <div class="promises-grid">
-      <div class="promise reveal delay-1"><div class="promise-mark" aria-hidden="true">✦</div><h3>No App, No Headset</h3><p>Every walkthrough runs in a browser. Buyers just tap a link, on the phone they already have.</p></div>
-      <div class="promise reveal delay-2"><div class="promise-mark" aria-hidden="true">✦</div><h3>Real Materials, Real Light</h3><p>Renders use accurate finishes and daylight studies, not generic stock textures.</p></div>
-      <div class="promise reveal delay-3"><div class="promise-mark" aria-hidden="true">✦</div><h3>One Studio, Full Package</h3><p>Interior, exterior and walkthrough from one team, so everything matches.</p></div>
-    </div>
-  </section>
-
-  <section id="quote" class="s quote-section">
-    <div class="section-head" style="margin-bottom:3rem">
-      <span class="eyebrow reveal">Start a project</span>
-      <h2 class="reveal">Get a free <em>render quote</em></h2>
-      <p class="reveal">Tell us what you need (interior, exterior or a full walkthrough) and share your plan. We'll come back with a scope and timeline.</p>
-    </div>
-    <div class="form-container reveal">
+  <section class="sec line"><div class="wrap"><h2 class="reveal">Plan in. <em>Walkthrough out.</em></h2><div class="cols"><div class="reveal"><b>01</b><h3>Share your plan</h3><p>DWG, DXF, PDF or JPG all work.</p></div><div class="reveal"><b>02</b><h3>We model in 3D</h3><p>Real materials, lighting and finishes.</p></div><div class="reveal"><b>03</b><h3>Review and refine</h3><p>Request adjustments before final delivery.</p></div><div class="reveal"><b>04</b><h3>Delivered</h3><p>Final renders or a shareable link for any device.</p></div></div></div></section><section class="sec line"><div class="wrap"><h2 class="reveal">Built for <em>builders,</em> not just artists.</h2><div class="cols"><div class="reveal"><h3>No app, no headset</h3><p>Every walkthrough runs in a browser. Buyers tap a link.</p></div><div class="reveal"><h3>Real materials, real light</h3><p>Accurate finishes and daylight studies, not stock textures.</p></div><div class="reveal"><h3>One studio, full package</h3><p>Interior, exterior and walkthrough from one team.</p></div></div></div></section><section class="sec line" id="quote"><div class="wrap"><h2 class="reveal">Get a free <em>render quote.</em></h2><p class="sub reveal">Tell us what you need and share your plan. We’ll come back with a scope and timeline.</p><div class="form-container reveal">
       <form id="studioQuoteForm" novalidate>
         <div class="hp" aria-hidden="true"><label>Website <input type="text" id="qWebsite" tabindex="-1" autocomplete="off"></label></div>
         <div class="form-row">
@@ -449,34 +247,11 @@ section.s{padding:7rem 2rem;position:relative}
         <div class="form-status" id="qStatus" role="status" aria-live="polite"></div>
       </form>
     </div>
-    <div style="margin-top:3rem">
-      <a class="btn-ghost" href="https://wa.me/918208072906" target="_blank" rel="noopener">
-        <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zm-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884zm8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        WhatsApp Us Directly
-      </a>
-    </div>
-  </section>
-  </main>
-
-  <footer class="site-footer">
-  <div class="footer-logo">Sand<span>motion</span></div>
-  <p class="footer-tagline">Interactive 3D sample flats and digital twins, built for India and the UAE.</p>
-  <nav class="footer-links" aria-label="Footer">
-    <a href="index.html">Real Estate</a>
-    <a href="studio.html">Studio</a>
-    <a href="industrial.html">Industrial</a>
-    <a href="blog/">Blog</a>
-    <a href="privacy.html">Privacy</a>
-  </nav>
-  <div class="footer-contact">
-    <a href="https://wa.me/918208072906" target="_blank" rel="noopener">WhatsApp: +91 82080 72906</a>
-    <a href="mailto:hello@sandmotion.in">hello@sandmotion.in</a>
-  </div>
-  <p class="footer-copy">© 2026 Sandmotion. All rights reserved.</p>
-</footer>
-<a class="floating-wa" href="https://wa.me/918208072906?text=Hi%20Sandmotion%2C%20I%27d%20like%20a%20free%203D%20demo%20for%20my%20project." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" data-track="whatsapp_click" data-label="floating">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zm-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884zm8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
+    <p class="wa-link"><a class="lk" href="https://wa.me/918208072906" target="_blank" rel="noopener">Or message us on WhatsApp ›</a></p></div></section>
+</main>
+<footer><div class="wrap"><span>© 2026 Sandmotion · Interactive 3D sample flats and digital twins, built for India and the UAE</span>
+<span><a href="https://wa.me/918208072906" target="_blank" rel="noopener">WhatsApp +91 82080 72906</a> &nbsp;·&nbsp; <a href="mailto:hello@sandmotion.in">hello@sandmotion.in</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy</a></span></div></footer>
+<a class="wa" href="https://wa.me/918208072906?text=Hi%20Sandmotion%2C%20I%27d%20like%20a%20free%203D%20demo%20for%20my%20project." target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24"><path d="M12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.9 11.9 0 0 0 5.69 1.45c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.48-8.42A11.8 11.8 0 0 0 12.05 0zm5.42 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/></svg></a>
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.8.0/build/js/intlTelInput.min.js"></script>
 <script>
 /* Sandmotion shared behaviour: nav, reveal, analytics events, phone input, lead submit */
@@ -605,10 +380,7 @@ section.s{padding:7rem 2rem;position:relative}
   };
 })();
 
-</script>
-
-
-  <script>
+</script><script>
   document.addEventListener('DOMContentLoaded', function () {
     var $ = function (id) { return document.getElementById(id); };
 
@@ -656,115 +428,107 @@ section.s{padding:7rem 2rem;position:relative}
       });
     });
   });
-  </script>
+  </script><script>
+/* story state for the 3D scene: c = current slide index (0..4), changed by arrows, dots, swipe or keyboard */
+(function(){
+  var d=document,S=window.__sm={c:0,show:1},story=d.getElementById('story'),track=d.getElementById('track'),
+      chs=[].slice.call(d.querySelectorAll('.ch')),n=chs.length,i=0,
+      prev=d.getElementById('prevBtn'),next=d.getElementById('nextBtn'),dotsEl=d.getElementById('dots'),dots=[],t=false;
+  chs.forEach(function(_,k){var b=d.createElement('button');b.type='button';b.className='dot';b.setAttribute('aria-label','Go to slide '+(k+1));
+    b.addEventListener('click',function(){user(k)});dotsEl.appendChild(b);dots.push(b);});
+  function go(k){
+    i=k<0?n-1:(k>=n?0:k);
+    track.style.transform='translateX('+(-i*100)+'%)';
+    S.c=i;
+    chs.forEach(function(c,j){c.classList.toggle('on',j===i);c.setAttribute('aria-hidden',j===i?'false':'true');
+      if(j===i)c.removeAttribute('inert');else c.setAttribute('inert','');});
+    dots.forEach(function(b,j){b.classList.toggle('on',j===i)});
+  }
+  /* autoplay: moves on its own every few seconds and loops; arrows, dots, swipe and keys still work */
+  var DELAY=5500,tm=null,paused=false,inView=true,
+      reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function arm(){clearTimeout(tm);if(reduce||paused||!inView||d.hidden)return;
+    tm=setTimeout(function(){go(i+1);arm();},DELAY);}
+  function user(k){go(k);arm();}
+  prev.addEventListener('click',function(){user(i-1)});
+  next.addEventListener('click',function(){user(i+1)});
+  /* pause while the pointer or keyboard focus is on the slider, resume after */
+  story.addEventListener('mouseenter',function(){paused=true;arm()});
+  story.addEventListener('mouseleave',function(){paused=false;arm()});
+  story.addEventListener('focusin',function(){paused=true;arm()});
+  story.addEventListener('focusout',function(){paused=false;arm()});
+  d.addEventListener('visibilitychange',arm);
+  if('IntersectionObserver' in window){new IntersectionObserver(function(en){inView=en[0].isIntersecting;arm();},{threshold:.5}).observe(story);}
+  /* keyboard: left / right arrows (only while the story is on screen) */
+  addEventListener('keydown',function(e){
+    var tag=(e.target&&e.target.tagName)||'';if(/INPUT|TEXTAREA|SELECT/.test(tag)||e.altKey||e.ctrlKey||e.metaKey)return;
+    var r=story.getBoundingClientRect();if(r.bottom<innerHeight*.4||r.top>innerHeight*.6)return;
+    if(e.key==='ArrowRight'){user(i+1)}else if(e.key==='ArrowLeft'){user(i-1)}
+  });
+  /* touch swipe left / right (vertical page scroll still works) */
+  var sx=0,sy=0;
+  story.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;paused=true;arm();},{passive:true});
+  story.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.2){go(dx<0?i+1:i-1)}
+    paused=false;arm();
+  },{passive:true});
+  /* fade the 3D canvas out as the story scrolls out of view */
+  function u(){t=false;var r=story.getBoundingClientRect();S.show=Math.max(0,Math.min(1,r.bottom/(innerHeight*.9)));}
+  function q(){if(!t){t=true;requestAnimationFrame(u)}}
+  addEventListener('scroll',q,{passive:true});addEventListener('resize',q);
+  go(0);u();arm();
+})();
+</script><script type="module">
+import * as THREE from 'three';
+const S=window.__sm,canvas=document.getElementById('gl'),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let R;try{R=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});}catch(e){canvas.remove();throw e;}
+R.setPixelRatio(Math.min(devicePixelRatio,1.75));R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;R.toneMapping=THREE.ACESFilmicToneMapping;
+const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(32,1,.1,300),GOLD=0xC9A96E,sm=(a,b,x)=>{x=Math.min(1,Math.max(0,(x-a)/(b-a)));return x*x*(3-2*x)};
+function resize(){const w=innerWidth,h=innerHeight;R.setSize(w,h,false);cam.aspect=w/h;if(w>900)cam.setViewOffset(w,h,-w*.17,0,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix();}
+addEventListener('resize',resize);resize();
+const mouse={x:0,y:0,sx:0,sy:0};addEventListener('pointermove',e=>{mouse.x=e.clientX/innerWidth-.5;mouse.y=e.clientY/innerHeight-.5;});
+const P=new THREE.Vector3(),L=new THREE.Vector3(),A=new THREE.Vector3(),B=new THREE.Vector3();let cs=0,ready=false,t0=performance.now();
 
-  <script type="module">
-    import * as THREE from "three";
+const mt=(c,o)=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.7},o||{})),FL=.25,bx=new THREE.BoxGeometry(1,1,1);
+const glass=mt(0x9fc4d6,{transparent:true,opacity:.2,roughness:.1,emissive:0xffc27a,emissiveIntensity:0,depthWrite:false}),band=mt(0x1d2630,{emissive:0xffc27a,emissiveIntensity:0}),water=mt(0x2a8fb5,{emissive:0x0a5a7a,emissiveIntensity:0,roughness:.2}),lamp=mt(0xffffff,{emissive:0xffd9a0,emissiveIntensity:0});
+const white=mt(0xf0ece4),dark=mt(0x2a2a2d),wood=mt(0x8b6b4a),parts=[],pops=[];
+function box(w,h,d,x,y,z,m,sh){const g=new THREE.Mesh(bx,m);g.castShadow=sh!==false;g.receiveShadow=true;g.scale.set(w,.001,d);g.position.set(x,y,z);g.userData={w,h,d,x,y,z,o:parts.length*.018};scene.add(g);parts.push(g);return g;}
+box(10.4,.25,6.4,0,0,0,white);box(10.4,3,.2,0,FL,-3,white);box(.2,3,6,-5.1,FL,0,white);box(.2,3,6,5.1,FL,0,white);box(10,3,.05,0,FL,3.05,glass,false);box(10.4,.3,6.4,0,FL+3,0,dark);
+box(8,2.8,5.2,1.2,FL+3.3,.9,white);box(6.4,.9,.06,1.2,FL+4.2,3.52,band,false);box(8.6,.25,5.8,1.2,FL+6.1,.9,dark);
+[-4.5,-2.8,-1.1,.6,2.3,4].forEach(x=>box(.12,3,.35,x,FL,3.3,white));
+box(11,.12,3.4,0,0,5,wood);box(5,.04,1.8,-1.5,.12,5,water,false);
+function pop(g,x,y,z,h){g.castShadow=g.receiveShadow=true;g.userData={x,y,z,h,o:.5+pops.length*.03};g.scale.setScalar(.001);scene.add(g);pops.push(g);}
+[[-2.8,1,3,.8,1,0x55687a],[-2.8,-.5,1.5,.4,.8,0x3b2a1e],[2.2,-.6,2,.75,1,0x3b2a1e],[1.1,-.6,.45,.45,.45,0xcfc6b6],[3.3,-.6,.45,.45,.45,0xcfc6b6],[3.6,-2.2,3,.9,.8,0xf1ede4],[-4.7,-1.5,.4,2.2,2,0x2b2b2e]].forEach(f=>pop(new THREE.Mesh(new THREE.BoxGeometry(f[2],f[3],f[4]),mt(f[5])),f[0],FL+f[3]/2,f[1],f[3]));
+const lm=new THREE.Mesh(new THREE.SphereGeometry(.25,20,12),lamp);lm.castShadow=false;pop(lm,2.2,2.3,-.6,0);
+[[-8,-2],[-9,3],[8.5,-1],[9,4],[7,-5]].forEach(t=>pop(new THREE.Mesh(new THREE.SphereGeometry(1.1,16,12),mt(0x3f6b45,{roughness:.9})),t[0],1.6,t[1],0));
+const ground=new THREE.Mesh(new THREE.CircleGeometry(40,64),mt(0x111113));ground.rotation.x=-Math.PI/2;ground.position.y=-.01;ground.receiveShadow=true;scene.add(ground);
+const hemi=new THREE.HemisphereLight(0xbfd4ff,0x20170f,.55),sun=new THREE.DirectionalLight(0xfff2dd,2.6),inn=new THREE.PointLight(0xffc98a,0,16,2);inn.position.set(0,2.4,0);
+sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-16,right:16,top:16,bottom:-16,near:1,far:90});sun.shadow.bias=-.0004;scene.add(hemi,sun,sun.target,inn);
+const W1=new THREE.Color(0xfff2dd),W2=new THREE.Color(0xff9a4d);
+const KP=[[14,5,16],[-9,2.2,14],[-3.5,1.5,2.6],[2.5,1.6,-1.5],[0,22,20]],KL=[[0,1.6,0],[1,2.2,0],[2.5,1.1,-1.5],[-3.5,1.4,1],[0,0,0]],KF=[32,36,62,64,32];
+function frame(c,now){
+  const k=Math.max(c,Math.min(1,now/1.8)*1.3);
+  parts.forEach(g=>{const u=g.userData,r=sm(u.o,u.o+.9,k);g.scale.y=Math.max(.001,u.h*r);g.position.y=u.y+g.scale.y/2;});
+  pops.forEach(g=>{const u=g.userData,r=sm(u.o,u.o+.5,k);g.scale.setScalar(Math.max(.001,r));g.position.set(u.x,u.y*r,u.z);});
+  const u=sm(.8,2.2,c);
+  sun.position.set(Math.sin(-.9+1.8*u)*Math.cos(.9-.82*u)*30,Math.sin(.9-.82*u)*30,Math.cos(-.9+1.8*u)*Math.cos(.9-.82*u)*30);
+  sun.color.copy(W1).lerp(W2,u);sun.intensity=2.6-1.7*u;hemi.intensity=.55-.35*u;inn.intensity=u*28;
+  glass.emissiveIntensity=u*.5;band.emissiveIntensity=u*1.4;water.emissiveIntensity=u*.9;lamp.emissiveIntensity=u*3;
+}
+const ORB=1.5;
 
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    const canvas = document.getElementById('studio-canvas');
-    const heroSection = document.querySelector('.studio-hero');
-
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: !isMobile, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
-    function sizeToHero(){ renderer.setSize(heroSection.clientWidth, heroSection.clientHeight); }
-    sizeToHero();
-
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x0B0D12, 0.05);
-    const camera = new THREE.PerspectiveCamera(42, heroSection.clientWidth / heroSection.clientHeight, 0.1, 200);
-    const target = new THREE.Vector3(0.2, 1.4, 0);
-    let camAngle = 0.7; const camRadius = 11, camHeight = 3.0;
-
-    /* gold wireframe architectural massing */
-    const boxSpecs = [
-      { pos:[0,0.12,0],       size:[8.4,0.24,5.6] },
-      { pos:[-0.9,1.5,-0.4],  size:[6.0,2.4,4.0]  },
-      { pos:[2.5,1.8,1.2],    size:[3.6,1.6,2.4]  },
-      { pos:[-3.2,1.2,2.3],   size:[0.22,2.0,2.7] },
-      { pos:[3.3,3.0,-0.9],   size:[0.9,2.2,0.9]  },
-      { pos:[-0.9,2.75,-0.4], size:[6.6,0.14,4.4] },
-    ];
-    let edgeArr = [];
-    boxSpecs.forEach(b=>{
-      const geo = new THREE.BoxGeometry(...b.size);
-      geo.translate(...b.pos);
-      edgeArr.push(...new THREE.EdgesGeometry(geo).getAttribute('position').array);
-    });
-    edgeArr = new Float32Array(edgeArr);
-    const lineGeo = new THREE.BufferGeometry();
-    lineGeo.setAttribute('position', new THREE.BufferAttribute(edgeArr, 3));
-    const lineMat = new THREE.LineBasicMaterial({ color: 0xc9a96e, transparent: true, opacity: 0 });
-    scene.add(new THREE.LineSegments(lineGeo, lineMat));
-
-    const villaTargets = [];
-    for (let i = 0; i < edgeArr.length; i += 6) {
-      const ax=edgeArr[i], ay=edgeArr[i+1], az=edgeArr[i+2], bx=edgeArr[i+3], by=edgeArr[i+4], bz=edgeArr[i+5];
-      [0,0.25,0.5,0.75,1].forEach(t=>{ villaTargets.push(ax+(bx-ax)*t, ay+(by-ay)*t, az+(bz-az)*t); });
-    }
-    const AMBIENT_COUNT = isMobile ? 260 : 500;
-    const villaCount = villaTargets.length/3, totalCount = villaCount + AMBIENT_COUNT;
-    const positions = new Float32Array(totalCount*3), initP = new Float32Array(totalCount*3), targetP = new Float32Array(totalCount*3);
-    const phase = new Float32Array(totalCount), isVilla = new Uint8Array(totalCount);
-    for (let i=0;i<villaCount;i++){
-      const r = 6 + Math.random()*9, theta = Math.random()*Math.PI*2, phi = Math.random()*Math.PI;
-      initP[i*3]=r*Math.sin(phi)*Math.cos(theta); initP[i*3+1]=1.4+r*Math.cos(phi)*0.55; initP[i*3+2]=r*Math.sin(phi)*Math.sin(theta);
-      targetP[i*3]=villaTargets[i*3]; targetP[i*3+1]=villaTargets[i*3+1]; targetP[i*3+2]=villaTargets[i*3+2];
-      phase[i]=Math.random()*Math.PI*2; isVilla[i]=1;
-    }
-    for (let j=0;j<AMBIENT_COUNT;j++){
-      const i = villaCount+j, r = 12 + Math.random()*18, th = Math.random()*Math.PI*2;
-      const x = Math.cos(th)*r, z = Math.sin(th)*r, y = Math.random()*0.5;
-      initP[i*3]=x; initP[i*3+1]=y; initP[i*3+2]=z; targetP[i*3]=x; targetP[i*3+1]=y; targetP[i*3+2]=z;
-      phase[i]=Math.random()*Math.PI*2; isVilla[i]=0;
-    }
-    positions.set(initP);
-    const particleGeo = new THREE.BufferGeometry();
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    scene.add(new THREE.Points(particleGeo, new THREE.PointsMaterial({ color:0xe8c77a, size:0.045, transparent:true, opacity:0.85, blending:THREE.AdditiveBlending, depthWrite:false, sizeAttenuation:true })));
-    scene.add(new THREE.GridHelper(50, 34, 0x2a2620, 0x141312));
-
-    let mouseX = 0, mouseY = 0;
-    heroSection.addEventListener('mousemove', e=>{
-      const r = heroSection.getBoundingClientRect();
-      mouseX = ((e.clientX - r.left)/r.width - 0.5); mouseY = ((e.clientY - r.top)/r.height - 0.5);
-    });
-    window.addEventListener('resize', ()=>{ camera.aspect = heroSection.clientWidth / heroSection.clientHeight; camera.updateProjectionMatrix(); sizeToHero(); });
-
-    const clock = new THREE.Clock(), CONVERGE = reduce ? 0.01 : 2.4;
-    const ease = t => 1 - Math.pow(1-t,3);
-    let visible = true;
-    new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { threshold: 0 }).observe(heroSection);
-
-    function frame(){
-      requestAnimationFrame(frame);
-      if (!visible) return;               /* pause when the hero is off-screen (saves battery) */
-      const t = clock.getElapsedTime(), raw = Math.min(t/CONVERGE, 1), pos = particleGeo.getAttribute('position');
-      for (let i=0;i<totalCount;i++){
-        const ix=i*3, iy=ix+1, iz=ix+2;
-        if (isVilla[i]){
-          const s = Math.min(Math.max((raw*1.3) - (phase[i]/(Math.PI*2))*0.25, 0), 1), e = ease(s);
-          let x = initP[ix] + (targetP[ix]-initP[ix])*e, y = initP[iy] + (targetP[iy]-initP[iy])*e, z = initP[iz] + (targetP[iz]-initP[iz])*e;
-          if (s>=1 && !reduce){ x += Math.sin(t*0.8+phase[i])*0.006; y += Math.cos(t*0.6+phase[i])*0.006; }
-          pos.array[ix]=x; pos.array[iy]=y; pos.array[iz]=z;
-        } else if (!reduce) {
-          pos.array[ix] = initP[ix] + Math.sin(t*0.15+phase[i])*0.15;
-          pos.array[iy] = Math.max(0, initP[iy] + Math.sin(t*0.3+phase[i])*0.08);
-          pos.array[iz] = initP[iz] + Math.cos(t*0.15+phase[i])*0.15;
-        }
-      }
-      pos.needsUpdate = true;
-      lineMat.opacity = Math.max(0, (ease(raw) - 0.55) / 0.45) * 0.55;
-      if (!reduce) camAngle += 0.0007;
-      camera.position.x = target.x + Math.cos(camAngle)*camRadius + mouseX;
-      camera.position.z = target.z + Math.sin(camAngle)*camRadius;
-      camera.position.y = camHeight + mouseY*0.5;
-      camera.lookAt(target);
-      renderer.render(scene, camera);
-    }
-    frame();
-    requestAnimationFrame(()=> canvas.classList.add('ready'));
-  </script>
+R.setAnimationLoop(()=>{
+  const show=S.show;canvas.style.opacity=ready?Math.min(1,show*1.4):0;if(show<.01)return;
+  cs+=(S.c-cs)*(reduce?1:.07);const c=cs,now=(performance.now()-t0)/1000;
+  frame(c,now);
+  const i=Math.min(3,Math.floor(c)),f=sm(0,1,c-i);
+  A.fromArray(KP[i]);B.fromArray(KP[i+1]);P.lerpVectors(A,B,f);A.fromArray(KL[i]);B.fromArray(KL[i+1]);L.lerpVectors(A,B,f);
+  const fov=KF[i]+(KF[i+1]-KF[i])*f;if(Math.abs(cam.fov-fov)>.01){cam.fov=fov;cam.updateProjectionMatrix();}
+  mouse.sx+=(mouse.x-mouse.sx)*.05;mouse.sy+=(mouse.y-mouse.sy)*.05;
+  const o=c<1.5?(reduce?0:Math.sin(now*.2)*.6)+mouse.sx*1.2:mouse.sx*.25;
+  cam.position.set(P.x+o,P.y-mouse.sy*(c<1.5?1.2:.1),P.z);cam.lookAt(L);R.render(scene,cam);ready=true;
+});
+</script>
 </body>
 </html>
