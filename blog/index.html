@@ -32,7 +32,7 @@ nav: blog
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DYH5BFMVS0');document.documentElement.className+=' js';</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@400;500;600&family=Inter:wght@500;600&display=swap" rel="stylesheet">
 {% if page.phone %}<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.8.0/build/css/intlTelInput.css">{% endif %}
 <style>
 /* ==========================================================
@@ -87,6 +87,38 @@ em{font-style:italic}
   .nav-link{font-size:1rem}
   .nav-cta{font-size:.85rem;padding:1rem 2rem}
 }
+
+/* ---------- Navigation: bigger, clearer menu + Live Demo button (same menu as Real Estate / Studio / Industrial) ---------- */
+.site-nav,.site-nav.scrolled{height:72px;padding:0 max(1.5rem,calc((100% - 1180px)/2));background:none;-webkit-backdrop-filter:none;backdrop-filter:none;border-bottom:0}
+.site-nav::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(11,13,18,.72);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-size:1.75rem;font-weight:600;letter-spacing:.01em}
+.logo span{font-weight:600}
+.nav-right{display:flex;align-items:center;gap:2.2rem}
+.nav-links{gap:2.2rem}
+.nav-actions{display:flex;align-items:center;gap:1rem}
+.nav-link,.nav-demo,.nav-cta{font-family:'Inter',var(--font-body)}
+.nav-link{position:relative;font-size:1.02rem;font-weight:500;letter-spacing:0;text-transform:none;color:#d6d6db;border-bottom:0;padding:.4rem 0}
+.nav-link:hover{color:var(--accent)}
+.nav-link.current{color:#fff;border-bottom:0}
+.nav-link.current::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--accent);border-radius:2px}
+.nav-demo{display:inline-block;border:1.5px solid var(--accent);color:var(--accent);font-size:1rem;font-weight:600;padding:.6rem 1.25rem;border-radius:99px;text-decoration:none;white-space:nowrap;transition:background .3s,color .3s,transform .4s var(--ease)}
+.nav-demo:hover{background:var(--accent);color:var(--black);transform:scale(1.04)}
+.nav-cta{font-size:1rem;font-weight:600;letter-spacing:0;text-transform:none;padding:.65rem 1.4rem;border-radius:99px}
+@media(max-width:1100px){.nav-right,.nav-links{gap:1.4rem}}
+@media(max-width:960px){
+  .site-nav,.site-nav.scrolled{height:60px;padding:0 1rem}
+  .logo{font-size:1.45rem}
+  .nav-right{gap:.5rem}
+  .nav-links{gap:1.6rem}
+  .nav-link{font-family:var(--font-display);font-size:1.6rem;font-weight:500;color:var(--white)}
+  .nav-link.current{color:var(--accent)}
+  .nav-link.current::after{display:none}
+  .nav-actions{position:relative;z-index:120;gap:.5rem}
+  .nav-demo,.nav-cta{font-size:.85rem;padding:.5rem .95rem}
+  .nav-toggle{width:40px;height:40px}
+}
+@media(max-width:560px){.hide-sm{display:none}.logo{font-size:1.3rem}}
+@media(max-width:420px){.site-nav,.site-nav.scrolled{padding:0 .8rem}.logo{font-size:1.15rem;letter-spacing:0}.nav-demo,.nav-cta{font-size:.72rem;padding:.4rem .6rem}.nav-toggle{width:32px}.nav-right{gap:.3rem}.nav-actions{gap:.35rem}}
 
 /* ---------- Buttons ---------- */
 .cta{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:1rem 2.4rem;font-family:var(--font-body);font-size:.82rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--black);background:var(--accent);border:none;border-radius:2px;text-decoration:none;cursor:pointer;transition:background .4s,transform .3s,box-shadow .4s;box-shadow:0 0 40px rgba(201,169,110,.2)}
@@ -430,14 +462,18 @@ main{display:block}
 <a class="skip-link" href="#main">Skip to content</a>
 <nav class="site-nav" aria-label="Main">
   <a href="/" class="logo">Sand<span>motion</span></a>
-  <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
-  <div class="nav-links" id="navLinks">
+  <div class="nav-right">
+    <div class="nav-links" id="navLinks">
     <a href="/" class="nav-link{% if cur == 'home' %} current{% endif %}"{% if cur == 'home' %} aria-current="page"{% endif %}>Real Estate</a>
     <a href="/studio.html" class="nav-link{% if cur == 'studio' %} current{% endif %}"{% if cur == 'studio' %} aria-current="page"{% endif %}>Studio</a>
     <a href="/industrial.html" class="nav-link{% if cur == 'industrial' %} current{% endif %}"{% if cur == 'industrial' %} aria-current="page"{% endif %}>Industrial</a>
     <a href="/blog/" class="nav-link{% if cur == 'blog' %} current{% endif %}"{% if cur == 'blog' %} aria-current="page"{% endif %}>Blog</a>
-    <a href="https://app.sandmotion.in/" class="nav-link" target="_blank" rel="noopener" data-track="live_demo_click">Live Demo ↗</a>
-    <a href="{{ page.nav_cta_href | default: '/#free-plan' }}" class="nav-cta" data-track="nav_cta_click">{{ page.nav_cta_label | default: 'Free 3D Demo' }}</a>
+    </div>
+    <div class="nav-actions">
+      <a href="https://app.sandmotion.in/" class="nav-demo" target="_blank" rel="noopener" data-track="live_demo_click"><span class="hide-sm">Try </span>Live Demo ↗</a>
+      <a href="{{ page.nav_cta_href | default: '/#free-plan' }}" class="nav-cta" data-track="nav_cta_click">{{ page.nav_cta_label | default: 'Free 3D Demo' }}</a>
+    </div>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
